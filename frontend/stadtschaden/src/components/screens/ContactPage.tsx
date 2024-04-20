@@ -1,9 +1,14 @@
-import React from 'react'
+import React from "react";
+import FormInput from "../common/FormInput";
 
 const ContactPage = () => {
   return (
-    <div>ContactPage</div>
-  )
-}
+    <div>
+      <div>ContactPage</div>
+      <FormInput text="Vorname" />
+      <FormInput text="Nachname" />
+    </div>
+  );
+};
 
-export default ContactPage
+export default ContactPage;
