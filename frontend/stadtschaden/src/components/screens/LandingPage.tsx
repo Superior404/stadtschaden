@@ -4,6 +4,8 @@ import { TbArrowCurveRight, TbArrowCurveLeft } from "react-icons/tb";
 import { HiArrowTrendingDown } from "react-icons/hi2";
 import Nav from "../common/Nav";
 
+// TODO Alessio: Make this page (and further pages) responsive ..
+
 const styles = {
   mainText: {
     fontWeight: "bold",
