@@ -14,6 +14,7 @@ export default {
       '2xl': ['24px', '29.26px'],
       '3xl': ['28px', '50px'],
       '4xl': ['48px', '58px'],
+      '6xl': ['72px', '88px'],      
       '8xl': ['96px', '106px']
     },
     extend: {
@@ -22,7 +23,7 @@ export default {
         montserrat: ['Montserrat', 'sans-serif'],
       },
       colors: {
-        "primary": "#00B657",
+        "primary": "#087c4c",
         "background": "#292929",
         "coral-red": "#FF6452",
         "slate-gray": "#6D6D6D",
