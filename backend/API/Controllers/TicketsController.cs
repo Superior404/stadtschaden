@@ -30,5 +30,16 @@ namespace API.Controllers
         {
             return await _context.Tickets.FindAsync(id);
         }
+
+        // [FromBody] to bind parameter to HTTP Post body
+        // TODO error handling
+        [HttpPost]
+        public ActionResult PostTicketData([FromBody] Ticket ticketData)
+        {
+            _context.Tickets.Add(ticketData);
+            _context.SaveChanges();
+
+            return Ok("Product data saved sucessfully");
+        }
     }
 }
