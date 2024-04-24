@@ -1,6 +1,7 @@
 using API.Data;
 using API.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
@@ -9,27 +10,25 @@ namespace API.Controllers
     public class TicketsController : ControllerBase
     {
 
-        private readonly StoreContext context;
+        private readonly StoreContext _context;
 
         public TicketsController(StoreContext context)
         {
-            this.context = context;            
+            _context = context;
+    
         }
 
         [HttpGet]
-        public ActionResult<List<Ticket>> GetTickets()
+        public async Task<ActionResult<List<Ticket>>> GetTickets()
         {
-            var tickets = context.Tickets.ToList();
-
-            // Ok is 200 response type
-            return Ok(tickets);
+            return await _context.Tickets.ToListAsync();
         }
 
         // id specifies the parameter that we will get from route, for example api/tickets/3
         [HttpGet("{id}")]
-        public ActionResult<Ticket> GetProduct(int id)
+        public async Task<ActionResult<Ticket>> GetProduct(int id)
         {
-            return context.Tickets.Find(id);
+            return await _context.Tickets.FindAsync(id);
         }
     }
 }
