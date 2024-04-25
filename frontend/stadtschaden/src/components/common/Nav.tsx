@@ -12,6 +12,7 @@ const Nav = () => {
     setShowNav(!showNav);
   };
 
+  // TODO: Alessio: add new Page for Smartphone Navview
   return (
     <header className="mt-10">
       <Link to="">
