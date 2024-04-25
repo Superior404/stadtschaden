@@ -1,11 +1,9 @@
 import React from "react";
 import earthPicture from "../../assets/earth-picture.png";
 import { TbArrowCurveRight, TbArrowCurveLeft } from "react-icons/tb";
-import { HiArrowTrendingDown } from "react-icons/hi2";
-import Nav from "../common/Nav";
+import { Link } from "react-router-dom";
 
 // TODO Alessio: Make this page (and further pages) responsive ..
-
 const styles = {
   mainText: {
     fontWeight: "bold",
@@ -15,51 +13,55 @@ const styles = {
 
 const LandingPage = () => {
   return (
-    <div className="relative">
-      <div className="flex flex-1 flex-col items-center justify-center mt-20">
+    <main>
+      <div className="flex justify-center items-center">
         <img
           src={earthPicture}
           alt="EarthPicture"
-          className="h-auto w-auto max-w-xl"
+          className="max-w-xs 2xl:max-w-2xl xl:max-w-xl md:max-w-sm xl:mt-20 mt-10"
         />
       </div>
 
-      <div className="absolute left-[27%] -bottom-48">
-        <p
-          className="absolute bottom-64 -left-72 font-palanquin text-6xl transform -rotate-[24deg]"
-          style={styles.mainText}
+      <div className="flex justify-center mt-10 mb-5">
+        <button
+          className="h-16 w-44 text-white rounded-full font-montserrat text-3xl font-bold bg-primary hover:border-2 transition-transform duration-300 hover:scale-105"
+          style={{ zIndex: 1 }}
         >
-          Melde einen
-          <br /> Schaden!
-        </p>
-        <TbArrowCurveRight
-          className="text-primary"
-          size={300}
-          style={{ transform: "rotate(100deg)" }}
-        />
+          <Link to="contact">Melden</Link>
+        </button>
       </div>
-      <div className="absolute right-[28%] -bottom-44">
-        <p
-          className="absolute bottom-64 -right-72 font-palanquin text-6xl transform rotate-[24deg]"
-          style={styles.mainText}
-        >
-          Rette deine
-          <br />
-          Umgebung!
-        </p>
-        <HiArrowTrendingDown
-          className="text-primary"
-          size={300}
-          style={{ transform: "rotate(100deg)" }}
-        />
+
+      <div className="flex flex-row justify-center">
+        <div className="flex justify-start items-center flex-col xl:flex-row">
+          <TbArrowCurveRight
+            className="text-primary xl:max-w-3xl size-44 lg:order-last"
+            style={{ transform: "rotate(10deg)" }}
+          />
+          <p
+            className="rotate-[15deg] xl:text-3xl 2xl:text-6xl text-2xl text-start pr-6"
+            style={styles.mainText}
+          >
+            Melde einen
+            <br /> Schaden!
+          </p>
+        </div>
+
+        <div className="flex justify-start items-center flex-col xl:flex-row">
+          <TbArrowCurveLeft
+            className="text-primary xl:max-w-3xl size-44"
+            style={{ transform: "rotate(-10deg)" }}
+          />
+          <p
+            className="rotate-[-15deg] xl:text-3xl 2xl:text-6xl text-2xl text-end pl-6"
+            style={styles.mainText}
+          >
+            Rette deine
+            <br />
+            Umgebung!
+          </p>
+        </div>
       </div>
-      <button
-        className="absolute -bottom-48 left-1/2 transform -translate-x-1/2 mb-16 px-20 py-4 text-white rounded-full font-montserrat text-3xl font-bold bg-primary hover:border-2 transition-transform duration-300 hover:scale-105"
-        style={{ zIndex: 1 }}
-      >
-        <a href="/contact">Melden</a>
-      </button>
-    </div>
+    </main>
   );
 };
 
