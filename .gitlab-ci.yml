@@ -1,4 +1,4 @@
-name: 🎊 CI FRONTEND
+name: CI FRONTEND
 
 on: [push]
 
@@ -11,20 +11,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 🏗 Setup repo
+      - name: Setup repo
         uses: actions/checkout@v3
 
-      - name: 🏗 Setup Node
+      - name: Setup Node
         uses: actions/setup-node@v3
         with:
           node-version: 18.x
           cache: npm
           cache-dependency-path: apps/talkmates-ui/package-lock.json
 
-      - name: 📦 Install dependencies
+      - name: Install dependencies
         run: npm install
 
-      - name: 🌐 Load .env variables
+      - name: Load .env variables
         run: |
           BRANCH_NAME=${GITHUB_REF#refs/heads/}
           if [ "$BRANCH_NAME" == "staging" ]; then
@@ -34,11 +34,11 @@ jobs:
           fi
         shell: bash
 
-      - name: 🧪 Run Tests
+      - name: Run Tests
         run: npm run test
 
-      - name: 🔴 Run ESLint
+      - name: Run ESLint
         run: npm run lint
 
-      - name: 🧹Run Prettier
+      - name: Run Prettier
         run: npm run prettier:check
