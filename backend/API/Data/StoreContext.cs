@@ -8,8 +8,9 @@ namespace API.Data
         public StoreContext(DbContextOptions options) : base(options)
         {
         }
-
+        
         public DbSet<Ticket> Tickets { get; set; }
+        public DbSet<User> Users { get; set; }
 
     }
 }
