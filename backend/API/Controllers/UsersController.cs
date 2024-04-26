@@ -20,11 +20,22 @@ namespace API.Controllers
         }
 
         // id specifies the parameter that we will get from route, for example api/tickets/3
-        [HttpGet("{email, password}")]
-        public async Task<ActionResult<Ticket>> GetProduct(string email, string password)
+        [HttpGet("{email}/{password}")]
+        public async Task<ActionResult<User>> GetProduct(string email, string password)
         {
-            
-            return await _context.Tickets.FindAsync(id);
+            try
+            {
+                var user = await _context.Users.SingleAsync( users => users.Email.Equals(email) && users.Password.Equals(password));
+
+                if(user is null) return NotFound();
+
+                return user;
+            }
+            catch (InvalidOperationException)
+            {
+                
+                return 
+            }
         }
 
     }
