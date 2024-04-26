@@ -10,7 +10,7 @@ import NotFoundPage from "./components/screens/NotFoundPage";
 const App = () => {
   return (
     <BrowserRouter>
-      <Nav /> 
+      <Nav />
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="instruction" element={<InstructionPage />} />
