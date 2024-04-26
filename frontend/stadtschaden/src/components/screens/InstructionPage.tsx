@@ -14,8 +14,8 @@ const InstructionPage = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center mt-20 gap-8 text-white font-montserrat">
-      <p className="text-bold self-center text-4xl">
+    <div className="flex flex-col justify-center items-center mt-20 gap-8 text-white font-montserrat">
+      <p className="text-bold self-center lg:text-4xl text-2xl">
         <span style={styles.importantWord}>Anleitung</span> zum Ausfüllen des
         Kontaktformulars auf unserer Website
       </p>

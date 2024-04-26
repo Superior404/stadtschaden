@@ -19,7 +19,7 @@ const Nav = () => {
         <img
           src={stadtschadenLogo}
           alt="Logo"
-          className="absolute 2xl:w-64 xl:w-56 lg:w-48 w-48 ml-8 lg:ml-16 2xl:ml-24 -mt-1"
+          className="absolute 2xl:w-64 xl:w-56 lg:w-48 w-48 ml-6 lg:ml-16 2xl:ml-24 -mt-1"
         />
       </Link>
       <div className="lg:hidden flex justify-end mr-8 mb-2">
@@ -34,13 +34,13 @@ const Nav = () => {
       <ul
         className={`lg:flex flex-1 ${
           showNav ? "flex" : "hidden"
-        } flex-col lg:justify-center lg:items-center lg:flex-row 2xl:gap-10 xl:gap-7 gap-4`}
+        } flex-col lg:justify-center lg:items-center lg:flex-row 2xl:gap-10 xl:gap-4 gap-2`}
       >
         {navLinks.map((link) => (
-          <li key={link.label} className="flex justify-end mr-8">
+          <li key={link.label} className="flex justify-end mr-6">
             <NavLink
               className={({ isActive }) =>
-                "font-palanquin font-semibold text-sm 2xl:text-xl xl:text-lg " +
+                "font-palanquin font-semibold text-sm 2xl:text-xl xl:text-md " +
                 (isActive ? "text-primary" : "text-white")
               }
               to={link.to}
