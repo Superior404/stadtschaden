@@ -9,11 +9,8 @@ variables:
 before_script:
   - npm install
 
-test_job:
+test:
   stage: test
-  tags:
-    - test
-    - npm
   script:
     - |
       if [ "$BRANCH_NAME" == "staging" ]; then
@@ -24,3 +21,4 @@ test_job:
     - npm run test
     - npm run lint
     - npm run prettier:check
+
