@@ -1,0 +1,44 @@
+name: 🎊 CI FRONTEND
+
+on: [push]
+
+defaults:
+  run:
+    working-directory: ./frontend
+
+jobs:
+  ci-workflow:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🏗 Setup repo
+        uses: actions/checkout@v3
+
+      - name: 🏗 Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+          cache: npm
+          cache-dependency-path: apps/talkmates-ui/package-lock.json
+
+      - name: 📦 Install dependencies
+        run: npm install
+
+      - name: 🌐 Load .env variables
+        run: |
+          BRANCH_NAME=${GITHUB_REF#refs/heads/}
+          if [ "$BRANCH_NAME" == "staging" ]; then
+            cp .env.staging .env
+          elif [ "$BRANCH_NAME" == "main" ]; then
+            cp .env.prod .env
+          fi
+        shell: bash
+
+      - name: 🧪 Run Tests
+        run: npm run test
+
+      - name: 🔴 Run ESLint
+        run: npm run lint
+
+      - name: 🧹Run Prettier
+        run: npm run prettier:check
