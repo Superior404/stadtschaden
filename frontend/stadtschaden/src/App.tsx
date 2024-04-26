@@ -24,9 +24,12 @@ const PrivateRoute: React.FC<{ path: string, element: React.ReactNode }> = ({ pa
 };
 
 const App = () => {
+
+  const user = false;
+
   return (
     <BrowserRouter>
-      <Nav /> 
+      {path=="worker/*" && <Nav /> }
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="instruction" element={<InstructionPage />} />
@@ -34,8 +37,8 @@ const App = () => {
         <Route path="news" element={<NewsPage />} />
         <Route path="about-us" element={<AboutUsPage />} />
         {/* TODO insert Worker path - LS */}
-        <PrivateRoute path="worker/login" element={<PersonalLogin />} /> {/* Public part behind /worker/ */}
-        <PrivateRoute path="worker/*" element={<Navigate to="/worker/login" />} /> {/* Redirect unauthorized access */}
+        <Route path="worker/login" element={<PersonalLogin />} /> {/* Public part behind /worker/ */}
+        <Route path="worker/*" element={<Navigate to="/worker/login" />} /> {/* Redirect unauthorized access */}
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
