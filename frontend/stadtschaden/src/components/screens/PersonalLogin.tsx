@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState } from 'react'; // Import React and useState hook
 import FormInput from '../common/FormInput';
+import { Link } from 'react-router-dom';
 
 const PersonalLogin = () => {
 
@@ -65,7 +66,7 @@ const PersonalLogin = () => {
             <button type="submit" className="bg-primary text-white py-3 px-6 rounded-full hover:border-2 transition-transform duration-300 hover:scale-105 transform scale-100 w-full  font-museo-moderno text-xl transform-origin-center">Login</button>
           </div>
           <div className='w-full h-10 flex justify-center items-center ml-5'> 
-            <button type="submit" className="bg-gray-500 text-white py-3 px-6 rounded-full hover:border-2 transition-transform duration-300 hover:scale-105 transform scale-100 w-full font-museo-moderno text-xl transform-origin-center">Kennwort vergessen?</button>
+            <Link to="/worker/dement" className="bg-gray-500 text-white py-3 px-6 rounded-full hover:border-2 transition-transform duration-300 hover:scale-105 transform scale-100 w-full font-museo-moderno text-xl transform-origin-center">Kennwort vergessen?</Link>
           </div>
         </div>
       </form>
