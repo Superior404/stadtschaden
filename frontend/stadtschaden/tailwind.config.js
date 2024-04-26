@@ -21,6 +21,7 @@ export default {
       fontFamily: {
         palanquin: ['Palanquin', 'sans-serif'],
         montserrat: ['Montserrat', 'sans-serif'],
+        'museo-moderno': ['MuseoModerno', 'sans-serif'],
       },
       colors: {
         "primary": "#087c4c",

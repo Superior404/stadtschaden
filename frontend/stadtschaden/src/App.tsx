@@ -6,6 +6,7 @@ import InstructionPage from "./components/screens/InstructionPage";
 import NewsPage from "./components/screens/NewsPage";
 import AboutUsPage from "./components/screens/AboutUsPage";
 import NotFoundPage from "./components/screens/NotFoundPage";
+import PersonalLogin from "./components/screens/PersonalLogin";
 
 const App = () => {
   return (
@@ -18,7 +19,7 @@ const App = () => {
         <Route path="news" element={<NewsPage />} />
         <Route path="about-us" element={<AboutUsPage />} />
         {/* TODO insert Worker path - LS */}
-        <Route path="worker" element={<LandingPage />} />
+        <Route path="worker" element={<PersonalLogin />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
