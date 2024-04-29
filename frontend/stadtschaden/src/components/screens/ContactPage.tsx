@@ -21,7 +21,7 @@ const ContactPage = () => {
     <div className="mt-36">
       <div className="flex flex-col justify-center items-center font-montserrat font-bold text-4xl">
         <p style={styles.mainText}>
-          Senden sie uns Ihre gefundenen{" "}
+          Senden Sie uns Ihre gefundenen{" "}
           <span className="text-primary">Schäden!</span>
         </p>
         <p style={styles.mainText} className="">

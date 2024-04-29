@@ -10,10 +10,10 @@ export interface FormInputProps {
 const FormInput: FC<FormInputProps> = (props) => {
   const inputClassName =
     props.text === "Vorname" || props.text === "Nachname"
-      ? "w-[20rem] h-16" // Half width for first name and last name
+      ? "w-[20rem] h-16"
       : props.text === "Nachricht"
-        ? "w-[40.5rem] h-48" // Full width for Nachricht input
-        : "w-[40.5rem] h-16"; // Standard width for other inputs
+        ? "w-[40.5rem] h-48"
+        : "w-[40.5rem] h-16";
 
   const placeholderStyle = props.text === "Nachricht" ? "placeholder-top" : "";
 
