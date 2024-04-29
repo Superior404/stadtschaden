@@ -7,7 +7,7 @@ const ContactPage = () => {
       <div>ContactPage</div>
       <FormInput text="Vorname" />
       <FormInput text="Nachname" />
-      <p> test </p>
+      <p> test 2 </p>
     </div>
   );
 };
