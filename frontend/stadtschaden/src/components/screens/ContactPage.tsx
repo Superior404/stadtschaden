@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import FormInput from "../common/FormInput";
 
 const styles = {
@@ -9,6 +9,14 @@ const styles = {
 };
 
 const ContactPage = () => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [category, setCategory] = useState("");
+  const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [message, setMessage] = useState("");
+  const [imageUri, setImageUri] = useState("");
+
   return (
     <div className="mt-36">
       <div className="flex flex-col justify-center items-center font-montserrat font-bold text-4xl">
@@ -29,8 +37,50 @@ const ContactPage = () => {
         </p>
       </div>
 
-      <div>
-        <FormInput text="Vorname" />
+      <div className="flex flex-col justify-center items-center mt-16">
+        <div className="flex">
+          <FormInput
+            text={"Vorname"}
+            type={"text"}
+            value={firstName}
+            onChange={(event) => setFirstName(event.target.value)}
+          />
+
+          <FormInput
+            text={"Nachname"}
+            type={"text"}
+            value={lastName}
+            onChange={(event) => setLastName(event.target.value)}
+          />
+        </div>
+
+        <FormInput
+          text={"Kategorie"}
+          type={"text"}
+          value={category}
+          onChange={(event) => setCategory(event.target.value)}
+        />
+
+        <FormInput
+          text={"Email"}
+          type={"text"}
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
+        />
+
+        <FormInput
+          text={"Telefonnummer"}
+          type={"text"}
+          value={phoneNumber}
+          onChange={(event) => setPhoneNumber(event.target.value)}
+        />
+
+        <FormInput
+          text={"Nachricht"}
+          type={"text"}
+          value={message}
+          onChange={(event) => setMessage(event.target.value)}
+        />
       </div>
     </div>
   );
