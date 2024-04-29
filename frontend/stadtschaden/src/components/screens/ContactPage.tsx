@@ -38,52 +38,60 @@ const ContactPage = () => {
         </p>
       </div>
 
-      <div className="flex flex-col justify-center items-center mt-16">
-        <div className="flex">
+      <div className="flex justify-center items-center mt-16">
+        <button className="mr-4 h-[27.5rem] w-[20.25rem] flex justify-center items-center rounded-xl border-2 border-dashed border-white ">
+          <p className="w-[10rem] font-montserrat font-semibold text-[#999999]">
+            Datei hier ablegen oder klicken, um zu durchsuchen.
+          </p>
+        </button>
+
+        <div className="flex flex-col">
+          <div className="flex">
+            <FormInput
+              placeholder={"Vorname"}
+              type={"text"}
+              value={firstName}
+              onChange={(event) => setFirstName(event.target.value)}
+            />
+
+            <FormInput
+              placeholder={"Nachname"}
+              type={"text"}
+              value={lastName}
+              onChange={(event) => setLastName(event.target.value)}
+            />
+          </div>
+
           <FormInput
-            placeholder={"Vorname"}
+            placeholder={"Kategorie"}
             type={"text"}
-            value={firstName}
-            onChange={(event) => setFirstName(event.target.value)}
+            value={category}
+            onChange={(event) => setCategory(event.target.value)}
           />
 
           <FormInput
-            placeholder={"Nachname"}
+            placeholder={"Email"}
             type={"text"}
-            value={lastName}
-            onChange={(event) => setLastName(event.target.value)}
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
           />
+
+          <FormInput
+            placeholder={"Telefonnummer"}
+            type={"text"}
+            value={phoneNumber}
+            onChange={(event) => setPhoneNumber(event.target.value)}
+          />
+
+          <FormInput
+            placeholder={"Nachricht"}
+            type={"text"}
+            value={message}
+            onChange={(event) => setMessage(event.target.value)}
+          />
+
+          <ActionButton title={"Absenden"} onClick={() => {}}></ActionButton>
         </div>
-
-        <FormInput
-          placeholder={"Kategorie"}
-          type={"text"}
-          value={category}
-          onChange={(event) => setCategory(event.target.value)}
-        />
-
-        <FormInput
-          placeholder={"Email"}
-          type={"text"}
-          value={email}
-          onChange={(event) => setEmail(event.target.value)}
-        />
-
-        <FormInput
-          placeholder={"Telefonnummer"}
-          type={"text"}
-          value={phoneNumber}
-          onChange={(event) => setPhoneNumber(event.target.value)}
-        />
-
-        <FormInput
-          placeholder={"Nachricht"}
-          type={"text"}
-          value={message}
-          onChange={(event) => setMessage(event.target.value)}
-        />
-
-        <ActionButton title={"Absenden"} onClick={() => {}}></ActionButton>
       </div>
     </div>
   );

@@ -21,7 +21,7 @@ const FormInput: FC<FormInputProps> = (props) => {
   return (
     <div>
       <input
-        className={`${inputClassName} ${placeholderStyle} m-1 bg-white bg-opacity-20 rounded-xl text-white text-opacity-80 pl-3 border-white border-opacity-60 border-[0.5px]`}
+        className={`${inputClassName} ${placeholderStyle} m-1 bg-white bg-opacity-15 font-montserrat rounded-xl text-white text-opacity-80 pl-3 border-white border-opacity-60 border-[0.5px]`}
         type={props.type}
         placeholder={props.placeholder}
         value={props.value}
