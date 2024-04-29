@@ -19,7 +19,7 @@ const App = () => {
         <Route path="about-us" element={<AboutUsPage />} />
         <Route path="worker" element={<LandingPage />} />
         <Route path="*" element={<NotFoundPage />} />
-      </Routes>
+      </Routes>//
     </BrowserRouter>
   );
 };
