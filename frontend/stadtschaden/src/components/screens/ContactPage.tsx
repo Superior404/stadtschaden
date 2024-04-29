@@ -1,7 +1,6 @@
 import React, { useRef, useState } from "react";
 import FormInput from "../common/FormInput";
 import ActionButton from "../common/ActionButton";
-import { log } from "console";
 
 const styles = {
   mainText: {
@@ -39,38 +38,34 @@ const ContactPage = () => {
         console.log("Invalid file type. Please select an image file.");
       }
     }
+  };
 
-    const handleFormSubmit = () => {
-      // Perform validation checks here
-      // If validation fails, display error messages and return early
-
-      // If validation passes, prepare data to send to backend
-      const formData = {
-        firstName,
-        lastName,
-        category,
-        email,
-        phoneNumber,
-        message,
-        imageUri,
-      };
-
-      // TODO: Send formData to backend using fetch or axios
-      // Example using fetch:
-       fetch('your-backend-url', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-       body: JSON.stringify(formData),
-       })
-       .then(response => {
-         // Handle response
-       })
-       .catch(error => {
-         // Handle error
-       });
+  const handleFormSubmit = () => {
+    /*
+    const formData = {
+      firstName,
+      lastName,
+      category,
+      email,
+      phoneNumber,
+      message,
+      imageUri,
     };
+
+    fetch("http://localhost:5020/api/Tickets", {
+      method: "POST",
+      mode: "no-cors", 
+      credentials: "include", 
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+      },
+    })
+      .then((response) => {
+        console.log("Response:", response);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });*/
   };
 
   return (
@@ -163,7 +158,10 @@ const ContactPage = () => {
             onChange={(event) => setMessage(event.target.value)}
           />
 
-          <ActionButton title={"Absenden"} onClick={() => {}}></ActionButton>
+          <ActionButton
+            title={"Absenden"}
+            onClick={handleFormSubmit}
+          ></ActionButton>
         </div>
       </div>
     </div>
