@@ -3,7 +3,7 @@ name: 🎊 CI FRONTEND
 on: [push]
 defaults:
   run:
-    working-directory: ./frontend
+    working-directory: ./frontend/stadtschaden
 
 jobs:
   ci-workflow:
