@@ -17,9 +17,7 @@ const Nav = () => {
                 <NavLink
                   className={({ isActive }) =>
                     "font-palanquin font-semibold text-xl " +
-                    (isActive
-                      ? "text-primary"
-                      : "text-white")
+                    (isActive ? "text-primary" : "text-white")
                   }
                   to={link.to}
                 >

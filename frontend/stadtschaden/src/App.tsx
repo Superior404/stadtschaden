@@ -10,14 +10,13 @@ import NotFoundPage from "./components/screens/NotFoundPage";
 const App = () => {
   return (
     <BrowserRouter>
-      <Nav /> 
+      <Nav />
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="instruction" element={<InstructionPage />} />
         <Route path="contact" element={<ContactPage />} />
         <Route path="news" element={<NewsPage />} />
         <Route path="about-us" element={<AboutUsPage />} />
-        {/* TODO insert Worker path - LS */}
         <Route path="worker" element={<LandingPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

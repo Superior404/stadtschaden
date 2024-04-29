@@ -1,8 +1,6 @@
 import React from "react";
 import earthPicture from "../../assets/earth-picture.png";
 import { TbArrowCurveRight, TbArrowCurveLeft } from "react-icons/tb";
-import { HiArrowTrendingDown } from "react-icons/hi2";
-import Nav from "../common/Nav";
 
 // TODO Alessio: Make this page (and further pages) responsive ..
 
@@ -47,7 +45,7 @@ const LandingPage = () => {
           <br />
           Umgebung!
         </p>
-        <HiArrowTrendingDown
+        <TbArrowCurveLeft
           className="text-primary"
           size={300}
           style={{ transform: "rotate(100deg)" }}
