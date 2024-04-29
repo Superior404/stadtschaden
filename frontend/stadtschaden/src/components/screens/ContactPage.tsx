@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import FormInput from "../common/FormInput";
 import ActionButton from "../common/ActionButton";
+import { log } from "console";
 
 const styles = {
   mainText: {
@@ -16,7 +17,61 @@ const ContactPage = () => {
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [message, setMessage] = useState("");
-  //const [imageUri, setImageUri] = useState("");
+  const [imageUri, setImageUri] = useState<string>("");
+
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  const handleFileButtonClick = () => {
+    console.log("File button clicked");
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const fileType = file.type;
+      if (fileType.startsWith("image/")) {
+        const imageUrl = URL.createObjectURL(file);
+        setImageUri(imageUrl);
+        console.log("Image URL:", imageUrl);
+      } else {
+        // TODO: Remove log and add error message
+        console.log("Invalid file type. Please select an image file.");
+      }
+    }
+
+    const handleFormSubmit = () => {
+      // Perform validation checks here
+      // If validation fails, display error messages and return early
+
+      // If validation passes, prepare data to send to backend
+      const formData = {
+        firstName,
+        lastName,
+        category,
+        email,
+        phoneNumber,
+        message,
+        imageUri,
+      };
+
+      // TODO: Send formData to backend using fetch or axios
+      // Example using fetch:
+       fetch('your-backend-url', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+       body: JSON.stringify(formData),
+       })
+       .then(response => {
+         // Handle response
+       })
+       .catch(error => {
+         // Handle error
+       });
+    };
+  };
 
   return (
     <div className="mt-36">
@@ -39,10 +94,28 @@ const ContactPage = () => {
       </div>
 
       <div className="flex justify-center items-center mt-16">
-        <button className="mr-4 h-[27.5rem] w-[20.25rem] flex justify-center items-center rounded-xl border-2 border-dashed border-white ">
-          <p className="w-[10rem] font-montserrat font-semibold text-[#999999]">
-            Datei hier ablegen oder klicken, um zu durchsuchen.
-          </p>
+        <button
+          className="mr-4 h-[27.5rem] w-[20.25rem] flex justify-center items-center rounded-xl border-2 border-dashed border-white "
+          onClick={handleFileButtonClick}
+        >
+          {" "}
+          {imageUri ? (
+            <img
+              src={imageUri}
+              alt="Selected file"
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <p className="w-[10rem] font-montserrat font-semibold text-[#999999]">
+              Datei hier ablegen oder klicken, um zu durchsuchen.
+            </p>
+          )}
+          <input
+            ref={fileInputRef}
+            type="file"
+            className="hidden"
+            onChange={handleFileChange}
+          />
         </button>
 
         <div className="flex flex-col">
