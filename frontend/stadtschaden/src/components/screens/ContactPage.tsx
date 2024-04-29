@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import FormInput from "../common/FormInput";
+import ActionButton from "../common/ActionButton";
 
 const styles = {
   mainText: {
@@ -40,14 +41,14 @@ const ContactPage = () => {
       <div className="flex flex-col justify-center items-center mt-16">
         <div className="flex">
           <FormInput
-            text={"Vorname"}
+            placeholder={"Vorname"}
             type={"text"}
             value={firstName}
             onChange={(event) => setFirstName(event.target.value)}
           />
 
           <FormInput
-            text={"Nachname"}
+            placeholder={"Nachname"}
             type={"text"}
             value={lastName}
             onChange={(event) => setLastName(event.target.value)}
@@ -55,32 +56,34 @@ const ContactPage = () => {
         </div>
 
         <FormInput
-          text={"Kategorie"}
+          placeholder={"Kategorie"}
           type={"text"}
           value={category}
           onChange={(event) => setCategory(event.target.value)}
         />
 
         <FormInput
-          text={"Email"}
+          placeholder={"Email"}
           type={"text"}
           value={email}
           onChange={(event) => setEmail(event.target.value)}
         />
 
         <FormInput
-          text={"Telefonnummer"}
+          placeholder={"Telefonnummer"}
           type={"text"}
           value={phoneNumber}
           onChange={(event) => setPhoneNumber(event.target.value)}
         />
 
         <FormInput
-          text={"Nachricht"}
+          placeholder={"Nachricht"}
           type={"text"}
           value={message}
           onChange={(event) => setMessage(event.target.value)}
         />
+
+        <ActionButton title={"Absenden"} onClick={() => {}}></ActionButton>
       </div>
     </div>
   );

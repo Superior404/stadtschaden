@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 
-export interface FormInputProps {
-  text: string;
+interface FormInputProps {
+  placeholder: string;
   type: string;
   value: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -9,20 +9,21 @@ export interface FormInputProps {
 
 const FormInput: FC<FormInputProps> = (props) => {
   const inputClassName =
-    props.text === "Vorname" || props.text === "Nachname"
-      ? "w-[20rem] h-16"
-      : props.text === "Nachricht"
-        ? "w-[40.5rem] h-48"
-        : "w-[40.5rem] h-16";
+    props.placeholder === "Vorname" || props.placeholder === "Nachname"
+      ? "w-[20rem] h-12"
+      : props.placeholder === "Nachricht"
+        ? "w-[40.5rem] h-40"
+        : "w-[40.5rem] h-12";
 
-  const placeholderStyle = props.text === "Nachricht" ? "placeholder-top" : "";
+  const placeholderStyle =
+    props.placeholder === "Nachricht" ? "placeholder-top" : "";
 
   return (
     <div>
       <input
         className={`${inputClassName} ${placeholderStyle} m-1 bg-white bg-opacity-20 rounded-xl text-white text-opacity-80 pl-3 border-white border-opacity-60 border-[0.5px]`}
         type={props.type}
-        placeholder={props.text}
+        placeholder={props.placeholder}
         value={props.value}
         onChange={props.onChange}
       />
