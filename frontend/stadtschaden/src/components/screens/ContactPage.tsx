@@ -15,7 +15,7 @@ const ContactPage = () => {
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [message, setMessage] = useState("");
-  const [imageUri, setImageUri] = useState("");
+  //const [imageUri, setImageUri] = useState("");
 
   return (
     <div className="mt-36">

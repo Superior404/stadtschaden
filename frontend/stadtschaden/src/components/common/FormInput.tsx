@@ -4,7 +4,7 @@ export interface FormInputProps {
   text: string;
   type: string;
   value: string;
-  onChange: (event: any) => void;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const FormInput: FC<FormInputProps> = (props) => {
