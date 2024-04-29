@@ -13,7 +13,6 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<StoreContext>(opt => 
 {
   opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
-  
 });
 
 var app = builder.Build();
@@ -30,5 +29,21 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+// to get ahold of the StoreContext
+var scope = app.Services.CreateScope();
+var context = scope.ServiceProvider.GetRequiredService<StoreContext>();
+// logger for Program.cs
+var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+try
+{
+    // Migrate and create database if not already existing
+    context.Database.Migrate();
+    DbInitializer.Initialize(context);
+}
+catch (Exception ex)
+{
+    logger.LogError(ex, "A problem occured during migration");
+}
 
 app.Run();

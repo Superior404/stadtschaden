@@ -9,7 +9,7 @@ namespace API.Data
         {
         }
 
-        public DbSet<Ticket> Products { get; set; }
+        public DbSet<Ticket> Tickets { get; set; }
 
     }
 }
