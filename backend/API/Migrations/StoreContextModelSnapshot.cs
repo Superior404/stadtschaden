@@ -45,24 +45,7 @@ namespace API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tickets");
-                });
-
-            modelBuilder.Entity("API.Entities.User", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Password")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Users");
+                    b.ToTable("Tickets", (string)null);
                 });
 #pragma warning restore 612, 618
         }

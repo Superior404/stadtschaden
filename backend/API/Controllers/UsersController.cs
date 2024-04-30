@@ -7,6 +7,7 @@ namespace API.Controllers
 {
     public class UsersController : BaseController
     {
+        /*
         private readonly StoreContext _context;
         public UsersController(StoreContext context)
         {
@@ -60,6 +61,6 @@ namespace API.Controllers
             return Ok("User data saved sucessfully");
         }
 
-
+*/
     }
 }
