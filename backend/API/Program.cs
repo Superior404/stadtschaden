@@ -13,7 +13,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // User Manager / Authentication / Authorization
-builder.Services.AddIdentityCore<User>() // user manager
+builder.Services.AddIdentityCore<User>(opt => 
+{
+    // Register Options
+    opt.User.RequireUniqueEmail = true;
+}) // user manager
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<StoreContext>();
 builder.Services.AddAuthentication(); // verifying true identity
