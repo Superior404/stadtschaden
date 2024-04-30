@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
-    public class TicketsController : BaseController
+    public class TicketsController : BaseApiController
     {
 
         private readonly StoreContext _context;

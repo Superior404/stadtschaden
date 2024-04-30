@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
-    public class UsersController : BaseController
+    public class UsersController : BaseApiController
     {
         /*
         private readonly StoreContext _context;
