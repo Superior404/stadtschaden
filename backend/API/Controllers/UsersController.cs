@@ -20,25 +20,46 @@ namespace API.Controllers
         }
 
         // id specifies the parameter that we will get from route, for example api/tickets/3
-        [HttpGet("{email}/{password}")]
-        public async Task<ActionResult<User>> VerifyUser(string email, string password)
+        [HttpPost("login")]
+        public async Task<ActionResult<User>> VerifyUser([FromBody] User userModel)
         {
-            //try
+            if (!ModelState.IsValid)
             {
-                var user = await _context.Users.FindAsync( email );
+                return BadRequest(ModelState);
+            }
 
-                if(user is null) return NotFound();
+            if(userModel.Email == null) return BadRequest("email missing");
+            if(userModel.Password == null) return BadRequest("password missing");
+
+            try
+            {
+                var user = await _context.Users.FindAsync(userModel.Email);
+
+                if(user is null) return NotFound($"There is no user with following email: {userModel.Email}");
+
+                if (user.Password != userModel.Password) return BadRequest("wrong password");
 
                 return user;
             }
-            /*
+            
             catch (InvalidOperationException)
             {
 
                 throw new Exception("more than one item");
             }
-            */
+            
         }
+
+        [HttpPost]
+        public ActionResult InsertUserData([FromBody] User user)
+        {
+            _context.Users.Add(user);
+            // TODO Error Handling
+            _context.SaveChanges();
+
+            return Ok("User data saved sucessfully");
+        }
+
 
     }
 }

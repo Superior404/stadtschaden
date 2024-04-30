@@ -14,8 +14,6 @@ namespace API.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    //Id = table.Column<int>(type: "INTEGER", nullable: false)
-                    //    .Annotation("Sqlite:Autoincrement", true),
                     Email = table.Column<string>(type: "TEXT", nullable: false),
                     Password = table.Column<string>(type: "TEXT", nullable: true)
                 },
