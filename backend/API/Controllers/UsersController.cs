@@ -14,28 +14,30 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<User>>> GetUser()
+        public async Task<ActionResult<List<User>>> GetUsers()
         {
             return await _context.Users.ToListAsync();
         }
 
         // id specifies the parameter that we will get from route, for example api/tickets/3
         [HttpGet("{email}/{password}")]
-        public async Task<ActionResult<User>> GetProduct(string email, string password)
+        public async Task<ActionResult<User>> VerifyUser(string email, string password)
         {
-            try
+            //try
             {
-                var user = await _context.Users.SingleAsync( users => users.Email.Equals(email) && users.Password.Equals(password));
+                var user = await _context.Users.FindAsync( email );
 
                 if(user is null) return NotFound();
 
                 return user;
             }
+            /*
             catch (InvalidOperationException)
             {
-                
-                return 
+
+                throw new Exception("more than one item");
             }
+            */
         }
 
     }
