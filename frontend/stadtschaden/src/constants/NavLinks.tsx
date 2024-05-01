@@ -4,5 +4,5 @@ export const navLinks = [
   { to: "contact", label: "Melden" },
   { to: "news", label: "News" },
   { to: "about-us", label: "Über uns" },
-  { to: "worker", label: "Mitarbeiter" },
+  { to: "staff", label: "Mitarbeiter" },
 ];
