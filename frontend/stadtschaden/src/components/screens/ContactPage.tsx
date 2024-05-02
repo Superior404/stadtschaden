@@ -1,11 +1,13 @@
 import React, { useRef, useState } from "react";
 import FormInput from "../common/FormInput";
 import ActionButton from "../common/ActionButton";
+import SelectButton from "../common/SelectButton";
+import { streetDamageCategories } from "../../constants/StreetDamageCategories";
 
 const styles = {
   mainText: {
     fontWeight: "bold",
-    color: "white",
+    color: "black",
   },
 };
 
@@ -67,9 +69,10 @@ const ContactPage = () => {
         console.error("Error:", error);
       });*/
   };
+  const categories = ["Category 1", "Category 2", "Category 3", "Category 4"]; // Define your categories here
 
   return (
-    <div className="mt-12">
+    <div className="mt-12 mb-12">
       <div className="flex flex-col justify-center items-center font-montserrat font-bold text-4xl">
         <p style={styles.mainText}>
           Senden Sie uns Ihre gefundenen{" "}
@@ -90,7 +93,7 @@ const ContactPage = () => {
 
       <div className="flex justify-center items-center mt-16">
         <button
-          className="mr-4 h-[27.5rem] w-[20.25rem] flex justify-center items-center rounded-xl border-2 border-dashed border-white "
+          className="mr-4 h-[27.5rem] w-[20.25rem] flex justify-center items-center rounded-xl border-2 border-dashed border-black bg-zinc-500 bg-opacity-25"
           onClick={handleFileButtonClick}
         >
           {" "}
@@ -101,7 +104,7 @@ const ContactPage = () => {
               className="w-full h-full object-cover"
             />
           ) : (
-            <p className="w-[10rem] font-montserrat font-semibold text-[#999999]">
+            <p className="w-[10rem] font-montserrat text-black">
               Datei hier ablegen oder klicken, um zu durchsuchen.
             </p>
           )}
@@ -124,44 +127,44 @@ const ContactPage = () => {
 
             <FormInput
               placeholder={"Nachname"}
-              type={"text"}
+              type="text"
               value={lastName}
               onChange={(event) => setLastName(event.target.value)}
             />
           </div>
 
-          <FormInput
-            placeholder={"Kategorie"}
-            type={"text"}
+          <SelectButton
+            options={streetDamageCategories.map(
+              (category) => category.category,
+            )}
             value={category}
             onChange={(event) => setCategory(event.target.value)}
           />
 
           <FormInput
             placeholder={"Email"}
-            type={"text"}
+            type="email"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
+            required
           />
 
           <FormInput
             placeholder={"Telefonnummer"}
-            type={"text"}
+            type="text"
             value={phoneNumber}
             onChange={(event) => setPhoneNumber(event.target.value)}
           />
 
           <FormInput
             placeholder={"Nachricht"}
-            type={"text"}
+            type={"textarea"}
             value={message}
             onChange={(event) => setMessage(event.target.value)}
+            textArea
           />
 
-          <ActionButton
-            title={"Absenden"}
-            onClick={handleFormSubmit}
-          ></ActionButton>
+          <ActionButton title={"Absenden"} onClick={handleFormSubmit} />
         </div>
       </div>
     </div>
