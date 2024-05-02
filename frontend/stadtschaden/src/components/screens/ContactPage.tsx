@@ -69,7 +69,6 @@ const ContactPage = () => {
         console.error("Error:", error);
       });*/
   };
-  const categories = ["Category 1", "Category 2", "Category 3", "Category 4"]; // Define your categories here
 
   return (
     <div className="mt-12 mb-12">
