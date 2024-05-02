@@ -9,7 +9,7 @@ export default {
       lg: ["18px", "21.94px"],
       xl: ["20px", "24.38px"],
       "2xl": ["24px", "29.26px"],
-      "3xl": ["28px", "50px"],
+      "3xl": ["36px", "40px"],
       "4xl": ["48px", "58px"],
       "6xl": ["72px", "88px"],
       "8xl": ["96px", "106px"],
@@ -20,7 +20,7 @@ export default {
         montserrat: ["Montserrat", "sans-serif"],
       },
       colors: {
-        primary: "#087C4C",
+        primary: "#099ec8",
         background: "#292929",
         "coral-red": "#FF6452",
         "slate-gray": "#6D6D6D",
@@ -31,8 +31,7 @@ export default {
         "3xl": "0 10px 40px rgba(0, 0, 0, 0.1)",
       },
       backgroundImage: {
-        hero: "url('assets/images/collection-background.svg')",
-        card: "url('assets/images/thumbnail-background.svg')",
+        leafesBackground: "url('assets/images/background-leafes.jpg')",
       },
       screens: {
         wide: "1440px",

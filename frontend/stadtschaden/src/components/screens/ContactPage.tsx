@@ -69,7 +69,7 @@ const ContactPage = () => {
   };
 
   return (
-    <div className="mt-36">
+    <div className="mt-12">
       <div className="flex flex-col justify-center items-center font-montserrat font-bold text-4xl">
         <p style={styles.mainText}>
           Senden Sie uns Ihre gefundenen{" "}

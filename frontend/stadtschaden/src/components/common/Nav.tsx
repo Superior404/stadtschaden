@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { navLinks } from "../../constants/NavLinks";
-import stadtschadenLogo from "../../assets/stadtschaden-logo.png";
+import stadtschadenLogo from "../../assets/images/stadtschaden-logo.png";
 import { Link, NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
@@ -14,20 +14,20 @@ const Nav = () => {
 
   // TODO: Alessio: add new Page for Smartphone Navview
   return (
-    <header className="mt-10">
+    <header className="flex bg-white h-20">
       <Link to="">
         <img
           src={stadtschadenLogo}
           alt="Logo"
-          className="absolute 2xl:w-64 xl:w-56 lg:w-48 w-48 ml-6 lg:ml-16 2xl:ml-24 -mt-1"
+          className="absolute 2xl:w-64 xl:w-56 lg:w-48 w-48 ml-6 lg:ml-16 2xl:ml-24 mt-6"
         />
       </Link>
       <div className="lg:hidden flex justify-end mr-8 mb-2">
         <button onClick={toggleNav}>
           {showNav ? (
-            <FontAwesomeIcon icon={faTimes} className="text-2xl text-white" />
+            <FontAwesomeIcon icon={faTimes} className="text-2xl text-black" />
           ) : (
-            <FontAwesomeIcon icon={faBars} className="text-2xl text-white" />
+            <FontAwesomeIcon icon={faBars} className="text-2xl text-black" />
           )}
         </button>
       </div>
@@ -40,8 +40,8 @@ const Nav = () => {
           <li key={link.label} className="flex justify-end mr-6">
             <NavLink
               className={({ isActive }) =>
-                "font-palanquin font-semibold text-sm 2xl:text-xl xl:text-md " +
-                (isActive ? "text-primary" : "text-white")
+                "font-palanquin font-bold text-sm 2xl:text-xl xl:text-md justify-center items-center " +
+                (isActive ? "text-primary" : "text-black")
               }
               to={link.to}
               onClick={() => setShowNav(false)}
