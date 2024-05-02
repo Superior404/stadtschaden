@@ -10,12 +10,13 @@ const InstructionPage = () => {
     // Make a constant file for these primary color for consistency in react components
     importantWord: {
       color: "#087c4c",
+      fontWeight: "bold",
     },
   };
 
   return (
-    <div className="flex flex-col justify-center items-center mt-20 gap-8 text-white font-montserrat">
-      <p className="text-bold self-center lg:text-4xl text-2xl">
+    <div className="flex flex-col justify-center items-start mt-20 gap-8 text-black font-palanquin">
+      <p className="text-bold self-center lg:text-3xl text-2xl">
         <span style={styles.importantWord}>Anleitung</span> zum Ausfüllen des
         Kontaktformulars auf unserer Website
       </p>
@@ -68,8 +69,9 @@ const InstructionPage = () => {
             <span style={styles.importantWord}>Beschreibung</span>".
           </li>
           <li>
-            Klicken Sie auf die Schaltfläche "Datei auswählen", um ein Bild des
-            Schadens hochzuladen (optional).
+            Klicken Sie auf die Schaltfläche "
+            <span style={styles.importantWord}>Datei auswählen</span>", um ein
+            Bild des Schadens hochzuladen.
           </li>
         </ol>
       </div>
@@ -85,12 +87,12 @@ const InstructionPage = () => {
             Überprüfen Sie Ihre eingegebenen Informationen auf Richtigkeit.
           </li>
           <li>
-            Klicken Sie auf die Schaltfläche "Senden", um das Formular
+            Klicken Sie auf die Schaltfläche "Absenden", um das Formular
             abzuschicken.
           </li>
         </ol>
       </div>
-      <p style={styles.defaultTextContainer}>
+      <p style={styles.defaultTextContainer} className="mb-24">
         <strong>Hinweis:</strong>
         <ul className="list-disc pl-8">
           <li>
