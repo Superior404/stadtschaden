@@ -5,9 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class TicketsController : ControllerBase
+    public class TicketsController : BaseApiController
     {
 
         private readonly StoreContext _context;
@@ -15,7 +13,6 @@ namespace API.Controllers
         public TicketsController(StoreContext context)
         {
             _context = context;
-    
         }
 
         [HttpGet]
@@ -26,20 +23,20 @@ namespace API.Controllers
 
         // id specifies the parameter that we will get from route, for example api/tickets/3
         [HttpGet("{id}")]
-        public async Task<ActionResult<Ticket>> GetProduct(int id)
+        public async Task<ActionResult<Ticket>> GetTicket(int id)
         {
             return await _context.Tickets.FindAsync(id);
         }
 
         // [FromBody] to bind parameter to HTTP Post body
-        // TODO error handling
         [HttpPost]
         public ActionResult PostTicketData([FromBody] Ticket ticketData)
         {
             _context.Tickets.Add(ticketData);
+            // TODO error handling
             _context.SaveChanges();
 
-            return Ok("Product data saved sucessfully");
+            return Ok("Ticket data saved sucessfully");
         }
     }
 }

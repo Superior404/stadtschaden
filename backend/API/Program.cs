@@ -1,4 +1,6 @@
 using API.Data;
+using API.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,10 +12,24 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// User Manager / Authentication / Authorization
+builder.Services.AddIdentityCore<User>(opt => 
+{
+    // Register Options
+    opt.User.RequireUniqueEmail = true;
+}) // user manager
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<StoreContext>();
+builder.Services.AddAuthentication(); // verifying true identity
+builder.Services.AddAuthorization(); // verifying user access
+
+// Add DB Context
 builder.Services.AddDbContext<StoreContext>(opt => 
 {
   opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
+builder.Services.AddCors();
 
 var app = builder.Build();
 
@@ -26,20 +42,28 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCors(opt => 
+{
+    // Allow Header from Requester - Allow Get,Put... - Set cors with origin in reponse header
+    opt.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000");
+});
+
 app.UseAuthorization();
 
 app.MapControllers();
 
-// to get ahold of the StoreContext
+// to get ahold of the StoreContext/UserManager
 var scope = app.Services.CreateScope();
 var context = scope.ServiceProvider.GetRequiredService<StoreContext>();
+var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
+
 // logger for Program.cs
 var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
 try
 {
     // Migrate and create database if not already existing
-    context.Database.Migrate();
-    DbInitializer.Initialize(context);
+    await context.Database.MigrateAsync();
+    await DbInitializer.Initialize(context, userManager);
 }
 catch (Exception ex)
 {
