@@ -40,7 +40,7 @@ namespace API.Data
                     Surname = "Riedmiller",
                     Email = "sebastian.riedmiller@hs-augsburg.de",
                     Phonenumber = "12541512512",
-                    Describtion = "test desc",
+                    Description = "test desc",
                     Location = "86316",
                     Catergory = "Damage"
                 },
@@ -50,7 +50,7 @@ namespace API.Data
                     Surname = "test",
                     Email = "test@hs-augsburg.de",
                     Phonenumber = "142412412142",
-                    Describtion = "test2 desc",
+                    Description = "test2 desc",
                     Location = "86316",
                     Catergory = "Damage"
                 }
