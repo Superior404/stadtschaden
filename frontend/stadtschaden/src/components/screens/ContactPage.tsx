@@ -47,7 +47,7 @@ const ContactPage = () => {
 
   const handleFormSubmit = () => {
     const formData = {
-      Firstname: firstName,
+      Forename: firstName,
       Surname: lastName,
       StreetName: streetName,
       Postalcode: postalCode,
