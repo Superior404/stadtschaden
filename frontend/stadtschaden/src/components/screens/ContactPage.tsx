@@ -18,6 +18,9 @@ const ContactPage = () => {
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [message, setMessage] = useState("");
+  const [streetName, setStreetName] = useState("");
+  const [postalCode, setPostalCode] = useState("");
+  const [city, setCity] = useState("");
   const [imageUri, setImageUri] = useState<string>("");
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -43,31 +46,36 @@ const ContactPage = () => {
   };
 
   const handleFormSubmit = () => {
-    /*
     const formData = {
-      firstName,
-      lastName,
-      category,
-      email,
-      phoneNumber,
-      message,
-      imageUri,
+      Firstname: firstName,
+      Surname: lastName,
+      StreetName: streetName,
+      Postalcode: postalCode,
+      City: city,
+      Email: email,
+      Phonenumber: phoneNumber,
+      Description: message,
+      Category: category,
+      ImageURL: imageUri,
     };
+
+    const jsonData = JSON.stringify(formData);
+    console.log("JSON Data:", jsonData);
 
     fetch("http://localhost:5020/api/Tickets", {
       method: "POST",
-      mode: "no-cors", 
-      credentials: "include", 
+      mode: "cors",
       headers: {
-        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json",
       },
+      body: jsonData,
     })
       .then((response) => {
         console.log("Response:", response);
       })
       .catch((error) => {
         console.error("Error:", error);
-      });*/
+      });
   };
 
   return (
@@ -131,6 +139,27 @@ const ContactPage = () => {
               onChange={(event) => setLastName(event.target.value)}
             />
           </div>
+
+          <FormInput
+            placeholder={"Straße"}
+            type="text"
+            value={streetName}
+            onChange={(event) => setStreetName(event.target.value)}
+          />
+
+          <FormInput
+            placeholder={"Postleitzahl"}
+            type="text"
+            value={postalCode}
+            onChange={(event) => setPostalCode(event.target.value)}
+          />
+
+          <FormInput
+            placeholder={"Stadt"}
+            type="text"
+            value={city}
+            onChange={(event) => setCity(event.target.value)}
+          />
 
           <SelectButton
             options={streetDamageCategories.map(
