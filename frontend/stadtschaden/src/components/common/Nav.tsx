@@ -5,6 +5,7 @@ import {Outlet, Link, NavLink } from "react-router-dom";
 
 const Nav = () => {
   return (
+
     <>
       <header className="flex justify-center items-center mt-10 ">
         <Link className="absolute left-0 ml-16" to="">
