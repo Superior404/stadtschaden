@@ -21,6 +21,7 @@ export default {
       },
       colors: {
         primary: "#00784A",
+        secondary: "#57B8EF",
         background: "#292929",
         "coral-red": "#FF6452",
         "slate-gray": "#6D6D6D",
@@ -32,6 +33,8 @@ export default {
       },
       backgroundImage: {
         leafesBackground: "url('assets/images/background-leafes.jpg')",
+        lightLeafesBackground:
+          "url('assets/images/background-wallpaper-2.webp')",
       },
       screens: {
         wide: "1440px",
