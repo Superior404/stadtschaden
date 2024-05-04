@@ -27,25 +27,29 @@ const PersonalLogin = () => {
   };
 
   return (
-    <div className="min-h-screen w-full flex justify-center items-center ">
+    <div className="min-h-screen w-full flex justify-center items-center bg-white ">
       {/* Form element */}
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col"
-        style={{ width: "600px" }}
+        className="flex flex-col bg-lightgray shadow-2xl p-20 rounded-3xl"
+        style={{ width: "800px" }}
       >
+        <h1 className="text-black block font-primary text-center text-3xl mb-16">
+          Mitarbeiter Login
+        </h1>
+
         {/* Email input field */}
-        <div className="mb-5 block w-full ">
+        <div className="mb-16 block w-full ">
           <label
             htmlFor="email"
-            className="text-white block font-museo-moderno text-3xl ml-5"
+            className="text-black block font-primary text-3xl ml-5 "
           >
             Email
           </label>
           <input
             type="email"
             id="email"
-            className="mt-1 block rounded-full px-5 py-2 text-3xl w-full"
+            className="mt-1 block rounded-full px-5 py-2 text-3xl w-full border-2 border-darkgray"
             placeholder="Your email"
             value={email}
             onChange={handleEmailChange}
@@ -53,17 +57,17 @@ const PersonalLogin = () => {
           />
         </div>
         {/* Password input field */}
-        <div className="mb-5 block w-full">
+        <div className="mb-16 block w-full">
           <label
             htmlFor="password"
-            className="text-white block font-museo-moderno text-3xl  ml-5"
+            className="text-black block font-primary text-3xl  ml-5"
           >
             Password
           </label>
           <input
             type="password"
             id="password"
-            className="mt-1 block rounded-full px-5 py-2 text-3xl w-full"
+            className="mt-1 block rounded-full px-5 py-2 text-3xl w-full border-2 border-darkgray"
             placeholder="Your password"
             value={password}
             onChange={handlePasswordChange}
@@ -75,7 +79,7 @@ const PersonalLogin = () => {
           <div className="w-full h-10 flex justify-center items-center mr-5">
             <button
               type="submit"
-              className="bg-primary text-white py-3 px-6 rounded-full hover:border-2 transition-transform duration-300 hover:scale-105 transform scale-100 w-full  font-museo-moderno text-xl transform-origin-center"
+              className="bg-primary text-white py-3 px-6 rounded-full hover:border-2 transition-transform duration-300 hover:scale-105 transform scale-100 w-full  font-museo-moderno text-2xl transform-origin-center"
             >
               Login
             </button>
@@ -83,7 +87,7 @@ const PersonalLogin = () => {
           <div className="w-full h-10 flex justify-center items-center ml-5">
             <Link
               to="/altzheimer"
-              className="bg-gray-500 text-white py-3 px-6 rounded-full hover:border-2 transition-transform duration-300 hover:scale-105 transform scale-100 w-full font-museo-moderno text-xl transform-origin-center"
+              className="bg-gray-500 text-white text-center py-3 px-6 rounded-full hover:border-2 transition-transform duration-300 hover:scale-105 transform scale-100 w-full font-museo-moderno text-2xl transform-origin-center"
             >
               Kennwort vergessen?
             </Link>

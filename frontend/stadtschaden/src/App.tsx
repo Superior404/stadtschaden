@@ -37,7 +37,7 @@ const router = createBrowserRouter(
         <Route path="login" element={<PersonalLogin />} />
         <Route
           path="altzheimer"
-          element={<h1 className="text-white"> selber Schuld </h1>}
+          element={<h1 className="text-balck"> selber Schuld </h1>}
         />
 
         {/* error page  */}
