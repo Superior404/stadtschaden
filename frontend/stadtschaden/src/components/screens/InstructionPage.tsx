@@ -16,7 +16,7 @@ const InstructionPage = () => {
 
   return (
     <div className="flex flex-col justify-center items-start mt-20 gap-8 text-black font-palanquin">
-      <p className="text-bold self-center lg:text-3xl text-2xl">
+      <p className="text-bold self-center lg:text-3xl text-2xl mb-12">
         <span style={styles.importantWord}>Anleitung</span> zum Ausfüllen des
         Kontaktformulars auf unserer Website
       </p>

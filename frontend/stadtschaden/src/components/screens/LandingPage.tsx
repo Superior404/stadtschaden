@@ -51,7 +51,10 @@ const LandingPage = () => {
       </div>
 
       {/* Das auslagern in eigene Komponente - AboutUsPage */}
-      <div className="flex flex-col justify-center h-[50vh] mt-12 mb-12 gap-8">
+      <section
+        id="about-us"
+        className="flex flex-col justify-center h-[50vh] mt-12 mb-12 gap-8"
+      >
         <p className="self-center font-palanquin text-primary font-bold text-4xl mb-8">
           Über uns
         </p>
@@ -89,14 +92,17 @@ const LandingPage = () => {
             </p>
           </div>
         </div>
-      </div>
+      </section>
 
       {/* Das auslagern in eigene Komponente - NewsPage */}
-      <div className="flex justify-center h-screen w-full bg-lightLeafesBackground">
+      <section
+        id="news"
+        className="flex justify-center h-screen w-full bg-lightLeafesBackground"
+      >
         <p className="font-palanquin text-black font-bold text-4xl mt-12">
           Neuigkeiten
         </p>
-      </div>
+      </section>
     </main>
   );
 };

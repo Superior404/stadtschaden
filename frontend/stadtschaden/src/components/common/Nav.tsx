@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { navLinks } from "../../constants/NavLinks";
 import stadtschadenLogo from "../../assets/images/stadtschaden-logo.png";
 import { Outlet, Link, NavLink } from "react-router-dom";
@@ -12,10 +12,10 @@ const Nav = () => {
     setShowNav(!showNav);
   };
 
-  // TODO: Alessio: add new Page for Smartphone Navview
+  // TODO: add new Page for Smartphone Naview
   return (
     <>
-      <header className="flex bg-white h-20">
+      <header className="flex bg-white h-20 sticky">
         <Link to="">
           <img
             src={stadtschadenLogo}
@@ -39,16 +39,26 @@ const Nav = () => {
         >
           {navLinks.map((link) => (
             <li key={link.label} className="flex justify-end mr-6">
-              <NavLink
-                className={({ isActive }) =>
-                  "font-palanquin font-bold text-sm 2xl:text-xl xl:text-md justify-center items-center " +
-                  (isActive ? "text-primary" : "text-black")
-                }
-                to={link.to}
-                onClick={() => setShowNav(false)}
-              >
-                {link.label}
-              </NavLink>
+              {link.label === "Über uns" || link.label === "Neuigkeiten" ? (
+                <a
+                  className="font-palanquin font-bold text-sm 2xl:text-xl xl:text-md justify-center items-center text-black"
+                  href={`#${link.to}`}
+                  onClick={() => setShowNav(false)}
+                >
+                  {link.label}
+                </a>
+              ) : (
+                <NavLink
+                  className={({ isActive }) =>
+                    "font-palanquin font-bold text-sm 2xl:text-xl xl:text-md justify-center items-center " +
+                    (isActive ? "text-primary" : "text-black")
+                  }
+                  to={link.to}
+                  onClick={() => setShowNav(false)}
+                >
+                  {link.label}
+                </NavLink>
+              )}
             </li>
           ))}
         </ul>
