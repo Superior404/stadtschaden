@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { navLinks } from "../../constants/NavLinks";
+import { useNavigate } from "react-router-dom";
 import stadtschadenLogo from "../../assets/images/stadtschaden-logo.png";
 import { Outlet, Link, NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,9 +8,25 @@ import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 const Nav = () => {
   const [showNav, setShowNav] = useState(false);
+  const navigate = useNavigate();
 
   const toggleNav = () => {
     setShowNav(!showNav);
+  };
+
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+      setShowNav(false);
+    }
+  };
+
+  const handleNavToSection = (sectionId: string) => {
+    navigate("/");
+    setTimeout(() => {
+      scrollToSection(sectionId);
+    }, 800);
   };
 
   // TODO: add new Page for Smartphone Naview
@@ -43,7 +60,7 @@ const Nav = () => {
                 <a
                   className="font-palanquin font-bold text-sm 2xl:text-xl xl:text-md justify-center items-center text-black"
                   href={`#${link.to}`}
-                  onClick={() => setShowNav(false)}
+                  onClick={() => handleNavToSection(link.to)}
                 >
                   {link.label}
                 </a>
