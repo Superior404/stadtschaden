@@ -3,7 +3,7 @@ import teamPicture from "../../assets/images/team-picture.jpeg";
 const AboutUsSection = () => {
   return (
     <>
-      <p className="self-center font-palanquin text-primary font-bold text-4xl mb-8">
+      <p className="self-center font-palanquin text-primary font-bold text-4xl mb-4">
         Über uns
       </p>
       <div className="flex flex-row items-center gap-6">
