@@ -100,7 +100,7 @@ const ContactPage = () => {
 
       <div className="flex justify-center items-center mt-16">
         <button
-          className="mr-4 h-[27.5rem] w-[20.25rem] flex justify-center items-center rounded-xl border-2 border-dashed border-black bg-zinc-500 bg-opacity-25"
+          className="mr-4 h-[38.5rem] w-[23.25rem] flex justify-center items-center rounded-xl border-2 border-dashed border-black bg-zinc-500 bg-opacity-25"
           onClick={handleFileButtonClick}
         >
           {" "}
@@ -149,7 +149,7 @@ const ContactPage = () => {
 
           <FormInput
             placeholder={"Postleitzahl"}
-            type="text"
+            type="numeric"
             value={postalCode}
             onChange={(event) => setPostalCode(event.target.value)}
           />
@@ -163,7 +163,7 @@ const ContactPage = () => {
 
           <SelectButton
             options={streetDamageCategories.map(
-              (category) => category.category,
+              (category) => category.category
             )}
             value={category}
             onChange={(event) => setCategory(event.target.value)}
