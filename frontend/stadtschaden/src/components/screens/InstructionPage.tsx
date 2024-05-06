@@ -1,11 +1,9 @@
-import React from "react";
-
 const InstructionPage = () => {
   const styles = {
     defaultTextContainer: {
       marginLeft: "175px",
       gap: "8px",
-      fontSize: "1.4rem",
+      fontSize: "1.8rem",
     },
     // Make a constant file for these primary color for consistency in react components
     importantWord: {

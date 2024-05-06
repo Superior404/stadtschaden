@@ -10,8 +10,8 @@ import {
 } from "react-router-dom";
 import ContactPage from "./components/screens/ContactPage";
 import InstructionPage from "./components/screens/InstructionPage";
-import NewsPage from "./components/screens/NewsPage";
-import AboutUsPage from "./components/screens/AboutUsPage";
+import NewsPage from "./components/sections/NewsSection";
+import AboutUsPage from "./components/sections/AboutUsSection";
 import NotFoundPage from "./components/screens/NotFoundPage";
 import PersonalLogin from "./components/screens/PersonalLogin";
 
