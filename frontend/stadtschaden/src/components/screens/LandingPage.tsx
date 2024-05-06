@@ -54,7 +54,7 @@ const LandingPage = () => {
       {/* Das auslagern in eigene Komponente - AboutUsPage */}
       <section
         id="about-us"
-        className="flex flex-col justify-center h-[50vh] mt-12 mb-12 gap-8"
+        className="flex flex-col justify-center items-center h-[50vh] mt-12 mb-12 gap-8"
       >
         <AboutUsSection />
       </section>

@@ -10,11 +10,11 @@ const AboutUsSection = () => {
         <img
           src={teamPicture}
           alt="teamPicture"
-          className="w-42 h-72 rounded-3xl ml-24 mr-12"
+          className="w-64 h-96 rounded-3xl ml-24 mr-12"
         />
 
         <div>
-          <p className="text-center text-lg font-semibold mr-24">
+          <p className="text-center w-[50vw] text-lg font-semibold mr-24">
             Willkommen bei{" "}
             <span className="text-primary font-bold">StadtSchaden</span>
             !<br />
