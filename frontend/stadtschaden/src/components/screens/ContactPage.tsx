@@ -22,7 +22,18 @@ const ContactPage = () => {
   const [postalCode, setPostalCode] = useState("");
   const [city, setCity] = useState("");
   const [imageUri, setImageUri] = useState<string>("");
-
+  const [formErrors, setFormErrors] = useState({
+    firstName: "",
+    lastName: "",
+    category: "",
+    email: "",
+    phoneNumber: "",
+    message: "",
+    streetName: "",
+    postalCode: "",
+    city: "",
+    imageUri: "",
+  });
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleFileButtonClick = () => {
@@ -45,7 +56,46 @@ const ContactPage = () => {
     }
   };
 
+  const validateForm = () => {
+    const errors = {
+      firstName: "",
+      lastName: "",
+      category: "",
+      email: "",
+      phoneNumber: "",
+      message: "",
+      streetName: "",
+      postalCode: "",
+      city: "",
+      imageUri: "",
+    };
+
+    if (!streetName) {
+      errors.streetName = "Straßenname ist erforderlich";
+    }
+    if (!postalCode) {
+      errors.postalCode = "Postleitzahl ist erforderlich";
+    }
+    if (!city) {
+      errors.city = "Stadt ist erforderlich";
+    }
+    if (!category) {
+      errors.category = "Kategorie ist erforderlich";
+    }
+    if (email && !/\S+@\S+\.\S+/.test(email)) {
+      errors.email = "E-Mail ist ungültig";
+    }
+    if (!message) {
+      errors.message = "Nachricht ist erforderlich";
+    }
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
   const handleFormSubmit = () => {
+    if (!validateForm()) {
+      return;
+    }
     const formData = {
       Forename: firstName,
       Surname: lastName,
@@ -60,7 +110,6 @@ const ContactPage = () => {
     };
 
     const jsonData = JSON.stringify(formData);
-    console.log("JSON Data:", jsonData);
 
     fetch("http://localhost:5020/api/Tickets", {
       method: "POST",
@@ -100,7 +149,7 @@ const ContactPage = () => {
 
       <div className="flex justify-center items-center mt-16">
         <button
-          className="mr-4 h-[38.5rem] w-[23.25rem] flex justify-center items-center rounded-xl border-2 border-dashed border-black bg-zinc-500 bg-opacity-25"
+          className="mr-4 h-[34.9rem] w-[23.25rem] flex justify-center items-center rounded-xl border-2 border-dashed border-black bg-zinc-500 bg-opacity-25"
           onClick={handleFileButtonClick}
         >
           {" "}
@@ -112,7 +161,7 @@ const ContactPage = () => {
             />
           ) : (
             <p className="w-[10rem] font-montserrat text-black">
-              Datei hier ablegen oder klicken, um zu durchsuchen.
+              Datei hier ablegen oder klicken, um zu durchsuchen. *
             </p>
           )}
           <input
@@ -130,6 +179,7 @@ const ContactPage = () => {
               type={"text"}
               value={firstName}
               onChange={(event) => setFirstName(event.target.value)}
+              error={formErrors.firstName}
             />
 
             <FormInput
@@ -137,28 +187,34 @@ const ContactPage = () => {
               type="text"
               value={lastName}
               onChange={(event) => setLastName(event.target.value)}
+              error={formErrors.lastName}
+            />
+          </div>
+
+          <div className="flex">
+            <FormInput
+              placeholder={"Straße *"}
+              type="text"
+              value={streetName}
+              onChange={(event) => setStreetName(event.target.value)}
+              error={formErrors.streetName}
+            />
+
+            <FormInput
+              placeholder={"Postleitzahl *"}
+              type="numeric"
+              value={postalCode}
+              onChange={(event) => setPostalCode(event.target.value)}
+              error={formErrors.postalCode}
             />
           </div>
 
           <FormInput
-            placeholder={"Straße"}
-            type="text"
-            value={streetName}
-            onChange={(event) => setStreetName(event.target.value)}
-          />
-
-          <FormInput
-            placeholder={"Postleitzahl"}
-            type="numeric"
-            value={postalCode}
-            onChange={(event) => setPostalCode(event.target.value)}
-          />
-
-          <FormInput
-            placeholder={"Stadt"}
+            placeholder={"Stadt *"}
             type="text"
             value={city}
             onChange={(event) => setCity(event.target.value)}
+            error={formErrors.city}
           />
 
           <SelectButton
@@ -167,6 +223,7 @@ const ContactPage = () => {
             )}
             value={category}
             onChange={(event) => setCategory(event.target.value)}
+            error={formErrors.category}
           />
 
           <FormInput
@@ -174,7 +231,7 @@ const ContactPage = () => {
             type="email"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
-            required
+            error={formErrors.email}
           />
 
           <FormInput
@@ -182,14 +239,16 @@ const ContactPage = () => {
             type="text"
             value={phoneNumber}
             onChange={(event) => setPhoneNumber(event.target.value)}
+            error={formErrors.phoneNumber}
           />
 
           <FormInput
-            placeholder={"Nachricht"}
+            placeholder={"Nachricht *"}
             type={"textarea"}
             value={message}
             onChange={(event) => setMessage(event.target.value)}
             textArea
+            error={formErrors.message}
           />
 
           <ActionButton title={"Absenden"} onClick={handleFormSubmit} />

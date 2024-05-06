@@ -10,7 +10,7 @@ const AboutUsSection = () => {
         <img
           src={teamPicture}
           alt="teamPicture"
-          className="w-64 h-96 rounded-3xl ml-24 mr-12"
+          className="w-55 h-80 rounded-3xl ml-24 mr-12"
         />
 
         <div>
