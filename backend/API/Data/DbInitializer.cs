@@ -41,8 +41,10 @@ namespace API.Data
                     Email = "sebastian.riedmiller@hs-augsburg.de",
                     Phonenumber = "12541512512",
                     Description = "test desc",
-                    Location = "86316",
-                    Catergory = "Damage"
+                    Catergory = "Damage",
+                    PostalCode = "86316",
+                    StreetName = "Teststreet",
+                    City = "Augsburg"
                 },
                 new Ticket
                 {
@@ -51,8 +53,10 @@ namespace API.Data
                     Email = "test@hs-augsburg.de",
                     Phonenumber = "142412412142",
                     Description = "test2 desc",
-                    Location = "86316",
-                    Catergory = "Damage"
+                    Catergory = "Damage",
+                    PostalCode = "86316",
+                    StreetName = "Teststreet",
+                    City = "Augsburg"
                 }
             };
             
