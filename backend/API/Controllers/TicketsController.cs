@@ -9,6 +9,10 @@ namespace API.Controllers
     {
 
         private readonly StoreContext _context;
+        
+        // Directory to store uploaded images
+        private const string ImageDirectory = "TicketImages"; 
+
 
         public TicketsController(StoreContext context)
         {
@@ -37,6 +41,35 @@ namespace API.Controllers
             _context.SaveChanges();
 
             return Ok("Ticket data saved sucessfully");
+        }
+
+        [HttpPost("upload")]
+        public async Task<IActionResult> UploadImage()
+        {
+            try
+            {
+                // Assuming the image is the first form file
+                var file = Request.Form.Files[0]; 
+
+                if (file.Length > 0)
+                {
+                    var fileName = $"{Guid.NewGuid().ToString()}{Path.GetExtension(file.FileName)}"; // Generate a unique file name
+                    var filePath = Path.Combine(ImageDirectory, fileName); // Combine with directory path
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await file.CopyToAsync(stream); // Copy the uploaded file to the file stream
+                    }
+
+                    return Ok(new { FilePath = filePath }); // Return the file path or any other response as needed
+                }
+
+                return BadRequest("No file uploaded");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
     }
 }
