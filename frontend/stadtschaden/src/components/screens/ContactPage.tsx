@@ -95,9 +95,10 @@ const ContactPage = () => {
   };
 
   const handleFormSubmit = () => {
+    /*
     if (!validateForm()) {
       return;
-    }
+    }*/
 
     const formData = {
       Forename: firstName,
@@ -118,6 +119,9 @@ const ContactPage = () => {
       method: "POST",
       mode: "cors",
       body: jsonData,
+      headers: {
+        'Content-Type': 'application/json'
+    }
     })
       .then((response) => {
         console.log("Response:", response);
