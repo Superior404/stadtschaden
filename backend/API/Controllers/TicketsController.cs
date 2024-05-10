@@ -34,41 +34,14 @@ namespace API.Controllers
 
         // [FromBody] to bind parameter to HTTP Post body
         [HttpPost]
-        public async Task<ActionResult> PostTicketDataAsync([FromBody] Ticket ticketData)
+        public ActionResult PostTicketData([FromBody] Ticket ticketData)
         {
+            _context.Tickets.Add(ticketData);
             // TODO error handling
-            try
-            {
-                // Assuming the image is the first form file
-                var file = Request.Form.Files[0];
+            _context.SaveChanges();
 
-                if (file.Length > 0)
-                {
-                    var fileName = $"{Guid.NewGuid().ToString()}{Path.GetExtension(file.FileName)}"; // Generate a unique file name
-                    var filePath = Path.Combine(ImageDirectory, fileName); // Combine with directory path
-
-                    using (var stream = new FileStream(filePath, FileMode.Create))
-                    {
-                        await file.CopyToAsync(stream); // Copy the uploaded file to the file stream
-                    }
-
-                    //return Ok(new { FilePath = filePath }); // Return the file path or any other response as needed
-                } else return BadRequest("No file uploaded");
-
-                _context.Tickets.Add(ticketData);
-
-                _context.SaveChanges();
-
-                return Ok("Ticket data saved sucessfully");   
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
-
+            return Ok("Ticket data saved sucessfully");
         }
-
-        /*
 
         [HttpPost("upload")]
         public async Task<IActionResult> UploadImage()
@@ -98,7 +71,7 @@ namespace API.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
-        */
+        
     }
     
 }
