@@ -34,14 +34,41 @@ namespace API.Controllers
 
         // [FromBody] to bind parameter to HTTP Post body
         [HttpPost]
-        public ActionResult PostTicketData([FromBody] Ticket ticketData)
+        public async Task<ActionResult> PostTicketDataAsync([FromBody] Ticket ticketData)
         {
-            _context.Tickets.Add(ticketData);
             // TODO error handling
-            _context.SaveChanges();
+            try
+            {
+                // Assuming the image is the first form file
+                var file = Request.Form.Files[0];
 
-            return Ok("Ticket data saved sucessfully");
+                if (file.Length > 0)
+                {
+                    var fileName = $"{Guid.NewGuid().ToString()}{Path.GetExtension(file.FileName)}"; // Generate a unique file name
+                    var filePath = Path.Combine(ImageDirectory, fileName); // Combine with directory path
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await file.CopyToAsync(stream); // Copy the uploaded file to the file stream
+                    }
+
+                    //return Ok(new { FilePath = filePath }); // Return the file path or any other response as needed
+                } else return BadRequest("No file uploaded");
+
+                _context.Tickets.Add(ticketData);
+
+                _context.SaveChanges();
+
+                return Ok("Ticket data saved sucessfully");   
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+
         }
+
+        /*
 
         [HttpPost("upload")]
         public async Task<IActionResult> UploadImage()
@@ -49,7 +76,7 @@ namespace API.Controllers
             try
             {
                 // Assuming the image is the first form file
-                var file = Request.Form.Files[0]; 
+                var file = Request.Form.Files[0];
 
                 if (file.Length > 0)
                 {
@@ -71,5 +98,7 @@ namespace API.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+        */
     }
+    
 }
