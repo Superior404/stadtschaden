@@ -96,13 +96,12 @@ const ContactPage = () => {
       errors.message = "Nachricht ist erforderlich";
       return false;
     }
-    
-    setFormErrors(errors);    
+
+    setFormErrors(errors);
     return true;
   };
 
   const handleFormSubmit = () => {
-
     if (!validateForm()) {
       return;
     }
@@ -127,8 +126,8 @@ const ContactPage = () => {
       mode: "cors",
       body: jsonData,
       headers: {
-        'Content-Type': 'application/json'
-    }
+        "Content-Type": "application/json",
+      },
     })
       .then((response) => {
         console.log("Response:", response);
@@ -242,7 +241,7 @@ const ContactPage = () => {
 
           <SelectButton
             options={streetDamageCategories.map(
-              (category) => category.category
+              (category) => category.category,
             )}
             value={category}
             onChange={(event) => setCategory(event.target.value)}

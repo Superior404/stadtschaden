@@ -8,9 +8,7 @@ const NewsSection = () => {
         Neuigkeiten
       </p>
 
-      <div>
-
-      </div>
+      <div></div>
     </div>
   );
 };
