@@ -74,31 +74,38 @@ const ContactPage = () => {
 
     if (!streetName) {
       errors.streetName = "Straßenname ist erforderlich";
+      return false;
     }
     if (!postalCode) {
       errors.postalCode = "Postleitzahl ist erforderlich";
+      return false;
     }
     if (!city) {
       errors.city = "Stadt ist erforderlich";
+      return false;
     }
     if (!category) {
       errors.category = "Kategorie ist erforderlich";
+      return false;
     }
     if (email && !/\S+@\S+\.\S+/.test(email)) {
       errors.email = "E-Mail ist ungültig";
+      return false;
     }
     if (!message) {
       errors.message = "Nachricht ist erforderlich";
+      return false;
     }
-    setFormErrors(errors);
-    return Object.keys(errors).length === 0;
+    
+    setFormErrors(errors);    
+    return true;
   };
 
   const handleFormSubmit = () => {
-    /*
+
     if (!validateForm()) {
       return;
-    }*/
+    }
 
     const formData = {
       Forename: firstName,
