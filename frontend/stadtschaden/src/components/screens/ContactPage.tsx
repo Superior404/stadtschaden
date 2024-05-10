@@ -35,7 +35,7 @@ const ContactPage = () => {
     imageUri: "",
   });
   const fileInputRef = useRef<HTMLInputElement | null>(null);
-  const [imageFile] = useState<FormData>(new FormData());
+  const [formData] = useState<FormData>(new FormData());
 
   const handleFileButtonClick = () => {
     console.log("File button clicked");
@@ -50,7 +50,7 @@ const ContactPage = () => {
         const imageUrl = URL.createObjectURL(file);
         setImageUri(imageUrl);
 
-        imageFile.append("image", file);
+        formData.append("image", file);
       } else {
         // TODO: Remove log and add error message
         console.log("Invalid file type. Please select an image file.");
@@ -106,40 +106,19 @@ const ContactPage = () => {
       return;
     }
 
-    const formData = {
-      Forename: firstName,
-      Surname: lastName,
-      StreetName: streetName,
-      Postalcode: postalCode,
-      City: city,
-      Email: email,
-      Phonenumber: phoneNumber,
-      Description: message,
-      Category: category,
-      ImageURL: imageUri,
-    };
-
-    const jsonData = JSON.stringify(formData);
+    formData.append("Forename", firstName);
+    formData.append("Surname", lastName);
+    formData.append("StreetName", streetName);
+    formData.append("Postalcode", postalCode);
+    formData.append("City", city);
+    formData.append("Phonenumber", phoneNumber);
+    formData.append("Description", message);
+    formData.append("Category", category);
+    formData.append("ImageURL", imageUri);
 
     fetch("http://localhost:5020/api/Tickets", {
       method: "POST",
-      mode: "cors",
-      body: jsonData,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => {
-        console.log("Response:", response);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-
-    fetch("http://localhost:5020/api/Tickets/upload", {
-      method: "POST",
-      mode: "cors",
-      body: imageFile,
+      body: formData,
     })
       .then((response) => {
         console.log("Response:", response);
@@ -241,7 +220,7 @@ const ContactPage = () => {
 
           <SelectButton
             options={streetDamageCategories.map(
-              (category) => category.category,
+              (category) => category.category
             )}
             value={category}
             onChange={(event) => setCategory(event.target.value)}
