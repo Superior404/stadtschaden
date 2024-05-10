@@ -114,7 +114,6 @@ const ContactPage = () => {
     formData.append("Phonenumber", phoneNumber);
     formData.append("Description", message);
     formData.append("Category", category);
-    formData.append("ImageURL", imageUri);
 
     fetch("http://localhost:5020/api/Tickets", {
       method: "POST",
