@@ -35,6 +35,7 @@ const ContactPage = () => {
     imageUri: "",
   });
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const formDataSebastian = new FormData();
 
   const handleFileButtonClick = () => {
     console.log("File button clicked");
@@ -48,7 +49,8 @@ const ContactPage = () => {
       if (fileType.startsWith("image/")) {
         const imageUrl = URL.createObjectURL(file);
         setImageUri(imageUrl);
-        console.log("Image URL:", imageUrl);
+
+        formDataSebastian.append("image", file)
       } else {
         // TODO: Remove log and add error message
         console.log("Invalid file type. Please select an image file.");
@@ -96,7 +98,20 @@ const ContactPage = () => {
     if (!validateForm()) {
       return;
     }
+
+    formDataSebastian.append("Forename", firstName)
+    formDataSebastian.append("Surname", lastName)
+    formDataSebastian.append("StreetName", streetName)
+    formDataSebastian.append("Postalcode", postalCode)
+    formDataSebastian.append("City", city)
+    formDataSebastian.append("Email", email)
+    formDataSebastian.append("Phonenumber", phoneNumber)
+    formDataSebastian.append("Description", message)
+    formDataSebastian.append("Category", category)
+    formDataSebastian.append("ImageURL", imageUri)
+
     const formData = {
+      
       Forename: firstName,
       Surname: lastName,
       StreetName: streetName,
@@ -117,7 +132,7 @@ const ContactPage = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: jsonData,
+      body: formDataSebastian,
     })
       .then((response) => {
         console.log("Response:", response);
