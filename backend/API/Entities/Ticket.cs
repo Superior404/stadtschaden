@@ -8,11 +8,12 @@ namespace API.Entities
         public string Email { get; set; }
         public string Phonenumber { get; set; }
         public string Description { get; set; }
-        public string Location { get; set; }
         // TODO own enum for category maybe
         public string Catergory { get; set; }
         public string StreetName { get; set; }
         public string PostalCode { get; set; }
         public string City { get; set; }
+
+        public string ImageURL { get; set; }
     }
 }
