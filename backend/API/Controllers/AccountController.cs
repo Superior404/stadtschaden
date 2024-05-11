@@ -1,5 +1,7 @@
 using API.DTOs;
 using API.Entities;
+using API.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,14 +11,16 @@ namespace API.Controllers
     {
         private readonly UserManager<User> _userManager;
         // StoreContext not needed, because userManager automatically saves to StoreContext if something is added
-        public AccountController(UserManager<User> userManager)
+        private readonly TokenService _tokenService;
+        public AccountController(UserManager<User> userManager, TokenService tokenService)
         {
+            _tokenService = tokenService;
             _userManager = userManager;
         }
 
         [HttpPost("login")]
         // Automatically looks in the body for parameter
-        public async Task<ActionResult<User>> Login(LoginDto loginDto)
+        public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
         {
             var user = await _userManager.FindByNameAsync(loginDto.Username);
 
@@ -27,7 +31,11 @@ namespace API.Controllers
             }
 
             //Successful login
-            return user;
+            return new UserDto
+            {
+                Email = user.Email,
+                Token = await _tokenService.GenerateToken(user), 
+            };
         }
 
         [HttpPost("register")]
@@ -56,5 +64,21 @@ namespace API.Controllers
 
             return StatusCode(201);
         }
+
+        // Authentication needed to use endpoint (JWT Token)
+        [Authorize]
+        [HttpGet("currentUser")]
+        public async Task<ActionResult<UserDto>> GetCurrentUser()
+        {
+            // Takes user name out of the claim from the token
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+
+            return new UserDto
+            {
+                Email = user.Email,
+                Token = await _tokenService.GenerateToken(user)
+            };
+        }
+
     }
 }

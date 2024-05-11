@@ -16,7 +16,7 @@ namespace API.Data
                 };
 
                 // Automatically saves user to database no additional save needed
-                await userManager.CreateAsync(user, "Pa§§w0rd");
+                await userManager.CreateAsync(user, "Pa$$w0rd");
                 await userManager.AddToRoleAsync(user, "Member");
 
                 var admin = new User
@@ -25,7 +25,7 @@ namespace API.Data
                     Email = "admin@test.com"
                 };
 
-                await userManager.CreateAsync(admin, "Pa§§w0rd");
+                await userManager.CreateAsync(admin, "Pa$$w0rd");
                 await userManager.AddToRolesAsync(admin, ["Member", "Admin"]);
             }
 
