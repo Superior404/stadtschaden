@@ -45,7 +45,7 @@ app.UseHttpsRedirection();
 app.UseCors(opt => 
 {
     // Allow Header from Requester - Allow Get,Put... - Set cors with origin in reponse header
-    opt.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000");
+    opt.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:5173");
 });
 
 app.UseAuthorization();

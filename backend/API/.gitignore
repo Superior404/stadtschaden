@@ -485,3 +485,6 @@ $RECYCLE.BIN/
 
 # Ticket images
 TicketImages
+
+#Database
+store.db
