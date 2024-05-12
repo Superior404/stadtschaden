@@ -482,3 +482,11 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+
+# Ticket images
+TicketImages
+
+#Database
+store.db
+store.db-shm
+store.db-wal

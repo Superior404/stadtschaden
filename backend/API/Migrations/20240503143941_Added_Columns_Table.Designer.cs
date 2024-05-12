@@ -3,6 +3,7 @@ using System;
 using API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    partial class StoreContextModelSnapshot : ModelSnapshot
+    [Migration("20240503143941_Added_Columns_Table")]
+    partial class Added_Columns_Table
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.4");
@@ -38,7 +41,7 @@ namespace API.Migrations
                     b.Property<string>("Forename")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("ImageURL")
+                    b.Property<string>("Location")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Phonenumber")
@@ -150,13 +153,13 @@ namespace API.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "a146cf83-7aee-44ec-a9dd-25ec1c2dd8dc",
+                            Id = "a0f95de0-5f9d-4b0c-98f2-5b6f8d7ed5cd",
                             Name = "Member",
                             NormalizedName = "MEMBER"
                         },
                         new
                         {
-                            Id = "617e143e-8c2b-47c6-bf9a-381c3bc66b07",
+                            Id = "2c6ab8c5-2957-48dc-bd56-0875d11acbf2",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });

@@ -1,11 +1,15 @@
+using System.Text;
 using API.Data;
 using API.Entities;
+using API.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Add services to the container. Builder will make instances of these Services.
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -20,8 +24,28 @@ builder.Services.AddIdentityCore<User>(opt =>
 }) // user manager
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<StoreContext>();
-builder.Services.AddAuthentication(); // verifying true identity
+
+// Authenticate trough JWT Tokens - User needs to have JWT Token in HTTP Request Header for authentication endpoints
+builder.Services.AddAuthentication( JwtBearerDefaults.AuthenticationScheme )
+    .AddJwtBearer(opt => {
+        // What Api validates against using this token
+        opt.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            ValidateLifetime = true,
+            // Validate token based on the signature
+            ValidateIssuerSigningKey = true,
+            // Which key was used to sign signature to validate signature
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.
+                GetBytes(builder.Configuration["JWTSettings:TokenKey"]))
+        };
+    });
 builder.Services.AddAuthorization(); // verifying user access
+
+// Scope = Entire Process of Request (Request - Logic applied - Response)
+// Service is alive during the HTTP Request and will be dropped after
+builder.Services.AddScoped<TokenService>();
 
 // Add DB Context
 builder.Services.AddDbContext<StoreContext>(opt => 
@@ -45,9 +69,11 @@ app.UseHttpsRedirection();
 app.UseCors(opt => 
 {
     // Allow Header from Requester - Allow Get,Put... - Set cors with origin in reponse header
-    opt.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000");
+    opt.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:5173");
 });
 
+// Authentication before Authorization
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
