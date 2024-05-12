@@ -15,7 +15,7 @@ const Nav = () => {
   // TODO: Alessio: add new Page for Smartphone Navview
   return (
     <>
-      <header className="flex bg-white h-20">
+      <header className="flex bg-darkgray h-20">
         <Link to="">
           <img
             src={stadtschadenLogo}
@@ -26,9 +26,9 @@ const Nav = () => {
         <div className="lg:hidden flex justify-end mr-8 mb-2">
           <button onClick={toggleNav}>
             {showNav ? (
-              <FontAwesomeIcon icon={faTimes} className="text-2xl text-black" />
+              <FontAwesomeIcon icon={faTimes} className="text-2xl text-white" />
             ) : (
-              <FontAwesomeIcon icon={faBars} className="text-2xl text-black" />
+              <FontAwesomeIcon icon={faBars} className="text-2xl text-white" />
             )}
           </button>
         </div>
@@ -42,7 +42,7 @@ const Nav = () => {
               <NavLink
                 className={({ isActive }) =>
                   "font-palanquin font-bold text-sm 2xl:text-xl xl:text-md justify-center items-center " +
-                  (isActive ? "text-primary" : "text-black")
+                  (isActive ? "text-primary" : "text-white")
                 }
                 to={link.to}
                 onClick={() => setShowNav(false)}
