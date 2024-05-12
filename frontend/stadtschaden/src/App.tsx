@@ -4,7 +4,6 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
   Navigate,
-  Outlet,
   Route,
   RouterProvider,
 } from "react-router-dom";
@@ -14,11 +13,15 @@ import NewsPage from "./components/screens/NewsPage";
 import AboutUsPage from "./components/screens/AboutUsPage";
 import NotFoundPage from "./components/screens/NotFoundPage";
 import PersonalLogin from "./components/screens/PersonalLogin";
+import StaffTicketOverview from "./staffSpecific/Screens/StaffTicketOverview";
+import StaffNav from "./staffSpecific/Designs/StaffNav";
+import StaffSingelTicket from "./staffSpecific/Screens/StaffSingelTicket"
+import SingleTicketPage from "./staffSpecific/Screens/singleTicketTest";
 
 function isSessionCookieValid() {
   //todo query api if valid
 
-  return false; //!(document.cookie.indexOf('session_cookie=') == -1);
+  return true; //!(document.cookie.indexOf('session_cookie=') == -1);
 }
 
 const router = createBrowserRouter(
@@ -49,24 +52,26 @@ const router = createBrowserRouter(
         path="staff"
         element={
           <>
-            {" "}
-            <Outlet /> {isSessionCookieValid() ? (
-              ""
-            ) : (
-              <Navigate to="/login" />
-            )}{" "}
+            <StaffNav/>
+            {isSessionCookieValid() ? ("") : (<Navigate to="/login" />)}{" "}
           </>
         }
       >
         <Route path="" element={<Navigate to="home" />} />
         <Route
           path="home"
-          element={<h1 className="text-white">staff home page </h1>}
+          element={<StaffTicketOverview/>}
         />
-        <Route
-          path="Ticket"
-          element={<h1 className="text-white">Page to work on a Ticket </h1>}
+        <Route 
+          path="/staff/ticket/:ticketID" 
+
+          element={<SingleTicketPage/>}
+          //element={<StaffSingelTicket/>}
         />
+        
+
+        {/* error page  */}
+        <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Route>,
   ),
