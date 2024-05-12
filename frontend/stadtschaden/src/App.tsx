@@ -17,6 +17,7 @@ import StaffTicketOverview from "./staffSpecific/Screens/StaffTicketOverview";
 import StaffNav from "./staffSpecific/Designs/StaffNav";
 import StaffSingelTicket from "./staffSpecific/Screens/StaffSingelTicket"
 import SingleTicketPage from "./staffSpecific/Screens/singleTicketTest";
+import TicketsPage from "./staffSpecific/Screens/test";
 
 function isSessionCookieValid() {
   //todo query api if valid
@@ -65,10 +66,14 @@ const router = createBrowserRouter(
         <Route 
           path="/staff/ticket/:ticketID" 
 
-          element={<SingleTicketPage/>}
-          //element={<StaffSingelTicket/>}
+          //element={<SingleTicketPage/>}
+          element={<StaffSingelTicket/>}
         />
-        
+
+        <Route  
+          path="test"
+          element={<TicketsPage/>}
+        />
 
         {/* error page  */}
         <Route path="*" element={<NotFoundPage />} />

@@ -3,10 +3,12 @@ import Dropdown from "../Components/Dropdown";
 import TextFilter from "../Components/TextFilter";
 import { streetDamageCategories } from "../../constants/StreetDamageCategories";
 import {statusCategories} from "../StatusCategorys";
+import TicketsOverview from "../Components/TicketsOverview";
 
 
 
 const StaffTicketOverview = () => {
+  // ===== filter section =====
   const [category, setCategory] = useState("All");
   const [status, setStatus] = useState("All");
   const [bearbeiter, setBearbeiter] = useState("");
@@ -30,6 +32,10 @@ const StaffTicketOverview = () => {
   statusCategories.map(
     (category) => statCat.push(category.category)
   )
+
+
+  // =====
+
 
   return (
     <div>
@@ -68,8 +74,8 @@ const StaffTicketOverview = () => {
           onChange={(event) => setStraße(event.target.value)}
         />
       </div>
-      <div className="bg-midlightgray shadow-2xl p-20 rounded-3xl mx-20">
-
+      <div className="bg-midlightgray shadow-2xl p-8 rounded-3xl mx-20">
+        <TicketsOverview/>
       </div>
     </div>
   )

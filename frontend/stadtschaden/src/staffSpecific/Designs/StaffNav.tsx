@@ -1,4 +1,4 @@
-import { useState } from "react";
+
 import { navLinks } from "../StaffNavLinks";
 import stadtschadenLogo from "../../assets/images/stadtschaden-logo.png";
 import stadtschadenLogoSmall from "../../assets/images/stadtschaden-logo-smal.png";
@@ -7,12 +7,8 @@ import { useNavigate } from 'react-router-dom';
 
 
 const Nav = () => {
-    const [showNav, setShowNav] = useState(false);
     const navigate  = useNavigate();
 
-    const toggleNav = () => {
-        setShowNav(!showNav);
-    };
 
     const logout = () => {
         const date = new Date();
@@ -55,7 +51,6 @@ const Nav = () => {
                                     (isActive ? "text-primary" : "text-white")
                                 }
                                 to={link.to}
-                                onClick={() => setShowNav(false)}
                             >
                                 {link.label}
                             </NavLink>
