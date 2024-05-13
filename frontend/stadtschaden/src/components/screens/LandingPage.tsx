@@ -16,7 +16,7 @@ const LandingPage = () => {
   return (
     <main>
       {/* Das auslagern in eigene Komponente - LandingFolder */}
-      <div className="flex justify-center items-center h-screen w-full bg-lightLeafesBackground">
+      <div className="flex justify-center items-center h-screen w-full bg-center bg-cover bg-lightLeafesBackground">
         <div className="flex flex-row justify-center items-center">
           <p
             className="rotate-[-0deg] xl:text-4xl 2xl:text-6xl font-montserrat text-black text-2xl text-end self-start mt-12"
@@ -51,21 +51,20 @@ const LandingPage = () => {
         </div>
       </div>
 
-      {/* Das auslagern in eigene Komponente - AboutUsPage */}
-      <section
-        id="about-us"
-        className="flex flex-col justify-center items-center h-[50vh] mt-12 mb-12 gap-8"
-      >
+      <section id="about-us" className="flex flex-col items-center h-[60vh] ">
         <AboutUsSection />
       </section>
 
-      {/* Das auslagern in eigene Komponente - NewsPage */}
       <section
         id="news"
-        className="flex justify-center h-screen w-full bg-lightLeafesBackground"
+        className="flex justify-center h-[160vh] bg-center bg-cover bg-lightLeafesBackground"
       >
         <NewsSection />
       </section>
+
+      <footer className="mt-24">
+        <p>FOOTER</p>
+      </footer>
     </main>
   );
 };

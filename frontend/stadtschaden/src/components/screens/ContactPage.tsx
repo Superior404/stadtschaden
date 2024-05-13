@@ -219,7 +219,7 @@ const ContactPage = () => {
 
           <SelectButton
             options={streetDamageCategories.map(
-              (category) => category.category
+              (category) => category.category,
             )}
             value={category}
             onChange={(event) => setCategory(event.target.value)}
