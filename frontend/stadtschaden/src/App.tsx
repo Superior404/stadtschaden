@@ -35,6 +35,8 @@ const router = createBrowserRouter(
 
         {/* login page is actualy still public */}
         <Route path="login" element={<PersonalLogin />} />
+                
+        {/* TODO: Sowas bitte nicht in code welcher bewertet wird :) */}
         <Route
           path="altzheimer"
           element={<h1 className="text-white"> selber Schuld </h1>}
