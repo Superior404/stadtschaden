@@ -35,10 +35,10 @@ namespace API.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Forename")
+                    b.Property<string>("FilePath")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("ImageURL")
+                    b.Property<string>("Forename")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Phonenumber")
@@ -150,13 +150,13 @@ namespace API.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "a146cf83-7aee-44ec-a9dd-25ec1c2dd8dc",
+                            Id = "6c39b97a-12bd-45eb-8365-e7bc4f6c6a60",
                             Name = "Member",
                             NormalizedName = "MEMBER"
                         },
                         new
                         {
-                            Id = "617e143e-8c2b-47c6-bf9a-381c3bc66b07",
+                            Id = "c1ebfe23-9748-4c3b-bd04-d0eefed33b54",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });

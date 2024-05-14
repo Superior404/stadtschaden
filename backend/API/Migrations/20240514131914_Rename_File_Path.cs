@@ -7,7 +7,7 @@
 namespace API.Migrations
 {
     /// <inheritdoc />
-    public partial class Delete_Location : Migration
+    public partial class Rename_File_Path : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -25,15 +25,15 @@ namespace API.Migrations
             migrationBuilder.RenameColumn(
                 name: "Location",
                 table: "Tickets",
-                newName: "ImageURL");
+                newName: "FilePath");
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "617e143e-8c2b-47c6-bf9a-381c3bc66b07", null, "Admin", "ADMIN" },
-                    { "a146cf83-7aee-44ec-a9dd-25ec1c2dd8dc", null, "Member", "MEMBER" }
+                    { "6c39b97a-12bd-45eb-8365-e7bc4f6c6a60", null, "Member", "MEMBER" },
+                    { "c1ebfe23-9748-4c3b-bd04-d0eefed33b54", null, "Admin", "ADMIN" }
                 });
         }
 
@@ -43,15 +43,15 @@ namespace API.Migrations
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "617e143e-8c2b-47c6-bf9a-381c3bc66b07");
+                keyValue: "6c39b97a-12bd-45eb-8365-e7bc4f6c6a60");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "a146cf83-7aee-44ec-a9dd-25ec1c2dd8dc");
+                keyValue: "c1ebfe23-9748-4c3b-bd04-d0eefed33b54");
 
             migrationBuilder.RenameColumn(
-                name: "ImageURL",
+                name: "FilePath",
                 table: "Tickets",
                 newName: "Location");
 

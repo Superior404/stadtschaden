@@ -484,9 +484,8 @@ $RECYCLE.BIN/
 *.swp
 
 # Ticket images
-TicketImages
+*.jpg
+*.png
 
 #Database
-store.db
-store.db-shm
-store.db-wal
+store.*

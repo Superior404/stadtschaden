@@ -7,12 +7,10 @@ namespace API.Controllers
 {
     public class TicketsController : BaseApiController
     {
-
         private readonly StoreContext _context;
-        
-        // Directory to store uploaded images
-        private const string ImageDirectory = "TicketImages"; 
 
+        // Directory to store uploaded images
+        private const string ImageDirectory = "TicketImages";
 
         public TicketsController(StoreContext context)
         {
@@ -32,54 +30,12 @@ namespace API.Controllers
             return await _context.Tickets.FindAsync(id);
         }
 
-        /*
-        // [FromBody] to bind parameter to HTTP Post body
         [HttpPost]
-        public ActionResult PostTicketData([FromBody] Ticket ticketData)
+        public async Task<IActionResult> PostData(
+            [FromForm] Ticket ticketData,
+            [FromForm] IFormFile image
+        )
         {
-            _context.Tickets.Add(ticketData);
-            // TODO error handling
-            _context.SaveChanges();
-
-            return Ok("Ticket data saved sucessfully");
-        }
-        */
-
-        [HttpPost("upload")]
-        public async Task<IActionResult> UploadImage()
-        {
-            try
-            {
-                // Assuming the image is the first form file
-                var file = Request.Form.Files[0];
-
-                if (file.Length > 0)
-                {
-                    var fileName = $"{Guid.NewGuid().ToString()}{Path.GetExtension(file.FileName)}"; // Generate a unique file name
-                    var filePath = Path.Combine(ImageDirectory, fileName); // Combine with directory path
-
-                    using (var stream = new FileStream(filePath, FileMode.Create))
-                    {
-                        await file.CopyToAsync(stream); // Copy the uploaded file to the file stream
-                    }
-
-                    return Ok(new { FilePath = filePath }); // Return the file path or any other response as needed
-                }
-
-                return BadRequest("No file uploaded");
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
-        }
-        
-
-        [HttpPost]
-        public async Task<IActionResult> PostData([FromForm] Ticket ticketData, [FromForm] IFormFile image)
-        {
-            
-
             // Check if the image file is null or empty
             if (image == null || image.Length == 0)
             {
@@ -109,17 +65,16 @@ namespace API.Controllers
                 await image.CopyToAsync(fileStream);
             }
 
-            //TODO Filepath in database eintragen
+            // FilePath to image
+            ticketData.FilePath = uniqueFileName;
 
             // Process JSON data as needed
             _context.Tickets.Add(ticketData);
+
             // TODO error handling
             _context.SaveChanges();
 
             return Ok("Ticket data saved sucessfully");
-            //return Ok($"Image saved successfully at: {filePath}");
         }
-
     }
-    
 }
