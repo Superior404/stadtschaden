@@ -4,7 +4,7 @@ import { BsChevronCompactDown, BsChevronCompactUp } from "react-icons/bs";
 
 interface DropdownProps {
   hight: number;
-  with: number;
+  with: string;
   name: string;
   options: string[];
   value: string;
@@ -25,10 +25,10 @@ const Dropdown: FC<DropdownProps> = (props) => {
   };
 
   return (
-    <div className={`m-2 relative inline-block text-left  w-${props.with} h-${props.hight}`}>
-      <div className={`absolute rounded-3xl  bg-darkgray  ${isOpen && 'z-50 pb-1'} `}>
+    <div className={`m-2 relative inline-block text-left  ${props.with} h-${props.hight}`}>
+      <div className={`absolute rounded-3xl  bg-darkgray bg-opacity-95 ${isOpen && 'z-50 shadow-2xl'} `}>
         <button
-          className={`justify-center px-4 py-2  text-sm  w-${props.with} h-${props.hight} `}
+          className={`justify-center px-4 py-2 bg-darkgray rounded-3xl  text-sm  ${props.with} h-${props.hight} `}
           onClick={toggleMenu}
         >
           <div className={`flex`}>
@@ -47,9 +47,9 @@ const Dropdown: FC<DropdownProps> = (props) => {
         {
           isOpen && (
             props.options.map((option) => (
-              <div className="py-1" role="none">
+              <div className="" role="none">
                 <button
-                  className="block px-4 py-1 text-sm text-white rounded-3xl hover:bg-darkgrayHighlight w-full text-left"
+                  className="block px-4 py-3 text-sm text-white rounded-3xl hover:bg-darkgrayHighlight hover:bg-opacity-50 w-full text-left"
                   role="menuitem"
                   onClick={() => SelectItem(option)}
                 >

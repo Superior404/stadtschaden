@@ -31,7 +31,8 @@ export default {
         darkgray: "#2b2b2b",
         darkgrayHighlight: "#515151",
         lightgray: "#ecf0f3",
-        midlightgray: "#cccfd2"
+        midlightgray: "#cccfd2",
+        midgray:"#9a9c9f"
       },
       boxShadow: {
         "3xl": "0 10px 40px rgba(0, 0, 0, 0.1)",

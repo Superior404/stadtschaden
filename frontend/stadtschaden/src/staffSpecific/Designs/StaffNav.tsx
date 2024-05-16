@@ -4,21 +4,17 @@ import stadtschadenLogo from "../../assets/images/stadtschaden-logo.png";
 import stadtschadenLogoSmall from "../../assets/images/stadtschaden-logo-smal.png";
 import { Outlet, Link, NavLink } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
+import useToken from "../getToken";
 
 
 const Nav = () => {
     const navigate  = useNavigate();
+    const {deleteToken} = useToken();
 
 
     const logout = () => {
-        const date = new Date();
-
-        // Set it expire in -1 days
-        date.setTime(date.getTime() + (-1 * 24 * 60 * 60 * 1000));
-
-        // Set it
-        document.cookie = "session_cookie" + "=; expires=" + date.toUTCString() + "; path=/";
-        navigate('/staff/home');
+        deleteToken();
+        navigate('/login');
     }
 
     // TODO: Alessio: add new Page for Smartphone Navview

@@ -27,6 +27,15 @@ namespace API.Data
 
                 await userManager.CreateAsync(admin, "Pa$$w0rd");
                 await userManager.AddToRolesAsync(admin, ["Member", "Admin"]);
+
+                var test_user = new User
+                {
+                    UserName = "test_user",
+                    Email = "test_user@test.com"
+                };
+
+                await userManager.CreateAsync(test_user, "1234QERTqwert.,");
+                await userManager.AddToRolesAsync(test_user, ["Member", "Admin"]);
             }
 
             // so products aren't reseeded if there are already in database

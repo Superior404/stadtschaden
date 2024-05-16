@@ -21,8 +21,6 @@ const StaffTicketOverview = () => {
     // Do something with the selected category, like filtering search results
   };
 
-  const categories: string[] = ['Category 1', 'Category 2', 'Category 3']; // Add your categories here
-
   const streetCat: string[] = ['All'];
   streetDamageCategories.map(
     (category) => streetCat.push(category.category)
@@ -39,12 +37,12 @@ const StaffTicketOverview = () => {
 
   return (
     <div>
-      <div className=" flex flex-wrap bg-midlightgray shadow-2xl p-6 rounded-3xl mx-20 my-14 justify-between justify-items-center">
+      <div className=" flex flex-wrap bg-midlightgray shadow-2xl p-3 rounded-3xl mx-20 my-14 justify-between justify-items-center">
         {/* <Dropdown name="Kategorie" hight={10} with={40} /> */}
         
         <Dropdown name="Category"
           hight={12}
-          with={52}
+          with={"w-52"}
           options={streetCat}
           value={category}
           onChange={(selected: string) => setCategory(selected)}
@@ -52,7 +50,7 @@ const StaffTicketOverview = () => {
 
         <Dropdown name="status"
           hight={12}
-          with={52}
+          with={"w-52"}
           options={statCat}
           value={status}
           onChange={(selected: string) => setStatus(selected)}
@@ -74,7 +72,7 @@ const StaffTicketOverview = () => {
           onChange={(event) => setStraße(event.target.value)}
         />
       </div>
-      <div className="bg-midlightgray shadow-2xl p-8 rounded-3xl mx-20">
+      <div className="mx-20">
         <TicketsOverview/>
       </div>
     </div>

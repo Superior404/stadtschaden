@@ -16,14 +16,11 @@ import PersonalLogin from "./components/screens/PersonalLogin";
 import StaffTicketOverview from "./staffSpecific/Screens/StaffTicketOverview";
 import StaffNav from "./staffSpecific/Designs/StaffNav";
 import StaffSingelTicket from "./staffSpecific/Screens/StaffSingelTicket"
-import SingleTicketPage from "./staffSpecific/Screens/singleTicketTest";
 import TicketsPage from "./staffSpecific/Screens/test";
+import AuthReroute from "./staffSpecific/Designs/AuthReroute";
 
-function isSessionCookieValid() {
-  //todo query api if valid
 
-  return true; //!(document.cookie.indexOf('session_cookie=') == -1);
-}
+
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -51,32 +48,29 @@ const router = createBrowserRouter(
       {/* private part for staff */}
       <Route
         path="staff"
-        element={
-          <>
-            <StaffNav/>
-            {isSessionCookieValid() ? ("") : (<Navigate to="/login" />)}{" "}
-          </>
-        }
+        element={<AuthReroute />}
       >
-        <Route path="" element={<Navigate to="home" />} />
-        <Route
-          path="home"
-          element={<StaffTicketOverview/>}
-        />
-        <Route 
-          path="/staff/ticket/:ticketID" 
+        <Route path="" element={<StaffNav />}>
+          <Route path="" element={<Navigate to="home" />} />
+          <Route
+            path="home"
+            element={<StaffTicketOverview />}
+          />
+          <Route
+            path="/staff/ticket/:ticketID"
 
-          //element={<SingleTicketPage/>}
-          element={<StaffSingelTicket/>}
-        />
+            //element={<SingleTicketPage/>}
+            element={<StaffSingelTicket />}
+          />
 
-        <Route  
-          path="test"
-          element={<TicketsPage/>}
-        />
+          <Route
+            path="test"
+            element={<TicketsPage />}
+          />
 
-        {/* error page  */}
-        <Route path="*" element={<NotFoundPage />} />
+          {/* error page  */}
+          <Route path="*" element={<NotFoundPage />} />
+        </Route>
       </Route>
     </Route>,
   ),
