@@ -76,5 +76,32 @@ namespace API.Controllers
 
             return Ok("Ticket data saved sucessfully");
         }
+
+        [HttpGet("Image/{ticketId}")]
+        public async Task<ActionResult> GetImage(int ticketId)
+        {
+            // Fetch FilePath
+            var ticket = await _context.Tickets.FindAsync(ticketId);
+            var filePath = ticket.FilePath ?? throw new Exception("filePath not found");
+
+            // Get file extension out of path
+            var fileExtensionIndex = filePath.LastIndexOf('.');
+            var fileExtension = filePath[(fileExtensionIndex + 1)..];
+
+            // Image Directory path
+            string directoryPath = Path.Combine(Directory.GetCurrentDirectory(), ImageDirectory);
+            string imagePath = Path.Combine(directoryPath, filePath);
+
+            if (System.IO.File.Exists(imagePath))
+            {
+                // Return the image file as a FileStreamResult
+                return PhysicalFile(imagePath, $"image/{fileExtension}");
+            }
+            else
+            {
+                return NotFound(); // Image not found
+            }
+        }
+
     }
 }
