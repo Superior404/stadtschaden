@@ -1,12 +1,16 @@
 import useToken from '../getToken';
 import { Navigate, Outlet } from 'react-router-dom';
 
+
+
 const AuthReroute = () => {
-    const { token } = useToken();
+    const { token, checkToken } = useToken();
+
+    checkToken();
 
     return (
         <>
-            {token == null ? <Navigate to="/login"/>:  <Outlet/>}  
+            {token === null ? <Navigate to="/login"/>:  <Outlet/>}  
         </>
     )
 }

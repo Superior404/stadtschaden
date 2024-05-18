@@ -25,9 +25,26 @@ const useToken = () => {
         sessionStorage.removeItem(Storage_token_key);
     }
 
+    const checkToken = async () => {
+        if (token === null) {
+            return 
+        } 
+        const response = await fetch('http://localhost:5020/api/Account/TestToken', {
+            method: 'GET',
+            headers: {
+                'accept': 'text/plain',
+                'Authorization': `Bearer ${token}`
+            },
+        });
+        if (!response.ok) {
+            deleteToken();
+        }
+    }
+
     return {
         setToken: saveToken,
         deleteToken: deleteToken,
+        checkToken: checkToken,
         token: token
     }
 }
