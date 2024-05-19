@@ -16,7 +16,7 @@ namespace API.Data
                 };
 
                 // Automatically saves user to database no additional save needed
-                await userManager.CreateAsync(user, "Pa§§w0rd");
+                await userManager.CreateAsync(user, "Pa$$w0rd");
                 await userManager.AddToRoleAsync(user, "Member");
 
                 var admin = new User
@@ -25,7 +25,7 @@ namespace API.Data
                     Email = "admin@test.com"
                 };
 
-                await userManager.CreateAsync(admin, "Pa§§w0rd");
+                await userManager.CreateAsync(admin, "Pa$$w0rd");
                 await userManager.AddToRolesAsync(admin, ["Member", "Admin"]);
             }
 
@@ -40,9 +40,11 @@ namespace API.Data
                     Surname = "Riedmiller",
                     Email = "sebastian.riedmiller@hs-augsburg.de",
                     Phonenumber = "12541512512",
-                    Describtion = "test desc",
-                    Location = "86316",
-                    Catergory = "Damage"
+                    Description = "test desc",
+                    Catergory = "Damage",
+                    PostalCode = "86316",
+                    StreetName = "Teststreet",
+                    City = "Augsburg"
                 },
                 new Ticket
                 {
@@ -50,9 +52,11 @@ namespace API.Data
                     Surname = "test",
                     Email = "test@hs-augsburg.de",
                     Phonenumber = "142412412142",
-                    Describtion = "test2 desc",
-                    Location = "86316",
-                    Catergory = "Damage"
+                    Description = "test2 desc",
+                    Catergory = "Damage",
+                    PostalCode = "86316",
+                    StreetName = "Teststreet",
+                    City = "Augsburg"
                 }
             };
             

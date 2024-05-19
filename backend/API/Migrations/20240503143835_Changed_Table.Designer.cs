@@ -3,6 +3,7 @@ using System;
 using API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    partial class StoreContextModelSnapshot : ModelSnapshot
+    [Migration("20240503143835_Changed_Table")]
+    partial class Changed_Table
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.4");
@@ -26,28 +29,19 @@ namespace API.Migrations
                     b.Property<string>("Catergory")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("City")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("FilePath")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Forename")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Location")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Phonenumber")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("PostalCode")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("StreetName")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Surname")
@@ -150,13 +144,13 @@ namespace API.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "6c39b97a-12bd-45eb-8365-e7bc4f6c6a60",
+                            Id = "33ed2d9a-12bc-4990-b736-9c05486255f5",
                             Name = "Member",
                             NormalizedName = "MEMBER"
                         },
                         new
                         {
-                            Id = "c1ebfe23-9748-4c3b-bd04-d0eefed33b54",
+                            Id = "3d437230-0d8d-4081-b664-602a8bb9cdf7",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
