@@ -11,6 +11,7 @@ const styles = {
   },
 };
 
+// TODO: Animation if user clicks on submit button
 const ContactPage = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -18,9 +19,24 @@ const ContactPage = () => {
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [message, setMessage] = useState("");
+  const [streetName, setStreetName] = useState("");
+  const [postalCode, setPostalCode] = useState("");
+  const [city, setCity] = useState("");
   const [imageUri, setImageUri] = useState<string>("");
-
+  const [formErrors, setFormErrors] = useState({
+    firstName: "",
+    lastName: "",
+    category: "",
+    email: "",
+    phoneNumber: "",
+    message: "",
+    streetName: "",
+    postalCode: "",
+    city: "",
+    imageUri: "",
+  });
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const [formData] = useState<FormData>(new FormData());
 
   const handleFileButtonClick = () => {
     console.log("File button clicked");
@@ -34,7 +50,8 @@ const ContactPage = () => {
       if (fileType.startsWith("image/")) {
         const imageUrl = URL.createObjectURL(file);
         setImageUri(imageUrl);
-        console.log("Image URL:", imageUrl);
+
+        formData.append("image", file);
       } else {
         // TODO: Remove log and add error message
         console.log("Invalid file type. Please select an image file.");
@@ -42,32 +59,76 @@ const ContactPage = () => {
     }
   };
 
-  const handleFormSubmit = () => {
-    /*
-    const formData = {
-      firstName,
-      lastName,
-      category,
-      email,
-      phoneNumber,
-      message,
-      imageUri,
+  const validateForm = () => {
+    const errors = {
+      firstName: "",
+      lastName: "",
+      category: "",
+      email: "",
+      phoneNumber: "",
+      message: "",
+      streetName: "",
+      postalCode: "",
+      city: "",
+      imageUri: "",
     };
+
+    let isValid = true;
+
+    if (!streetName) {
+      errors.streetName = "Straßenname ist erforderlich";
+      isValid = false;
+    }
+    if (!postalCode) {
+      errors.postalCode = "Postleitzahl ist erforderlich";
+      isValid = false;
+    }
+    if (!city) {
+      errors.city = "Stadt ist erforderlich";
+      isValid = false;
+    }
+    if (!category) {
+      errors.category = "Kategorie ist erforderlich";
+      isValid = false;
+    }
+    if (email && !/\S+@\S+\.\S+/.test(email)) {
+      errors.email = "E-Mail ist ungültig";
+      isValid = false;
+    }
+    if (!message) {
+      errors.message = "Nachricht ist erforderlich";
+      isValid = false;
+    }
+
+    setFormErrors(errors);
+    return isValid;
+  };
+
+  const handleFormSubmit = () => {
+    if (!validateForm()) {
+      console.log("hi");
+      return;
+    }
+
+    formData.append("Forename", firstName);
+    formData.append("Surname", lastName);
+    formData.append("StreetName", streetName);
+    formData.append("Postalcode", postalCode);
+    formData.append("City", city);
+    formData.append("Phonenumber", phoneNumber);
+    formData.append("Description", message);
+    formData.append("Category", category);
 
     fetch("http://localhost:5020/api/Tickets", {
       method: "POST",
-      mode: "no-cors", 
-      credentials: "include", 
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-      },
+      body: formData,
     })
       .then((response) => {
         console.log("Response:", response);
       })
       .catch((error) => {
         console.error("Error:", error);
-      });*/
+      });
   };
 
   return (
@@ -92,10 +153,9 @@ const ContactPage = () => {
 
       <div className="flex justify-center items-center mt-16">
         <button
-          className="mr-4 h-[27.5rem] w-[20.25rem] flex justify-center items-center rounded-xl border-2 border-dashed border-black bg-zinc-500 bg-opacity-25"
+          className="mr-4 h-[34.9rem] w-[23.25rem] flex justify-center items-center rounded-xl border-2 border-dashed border-black bg-zinc-500 bg-opacity-25"
           onClick={handleFileButtonClick}
         >
-          {" "}
           {imageUri ? (
             <img
               src={imageUri}
@@ -104,7 +164,7 @@ const ContactPage = () => {
             />
           ) : (
             <p className="w-[10rem] font-montserrat text-black">
-              Datei hier ablegen oder klicken, um zu durchsuchen.
+              Datei hier ablegen oder klicken, um zu durchsuchen. *
             </p>
           )}
           <input
@@ -122,6 +182,7 @@ const ContactPage = () => {
               type={"text"}
               value={firstName}
               onChange={(event) => setFirstName(event.target.value)}
+              error={formErrors.firstName}
             />
 
             <FormInput
@@ -129,8 +190,35 @@ const ContactPage = () => {
               type="text"
               value={lastName}
               onChange={(event) => setLastName(event.target.value)}
+              error={formErrors.lastName}
             />
           </div>
+
+          <div className="flex">
+            <FormInput
+              placeholder={"Straße *"}
+              type="text"
+              value={streetName}
+              onChange={(event) => setStreetName(event.target.value)}
+              error={formErrors.streetName}
+            />
+
+            <FormInput
+              placeholder={"Postleitzahl *"}
+              type="numeric"
+              value={postalCode}
+              onChange={(event) => setPostalCode(event.target.value)}
+              error={formErrors.postalCode}
+            />
+          </div>
+
+          <FormInput
+            placeholder={"Stadt *"}
+            type="text"
+            value={city}
+            onChange={(event) => setCity(event.target.value)}
+            error={formErrors.city}
+          />
 
           <SelectButton
             options={streetDamageCategories.map(
@@ -138,6 +226,7 @@ const ContactPage = () => {
             )}
             value={category}
             onChange={(event) => setCategory(event.target.value)}
+            error={formErrors.category}
           />
 
           <FormInput
@@ -145,7 +234,7 @@ const ContactPage = () => {
             type="email"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
-            required
+            error={formErrors.email}
           />
 
           <FormInput
@@ -153,14 +242,16 @@ const ContactPage = () => {
             type="text"
             value={phoneNumber}
             onChange={(event) => setPhoneNumber(event.target.value)}
+            error={formErrors.phoneNumber}
           />
 
           <FormInput
-            placeholder={"Nachricht"}
+            placeholder={"Nachricht *"}
             type={"textarea"}
             value={message}
             onChange={(event) => setMessage(event.target.value)}
             textArea
+            error={formErrors.message}
           />
 
           <ActionButton title={"Absenden"} onClick={handleFormSubmit} />

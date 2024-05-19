@@ -1,11 +1,8 @@
-import React from "react";
-
 const InstructionPage = () => {
   const styles = {
     defaultTextContainer: {
-      marginLeft: "175px",
       gap: "8px",
-      fontSize: "1.4rem",
+      fontSize: "1.3rem",
     },
     // Make a constant file for these primary color for consistency in react components
     importantWord: {
@@ -15,8 +12,8 @@ const InstructionPage = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-start mt-20 gap-8 text-black font-palanquin">
-      <p className="text-bold self-center lg:text-3xl text-2xl">
+    <div className="flex flex-col justify-center items-start mt-20 ml-20 mr-20 gap-6 text-black font-palanquin">
+      <p className="text-bold self-center lg:text-3xl text-2xl mb-12">
         <span style={styles.importantWord}>Anleitung</span> zum Ausfüllen des
         Kontaktformulars auf unserer Website
       </p>
