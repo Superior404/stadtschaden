@@ -72,9 +72,9 @@ const ContactPage = () => {
       city: "",
       imageUri: "",
     };
-  
+
     let isValid = true;
-  
+
     if (!streetName) {
       errors.streetName = "Straßenname ist erforderlich";
       isValid = false;
@@ -99,14 +99,12 @@ const ContactPage = () => {
       errors.message = "Nachricht ist erforderlich";
       isValid = false;
     }
-  
+
     setFormErrors(errors);
     return isValid;
   };
-  
 
   const handleFormSubmit = () => {
-    
     if (!validateForm()) {
       console.log("hi");
       return;
