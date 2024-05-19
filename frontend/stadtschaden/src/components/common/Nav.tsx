@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { navLinks } from "../../constants/NavLinks";
+import { useNavigate } from "react-router-dom";
 import stadtschadenLogo from "../../assets/images/stadtschaden-logo.png";
 import { Outlet, Link, NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,15 +8,31 @@ import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 const Nav = () => {
   const [showNav, setShowNav] = useState(false);
+  const navigate = useNavigate();
 
   const toggleNav = () => {
     setShowNav(!showNav);
   };
 
-  // TODO: Alessio: add new Page for Smartphone Navview
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+      setShowNav(false);
+    }
+  };
+
+  const handleNavToSection = (sectionId: string) => {
+    navigate("/");
+    setTimeout(() => {
+      scrollToSection(sectionId);
+    }, 800);
+  };
+
+  // TODO: add new Page for Smartphone Naview
   return (
     <>
-      <header className="flex bg-white h-20">
+      <header className="flex bg-white h-20 sticky">
         <Link to="">
           <img
             src={stadtschadenLogo}
@@ -39,16 +56,26 @@ const Nav = () => {
         >
           {navLinks.map((link) => (
             <li key={link.label} className="flex justify-end mr-6">
-              <NavLink
-                className={({ isActive }) =>
-                  "font-palanquin font-bold text-sm 2xl:text-xl xl:text-md justify-center items-center " +
-                  (isActive ? "text-primary" : "text-black")
-                }
-                to={link.to}
-                onClick={() => setShowNav(false)}
-              >
-                {link.label}
-              </NavLink>
+              {link.label === "Über uns" || link.label === "Neuigkeiten" ? (
+                <a
+                  className="font-palanquin font-bold text-sm 2xl:text-xl xl:text-md justify-center items-center text-black"
+                  href={`#${link.to}`}
+                  onClick={() => handleNavToSection(link.to)}
+                >
+                  {link.label}
+                </a>
+              ) : (
+                <NavLink
+                  className={({ isActive }) =>
+                    "font-palanquin font-bold text-sm 2xl:text-xl xl:text-md justify-center items-center " +
+                    (isActive ? "text-primary" : "text-black")
+                  }
+                  to={link.to}
+                  onClick={() => setShowNav(false)}
+                >
+                  {link.label}
+                </NavLink>
+              )}
             </li>
           ))}
         </ul>
