@@ -43,9 +43,9 @@ const Nav = () => {
         <div className="lg:hidden flex justify-end mr-8 mb-2">
           <button onClick={toggleNav}>
             {showNav ? (
-              <FontAwesomeIcon icon={faTimes} className="text-2xl text-black" />
+              <FontAwesomeIcon icon={faTimes} className="text-2xl text-white" />
             ) : (
-              <FontAwesomeIcon icon={faBars} className="text-2xl text-black" />
+              <FontAwesomeIcon icon={faBars} className="text-2xl text-white" />
             )}
           </button>
         </div>

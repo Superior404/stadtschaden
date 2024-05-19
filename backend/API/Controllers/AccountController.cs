@@ -83,5 +83,12 @@ namespace API.Controllers
             };
         }
 
+        [Authorize]
+        [HttpGet("TestToken")]
+        public async Task<ActionResult> TestToken()
+        {
+            return StatusCode(200);
+        }
+
     }
 }

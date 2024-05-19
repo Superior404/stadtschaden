@@ -4,7 +4,6 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
   Navigate,
-  Outlet,
   Route,
   RouterProvider,
 } from "react-router-dom";
@@ -14,12 +13,9 @@ import NewsPage from "./components/sections/NewsSection";
 import AboutUsPage from "./components/sections/AboutUsSection";
 import NotFoundPage from "./components/screens/NotFoundPage";
 import PersonalLogin from "./components/screens/PersonalLogin";
-
-function isSessionCookieValid() {
-  //todo query api if valid
-
-  return false; //!(document.cookie.indexOf('session_cookie=') == -1);
-}
+import StaffTicketOverview from "./staffSpecific/Screens/StaffTicketOverview";
+import StaffNav from "./staffSpecific/Designs/StaffNav";
+import AuthReroute from "./staffSpecific/Designs/AuthReroute";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -39,7 +35,7 @@ const router = createBrowserRouter(
         {/* TODO: Sowas bitte nicht in code welcher bewertet wird :) */}
         <Route
           path="altzheimer"
-          element={<h1 className="text-white"> selber Schuld </h1>}
+          element={<h1 className="text-balck"> selber Schuld </h1>}
         />
 
         {/* error page  */}
@@ -47,28 +43,19 @@ const router = createBrowserRouter(
       </Route>
 
       {/* private part for staff */}
-      <Route
-        path="staff"
-        element={
-          <>
-            {" "}
-            <Outlet /> {isSessionCookieValid() ? (
-              ""
-            ) : (
-              <Navigate to="/login" />
-            )}{" "}
-          </>
-        }
-      >
-        <Route path="" element={<Navigate to="home" />} />
-        <Route
-          path="home"
-          element={<h1 className="text-white">staff home page </h1>}
-        />
-        <Route
-          path="Ticket"
-          element={<h1 className="text-white">Page to work on a Ticket </h1>}
-        />
+      <Route path="staff" element={<AuthReroute />}>
+        <Route path="" element={<StaffNav />}>
+          <Route path="" element={<Navigate to="home" />} />
+          <Route path="home" element={<StaffTicketOverview />} />
+          <Route
+            path="/staff/ticket/:ticketID"
+            //element={<SingleTicketPage/>}
+            element={<></>}
+          />
+
+          {/* error page  */}
+          <Route path="*" element={<NotFoundPage />} />
+        </Route>
       </Route>
     </Route>,
   ),

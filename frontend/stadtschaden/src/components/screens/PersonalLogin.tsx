@@ -1,51 +1,88 @@
-import React from "react";
+import { ChangeEvent, FormEvent } from "react";
 import { useState } from "react"; // Import React and useState hook
 // import FormInput from '../common/FormInput';
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import useToken from "../../staffSpecific/getToken";
 
 const PersonalLogin = () => {
   const [email, setEmail] = useState(""); // State variable to store email input value
   const [password, setPassword] = useState(""); // State variable to store password input value
+  const [showError, setShowError] = useState(false);
+  const navigate = useNavigate();
+  const { setToken } = useToken();
 
   // Event handler to update email state when the input changes
-  const handleEmailChange = (e) => {
+  const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
 
   // Event handler to update password state when the input changes
-  const handlePasswordChange = (e) => {
+  const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
-
-  // Event handler for form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Here you can add your login logic
-    console.log("Email:", email);
-    console.log("Password:", password);
-    // For a real application, you would typically send this data to a backend for authentication
+
+    const response = await fetch("http://localhost:5020/api/Account/login", {
+      method: "POST",
+      headers: {
+        accept: "text/plain",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: email,
+        password: password,
+      }),
+    });
+
+    if (!response.ok) {
+      if (response.status === 401) {
+        loginfailed();
+        console.log("login failed: Unauthorized: Invalid username or password");
+      } else {
+        console.log(`login failed: Error: ${response.statusText}`);
+      }
+    } else {
+      const data = await response.json();
+      setToken(data.token);
+      navigate("/staff/home");
+    }
+  };
+
+  const loginfailed = () => {
+    setShowError(true);
+    setPassword("");
   };
 
   return (
-    <div className="min-h-screen w-full flex justify-center items-center ">
+    <div className="py-20 w-full flex justify-center items-center bg-lightgray ">
       {/* Form element */}
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col"
-        style={{ width: "600px" }}
+        className="flex flex-col bg-midlightgray shadow-2xl p-20 rounded-3xl"
+        style={{ width: "800px" }}
       >
+        <h1 className="text-black block font-primary text-center text-4xl mb-8">
+          Mitarbeiter Login
+        </h1>
+
+        <h1 className="text-red-600 block font-primary text-center text-2xl h-8">
+          {showError ? "Wrong Email or Password" : ""}
+        </h1>
+
         {/* Email input field */}
-        <div className="mb-5 block w-full ">
+        <div className="mb-16 block w-full ">
           <label
             htmlFor="email"
-            className="text-white block font-museo-moderno text-3xl ml-5"
+            className="text-black block font-primary text-3xl ml-5 "
           >
             Email
           </label>
           <input
-            type="email"
+            // type="email"
             id="email"
-            className="mt-1 block rounded-full px-5 py-2 text-3xl w-full"
+            className="mt-1 block rounded-full px-5 text-2xl h-16 w-full border-2 border-darkgray"
             placeholder="Your email"
             value={email}
             onChange={handleEmailChange}
@@ -53,17 +90,17 @@ const PersonalLogin = () => {
           />
         </div>
         {/* Password input field */}
-        <div className="mb-5 block w-full">
+        <div className="mb-16 block w-full">
           <label
             htmlFor="password"
-            className="text-white block font-museo-moderno text-3xl  ml-5"
+            className="text-black block font-primary text-3xl  ml-5"
           >
             Password
           </label>
           <input
             type="password"
             id="password"
-            className="mt-1 block rounded-full px-5 py-2 text-3xl w-full"
+            className="mt-1 block rounded-full px-5 text-2xl h-16 w-full border-2 border-darkgray"
             placeholder="Your password"
             value={password}
             onChange={handlePasswordChange}
@@ -75,7 +112,7 @@ const PersonalLogin = () => {
           <div className="w-full h-10 flex justify-center items-center mr-5">
             <button
               type="submit"
-              className="bg-primary text-white py-3 px-6 rounded-full hover:border-2 transition-transform duration-300 hover:scale-105 transform scale-100 w-full  font-museo-moderno text-xl transform-origin-center"
+              className="bg-primary text-white py-3 px-6 rounded-full transition-transform duration-300 hover:scale-105 transform scale-100 w-full  font-museo-moderno text-2xl transform-origin-center"
             >
               Login
             </button>
@@ -83,7 +120,7 @@ const PersonalLogin = () => {
           <div className="w-full h-10 flex justify-center items-center ml-5">
             <Link
               to="/altzheimer"
-              className="bg-gray-500 text-white py-3 px-6 rounded-full hover:border-2 transition-transform duration-300 hover:scale-105 transform scale-100 w-full font-museo-moderno text-xl transform-origin-center"
+              className="bg-darkgray text-white text-center py-3 px-6 rounded-full transition-transform duration-300 hover:scale-105 transform scale-100 w-full font-museo-moderno text-2xl transform-origin-center"
             >
               Kennwort vergessen?
             </Link>
