@@ -2,9 +2,8 @@ import { ChangeEvent, FormEvent } from "react";
 import { useState } from "react"; // Import React and useState hook
 // import FormInput from '../common/FormInput';
 import { Link } from "react-router-dom";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import useToken from "../../staffSpecific/getToken";
-
 
 const PersonalLogin = () => {
   const [email, setEmail] = useState(""); // State variable to store email input value
@@ -22,41 +21,39 @@ const PersonalLogin = () => {
   const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
-  ;
-
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const response = await fetch('http://localhost:5020/api/Account/login', {
-      method: 'POST',
+    const response = await fetch("http://localhost:5020/api/Account/login", {
+      method: "POST",
       headers: {
-        'accept': 'text/plain',
-        'Content-Type': 'application/json'
+        accept: "text/plain",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        "username": email,
-        "password": password
-      })
-    })
+        username: email,
+        password: password,
+      }),
+    });
 
     if (!response.ok) {
       if (response.status === 401) {
         loginfailed();
-        console.log('login failed: Unauthorized: Invalid username or password')
+        console.log("login failed: Unauthorized: Invalid username or password");
       } else {
-        console.log(`login failed: Error: ${response.statusText}`)
+        console.log(`login failed: Error: ${response.statusText}`);
       }
     } else {
       const data = await response.json();
       setToken(data.token);
-      navigate('/staff/home');
+      navigate("/staff/home");
     }
   };
 
   const loginfailed = () => {
     setShowError(true);
     setPassword("");
-  }
+  };
 
   return (
     <div className="py-20 w-full flex justify-center items-center bg-lightgray ">
@@ -71,7 +68,7 @@ const PersonalLogin = () => {
         </h1>
 
         <h1 className="text-red-600 block font-primary text-center text-2xl h-8">
-          {showError? "Wrong Email or Password" : ""}
+          {showError ? "Wrong Email or Password" : ""}
         </h1>
 
         {/* Email input field */}

@@ -15,12 +15,7 @@ import NotFoundPage from "./components/screens/NotFoundPage";
 import PersonalLogin from "./components/screens/PersonalLogin";
 import StaffTicketOverview from "./staffSpecific/Screens/StaffTicketOverview";
 import StaffNav from "./staffSpecific/Designs/StaffNav";
-import StaffSingelTicket from "./staffSpecific/Screens/StaffSingelTicket"
-import TicketsPage from "./staffSpecific/Screens/test";
 import AuthReroute from "./staffSpecific/Designs/AuthReroute";
-
-
-
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -46,26 +41,14 @@ const router = createBrowserRouter(
       </Route>
 
       {/* private part for staff */}
-      <Route
-        path="staff"
-        element={<AuthReroute />}
-      >
+      <Route path="staff" element={<AuthReroute />}>
         <Route path="" element={<StaffNav />}>
           <Route path="" element={<Navigate to="home" />} />
-          <Route
-            path="home"
-            element={<StaffTicketOverview />}
-          />
+          <Route path="home" element={<StaffTicketOverview />} />
           <Route
             path="/staff/ticket/:ticketID"
-
             //element={<SingleTicketPage/>}
-            element={<StaffSingelTicket />}
-          />
-
-          <Route
-            path="test"
-            element={<TicketsPage />}
+            element={<></>}
           />
 
           {/* error page  */}

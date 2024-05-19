@@ -2,10 +2,8 @@ import { useState } from "react";
 import Dropdown from "../Components/Dropdown";
 import TextFilter from "../Components/TextFilter";
 import { streetDamageCategories } from "../../constants/StreetDamageCategories";
-import {statusCategories} from "../StatusCategorys";
+import { statusCategories } from "../StatusCategorys";
 import TicketsOverview from "../Components/TicketsOverview";
-
-
 
 const StaffTicketOverview = () => {
   // ===== filter section =====
@@ -14,33 +12,21 @@ const StaffTicketOverview = () => {
   const [bearbeiter, setBearbeiter] = useState("");
   const [straße, setStraße] = useState("");
 
-  const [selectedCategory, setSelectedCategory] = useState('');
+  const streetCat: string[] = ["All"];
+  streetDamageCategories.map((category) => streetCat.push(category.category));
 
-  const handleCategorySelect = (category: string) => {
-    setSelectedCategory(category);
-    // Do something with the selected category, like filtering search results
-  };
-
-  const streetCat: string[] = ['All'];
-  streetDamageCategories.map(
-    (category) => streetCat.push(category.category)
-  )
-
-  const statCat: string[] = ['All'];
-  statusCategories.map(
-    (category) => statCat.push(category.category)
-  )
-
+  const statCat: string[] = ["All"];
+  statusCategories.map((category) => statCat.push(category.category));
 
   // =====
-
 
   return (
     <div>
       <div className=" flex flex-wrap bg-midlightgray shadow-2xl p-3 rounded-3xl mx-20 my-14 justify-between justify-items-center">
         {/* <Dropdown name="Kategorie" hight={10} with={40} /> */}
-        
-        <Dropdown name="Category"
+
+        <Dropdown
+          name="Category"
           hight={12}
           with={"w-52"}
           options={streetCat}
@@ -48,7 +34,8 @@ const StaffTicketOverview = () => {
           onChange={(selected: string) => setCategory(selected)}
         />
 
-        <Dropdown name="status"
+        <Dropdown
+          name="status"
           hight={12}
           with={"w-52"}
           options={statCat}
@@ -73,10 +60,10 @@ const StaffTicketOverview = () => {
         />
       </div>
       <div className="mx-20">
-        <TicketsOverview/>
+        <TicketsOverview />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default StaffTicketOverview
+export default StaffTicketOverview;

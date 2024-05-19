@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom'; // Import useParams for getting URL parameters
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom"; // Import useParams for getting URL parameters
 
 interface Ticket {
   id: number;
@@ -12,7 +12,8 @@ interface Ticket {
   catergory: string;
 }
 
-interface RouteParams { // Define type for URL parameters
+interface RouteParams {
+  // Define type for URL parameters
   ticketID: string;
 }
 
@@ -23,14 +24,16 @@ const SingleTicketPage: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:5020/api/Tickets/${ticketId}`);
+        const response = await fetch(
+          `http://localhost:5020/api/Tickets/${ticketId}`,
+        );
         if (!response.ok) {
           throw new Error(`Error fetching ticket: ${response.statusText}`);
         }
         const data = await response.json();
         setTicket(data);
       } catch (error) {
-        console.error('Error fetching ticket:', error);
+        console.error("Error fetching ticket:", error);
         // Handle errors gracefully, e.g., display an error message to the user
       }
     };

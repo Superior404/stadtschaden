@@ -1,7 +1,6 @@
 import { useState, FC } from "react";
 import { BsChevronCompactDown, BsChevronCompactUp } from "react-icons/bs";
 
-
 interface DropdownProps {
   hight: number;
   with: string;
@@ -12,7 +11,6 @@ interface DropdownProps {
 }
 
 const Dropdown: FC<DropdownProps> = (props) => {
-
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -25,43 +23,45 @@ const Dropdown: FC<DropdownProps> = (props) => {
   };
 
   return (
-    <div className={`m-2 relative inline-block text-left  ${props.with} h-${props.hight}`}>
-      <div className={`absolute rounded-3xl  bg-darkgray bg-opacity-95 ${isOpen && 'z-50 shadow-2xl'} `}>
+    <div
+      className={`m-2 relative inline-block text-left  ${props.with} h-${props.hight}`}
+    >
+      <div
+        className={`absolute rounded-3xl  bg-darkgray bg-opacity-95 ${isOpen && "z-50 shadow-2xl"} `}
+      >
         <button
           className={`justify-center px-4 py-2 bg-darkgray rounded-3xl  text-sm  ${props.with} h-${props.hight} `}
           onClick={toggleMenu}
         >
           <div className={`flex`}>
-            <div className=" text-white font-primary pr-2 ">
-              {props.name}:
-            </div>
+            <div className=" text-white font-primary pr-2 ">{props.name}:</div>
             <div className=" w-full text-left  text-midlightgray  font-primary pr-2 truncate">
               {props.value}
             </div>
             <div className=" w-10  pt-1">
-              {isOpen ? <BsChevronCompactUp className="text-white " /> : <BsChevronCompactDown className="text-white " />}
+              {isOpen ? (
+                <BsChevronCompactUp className="text-white " />
+              ) : (
+                <BsChevronCompactDown className="text-white " />
+              )}
             </div>
           </div>
-
         </button>
-        {
-          isOpen && (
-            props.options.map((option) => (
-              <div className="" role="none">
-                <button
-                  className="block px-4 py-3 text-sm text-white rounded-3xl hover:bg-darkgrayHighlight hover:bg-opacity-50 w-full text-left"
-                  role="menuitem"
-                  onClick={() => SelectItem(option)}
-                >
-                  {option}
-                </button>
-              </div>
-            ))
-          )
-        }
-      </div >
-    </div >
+        {isOpen &&
+          props.options.map((option) => (
+            <div className="" role="none">
+              <button
+                className="block px-4 py-3 text-sm text-white rounded-3xl hover:bg-darkgrayHighlight hover:bg-opacity-50 w-full text-left"
+                role="menuitem"
+                onClick={() => SelectItem(option)}
+              >
+                {option}
+              </button>
+            </div>
+          ))}
+      </div>
+    </div>
   );
-}
+};
 
-export default Dropdown
+export default Dropdown;
