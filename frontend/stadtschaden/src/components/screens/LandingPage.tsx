@@ -62,6 +62,7 @@ const LandingPage = () => {
         <NewsSection />
       </section>
 
+      {/* TODO: create an own component */}
       <footer className="mt-24">
         <p>FOOTER</p>
       </footer>
