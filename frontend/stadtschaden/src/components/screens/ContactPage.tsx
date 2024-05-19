@@ -11,6 +11,7 @@ const styles = {
   },
 };
 
+// TODO: Animation if user clicks on submit button
 const ContactPage = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -71,38 +72,43 @@ const ContactPage = () => {
       city: "",
       imageUri: "",
     };
-
+  
+    let isValid = true;
+  
     if (!streetName) {
       errors.streetName = "Straßenname ist erforderlich";
-      return false;
+      isValid = false;
     }
     if (!postalCode) {
       errors.postalCode = "Postleitzahl ist erforderlich";
-      return false;
+      isValid = false;
     }
     if (!city) {
       errors.city = "Stadt ist erforderlich";
-      return false;
+      isValid = false;
     }
     if (!category) {
       errors.category = "Kategorie ist erforderlich";
-      return false;
+      isValid = false;
     }
     if (email && !/\S+@\S+\.\S+/.test(email)) {
       errors.email = "E-Mail ist ungültig";
-      return false;
+      isValid = false;
     }
     if (!message) {
       errors.message = "Nachricht ist erforderlich";
-      return false;
+      isValid = false;
     }
-
+  
     setFormErrors(errors);
-    return true;
+    return isValid;
   };
+  
 
   const handleFormSubmit = () => {
+    
     if (!validateForm()) {
+      console.log("hi");
       return;
     }
 
@@ -152,7 +158,6 @@ const ContactPage = () => {
           className="mr-4 h-[34.9rem] w-[23.25rem] flex justify-center items-center rounded-xl border-2 border-dashed border-black bg-zinc-500 bg-opacity-25"
           onClick={handleFileButtonClick}
         >
-          {" "}
           {imageUri ? (
             <img
               src={imageUri}
