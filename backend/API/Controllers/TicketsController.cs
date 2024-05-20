@@ -69,7 +69,7 @@ namespace API.Controllers
             }
 
             // FilePath to image
-            ticketData.FilePath = uniqueFileName;
+            ticketData.File_Path = uniqueFileName;
 
             // Process JSON data as needed
             _context.Tickets.Add(ticketData);
@@ -85,7 +85,7 @@ namespace API.Controllers
         {
             // Fetch FilePath
             var ticket = await _context.Tickets.FindAsync(ticketId);
-            var filePath = ticket.FilePath ?? throw new Exception("filePath not found");
+            var filePath = ticket.File_Path ?? throw new Exception("filePath not found");
 
             // Get file extension out of path
             var fileExtensionIndex = filePath.LastIndexOf('.');

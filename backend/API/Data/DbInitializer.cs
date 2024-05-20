@@ -7,7 +7,7 @@ namespace API.Data
     {
         public static async Task Initialize(StoreContext context, UserManager<User> userManager)
         {
-            if(!userManager.Users.Any())
+            if (!userManager.Users.Any())
             {
                 var user = new User
                 {
@@ -39,7 +39,7 @@ namespace API.Data
             }
 
             // so products aren't reseeded if there are already in database
-            if(context.Tickets.Any()) return;
+            if (context.Tickets.Any()) return;
 
             var tickets = new List<Ticket>
             {
@@ -47,28 +47,28 @@ namespace API.Data
                 {
                     Forename = "Sebastian",
                     Surname = "Riedmiller",
-                    Email = "sebastian.riedmiller@hs-augsburg.de",
-                    Phonenumber = "12541512512",
-                    Description = "test desc",
-                    Catergory = "Damage",
-                    PostalCode = "86316",
-                    StreetName = "Teststreet",
+                    Email = "sebastian.riedmiller@test.com",
+                    Phone_Number = "12541512512",
+                    Description = "Schlagloch",
+                    Category = "Damage",
+                    Postal_code = "86154",
+                    Street_name = "Teststraße",
                     City = "Augsburg"
                 },
                 new Ticket
                 {
-                    Forename = "test",
-                    Surname = "test",
-                    Email = "test@hs-augsburg.de",
-                    Phonenumber = "142412412142",
-                    Description = "test2 desc",
-                    Catergory = "Damage",
-                    PostalCode = "86316",
-                    StreetName = "Teststreet",
-                    City = "Augsburg"
+                    Forename = "Peter",
+                    Surname = "Lustig",
+                    Email = "peterlustig@test.de",
+                    Phone_Number = "142412412142",
+                    Description = "Aufwölbung",
+                    Category = "Damage",
+                    Postal_code = "86316",
+                    Street_name = "zufallstraße",
+                    City = "Friedberg"
                 }
             };
-            
+
             // Insert tickets into database
             context.Tickets.AddRange(tickets);
 

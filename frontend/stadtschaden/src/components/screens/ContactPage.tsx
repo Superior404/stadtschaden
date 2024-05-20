@@ -112,13 +112,15 @@ const ContactPage = () => {
 
     formData.append("Forename", firstName);
     formData.append("Surname", lastName);
-    formData.append("StreetName", streetName);
-    formData.append("Postalcode", postalCode);
-    formData.append("City", city);
-    formData.append("Phonenumber", phoneNumber);
+    formData.append("Email", email);
+    formData.append("Phone_Number", phoneNumber);
     formData.append("Description", message);
     formData.append("Category", category);
-
+    formData.append("Street_name", streetName);
+    formData.append("Postal_code", postalCode);
+    formData.append("City", city);
+    
+    
     fetch("http://localhost:5020/api/Tickets", {
       method: "POST",
       body: formData,

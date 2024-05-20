@@ -85,7 +85,7 @@ namespace API.Controllers
 
         [Authorize]
         [HttpGet("TestToken")]
-        public async Task<ActionResult> TestToken()
+        public ActionResult TestToken()
         {
             return StatusCode(200);
         }

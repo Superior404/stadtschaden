@@ -8,12 +8,12 @@ namespace API.Entities
         public string Forename { get; set; }
         public string Surname { get; set; }
         public string Email { get; set; }
-        public string Phonenumber { get; set; }
+        public string Phone_Number { get; set; }
         public string Description { get; set; }
-        public string Catergory { get; set; }
-        public string StreetName { get; set; }
-        public string PostalCode { get; set; }
+        public string Category { get; set; }
+        public string Street_name { get; set; }
+        public string Postal_code { get; set; }
         public string City { get; set; }
-        public string FilePath { get; set; }
+        public string File_Path { get; set; }
     }
 }
