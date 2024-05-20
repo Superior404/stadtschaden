@@ -119,8 +119,7 @@ const ContactPage = () => {
     formData.append("Street_name", streetName);
     formData.append("Postal_code", postalCode);
     formData.append("City", city);
-    
-    
+
     fetch("http://localhost:5020/api/Tickets", {
       method: "POST",
       body: formData,
