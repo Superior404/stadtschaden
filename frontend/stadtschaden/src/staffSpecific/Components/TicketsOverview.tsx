@@ -38,7 +38,7 @@ const TicketsOverview = () => {
     };
 
     fetchData();
-  }, []); // Empty dependency array to fetch data only once on component mount
+  });
 
   return (
     <div className="relative overflow-x-auto shadow-2xl rounded-3xl  pb-2 bg-midlightgray ">
