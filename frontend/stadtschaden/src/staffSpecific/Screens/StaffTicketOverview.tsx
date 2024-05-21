@@ -20,6 +20,8 @@ const StaffTicketOverview = () => {
 
   // =====
 
+  console.log("do you reload too")
+
   return (
     <div>
       <div className=" flex flex-wrap bg-midlightgray shadow-2xl p-3 rounded-3xl mx-20 my-14 justify-between justify-items-center">

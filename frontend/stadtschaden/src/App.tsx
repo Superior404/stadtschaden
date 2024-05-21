@@ -21,13 +21,10 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/">
       {/* public facing website */}
-      <Route path="" element={<Nav />}>
-        <Route path="" element={<LandingPage />} />
+      <Route element={<Nav />}>
+        <Route index element={<LandingPage />} />
         <Route path="instruction" element={<InstructionPage />} />
         <Route path="contact" element={<ContactPage />} />
-        <Route path="news" element={<NewsPage />} />
-        <Route path="about-us" element={<AboutUsPage />} />
-        <Route path="test" element={<PersonalLogin />} />
 
         {/* login page is actualy still public */}
         <Route path="login" element={<PersonalLogin />} />
@@ -44,11 +41,11 @@ const router = createBrowserRouter(
 
       {/* private part for staff */}
       <Route path="staff" element={<AuthReroute />}>
-        <Route path="" element={<StaffNav />}>
-          <Route path="" element={<Navigate to="home" />} />
+        <Route element={<StaffNav />}>
+          <Route index element={<Navigate to="home" />} />
           <Route path="home" element={<StaffTicketOverview />} />
           <Route
-            path="/staff/ticket/:ticketID"
+            path="ticket/:ticketID"
             //element={<SingleTicketPage/>}
             element={<></>}
           />

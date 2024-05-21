@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import useToken from "../getToken";
+import { Console } from "console";
 
 interface Ticket {
   // eslint-disable-next-line
@@ -38,7 +39,7 @@ const TicketsOverview = () => {
     };
 
     fetchData();
-  });
+  }, []);
 
   return (
     <div className="relative overflow-x-auto shadow-2xl rounded-3xl  pb-2 bg-midlightgray ">
