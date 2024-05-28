@@ -25,7 +25,7 @@ const ContactPage: React.FC = () => {
     city: "",
     imageUri: "",
   });
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [imageUri, setImageUri] = useState<string>("");
 
@@ -39,13 +39,11 @@ const ContactPage: React.FC = () => {
       const fileType = file.type;
       if (fileType.startsWith("image/")) {
         const imageUrl = URL.createObjectURL(file);
-        setImageUri(imageUrl);
+        formData.set("imageUri", imageUrl);
+        formData.set("image", file);
 
-        formData.append("image", file);
-        setFormErrors((prev) => ({
-          ...prev,
-          imageUri: "",
-        }));
+        setImageUri(imageUrl);
+        clearError("imageUri");
       } else {
         setImageUri("");
         setFormErrors((prev) => ({
@@ -76,9 +74,13 @@ const ContactPage: React.FC = () => {
       category: "Kategorie",
       message: "Nachricht",
       imageUri: "Bild",
+      phoneNumber: "Telefonnummer",
     };
 
     requiredFields.forEach((field) => {
+      if (field === "imageUri") {
+        console.log("imageUri", imageUri, !formData.get(field));
+      }
       if (!formData.get(field)) {
         errors[field] = `${fieldNames[field]} ist erforderlich`;
         isValid = false;
@@ -107,15 +109,18 @@ const ContactPage: React.FC = () => {
       return;
     }
 
-    formData.append("Forename", firstName);
-    formData.append("Surname", lastName);
-    formData.append("Email", email);
-    formData.append("Phone_Number", phoneNumber);
-    formData.append("Description", message);
-    formData.append("Category", category);
-    formData.append("Street_name", streetName);
-    formData.append("Postal_code", postalCode);
-    formData.append("City", city);
+    {
+      /* Backend is sleeping, so we need this (not) wonderful type of code */
+    }
+    formData.append("Forename", formData.get("firstName") as string);
+    formData.append("Surname", formData.get("lastName") as string);
+    formData.append("Email", formData.get("email") as string);
+    formData.append("Phone_Number", formData.get("phoneNumber") as string);
+    formData.append("Description", formData.get("message") as string);
+    formData.append("Category", formData.get("category") as string);
+    formData.append("Street_name", formData.get("streetName") as string);
+    formData.append("Postal_code", formData.get("postalCode") as string);
+    formData.append("City", formData.get("city") as string);
 
     fetch("http://localhost:5020/api/Tickets", {
       method: "POST",
@@ -145,16 +150,6 @@ const ContactPage: React.FC = () => {
       [field]: "",
     }));
   };
-
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [category, setCategory] = useState("");
-  const [email, setEmail] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [message, setMessage] = useState("");
-  const [streetName, setStreetName] = useState("");
-  const [postalCode, setPostalCode] = useState("");
-  const [city, setCity] = useState("");
 
   if (isSubmitted) {
     return (
@@ -207,7 +202,9 @@ const ContactPage: React.FC = () => {
       {/* Form */}
       <div className="flex justify-center items-center mt-4">
         <button
-          className="mr-4 h-[34.9rem] w-[23.25rem] flex justify-center items-center rounded-xl border-2 border-dashed border-black bg-zinc-500 bg-opacity-25"
+          className={`mr-4 h-[34.9rem] w-[23.25rem] flex justify-center items-center rounded-xl border-2 border-dashed ${
+            formErrors.imageUri ? "border-red-500" : "border-black"
+          } bg-zinc-500 bg-opacity-25`}
           onClick={handleFileButtonClick}
         >
           {imageUri ? (
@@ -234,9 +231,9 @@ const ContactPage: React.FC = () => {
             <FormInput
               placeholder={"Vorname"}
               type={"text"}
-              value={firstName}
+              value={formData.get("firstName") as string}
               onChange={(event) => {
-                setFirstName(event.target.value);
+                formData.set("firstName", event.target.value);
                 clearError("firstName");
               }}
               error={formErrors.firstName}
@@ -245,9 +242,9 @@ const ContactPage: React.FC = () => {
             <FormInput
               placeholder={"Nachname"}
               type="text"
-              value={lastName}
+              value={formData.get("lastName") as string}
               onChange={(event) => {
-                setLastName(event.target.value);
+                formData.set("lastName", event.target.value);
                 clearError("lastName");
               }}
               error={formErrors.lastName}
@@ -258,9 +255,9 @@ const ContactPage: React.FC = () => {
             <FormInput
               placeholder={"Straße *"}
               type="text"
-              value={streetName}
+              value={formData.get("streetName") as string}
               onChange={(event) => {
-                setStreetName(event.target.value);
+                formData.set("streetName", event.target.value);
                 clearError("streetName");
               }}
               error={formErrors.streetName}
@@ -269,9 +266,9 @@ const ContactPage: React.FC = () => {
             <FormInput
               placeholder={"Postleitzahl *"}
               type="text"
-              value={postalCode}
+              value={formData.get("postalCode") as string}
               onChange={(event) => {
-                setPostalCode(event.target.value);
+                formData.set("postalCode", event.target.value);
                 clearError("postalCode");
               }}
               error={formErrors.postalCode}
@@ -281,9 +278,9 @@ const ContactPage: React.FC = () => {
           <FormInput
             placeholder={"Stadt *"}
             type="text"
-            value={city}
+            value={formData.get("city") as string}
             onChange={(event) => {
-              setCity(event.target.value);
+              formData.set("city", event.target.value);
               clearError("city");
             }}
             error={formErrors.city}
@@ -293,9 +290,9 @@ const ContactPage: React.FC = () => {
             options={streetDamageCategories.map(
               (category) => category.category,
             )}
-            value={category}
+            value={formData.get("category") as string}
             onChange={(event) => {
-              setCategory(event.target.value);
+              formData.set("category", event.target.value);
               clearError("category");
             }}
             error={formErrors.category}
@@ -304,9 +301,9 @@ const ContactPage: React.FC = () => {
           <FormInput
             placeholder={"Email"}
             type="email"
-            value={email}
+            value={formData.get("email") as string}
             onChange={(event) => {
-              setEmail(event.target.value);
+              formData.set("email", event.target.value);
               clearError("email");
             }}
             error={formErrors.email}
@@ -315,9 +312,9 @@ const ContactPage: React.FC = () => {
           <FormInput
             placeholder={"Telefonnummer"}
             type="text"
-            value={phoneNumber}
+            value={formData.get("phoneNumber") as string}
             onChange={(event) => {
-              setPhoneNumber(event.target.value);
+              formData.set("phoneNumber", event.target.value);
               clearError("phoneNumber");
             }}
             error={formErrors.phoneNumber}
@@ -326,9 +323,9 @@ const ContactPage: React.FC = () => {
           <FormInput
             placeholder={"Nachricht *"}
             type={"textarea"}
-            value={message}
+            value={formData.get("message") as string}
             onChange={(event) => {
-              setMessage(event.target.value);
+              formData.set("message", event.target.value);
               clearError("message");
             }}
             textArea
