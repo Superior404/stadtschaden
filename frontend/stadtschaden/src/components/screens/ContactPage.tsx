@@ -11,19 +11,9 @@ const styles = {
   },
 };
 
-// TODO: Animation if user clicks on submit button
-const ContactPage = () => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [category, setCategory] = useState("");
-  const [email, setEmail] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [message, setMessage] = useState("");
-  const [streetName, setStreetName] = useState("");
-  const [postalCode, setPostalCode] = useState("");
-  const [city, setCity] = useState("");
-  const [imageUri, setImageUri] = useState<string>("");
-  const [formErrors, setFormErrors] = useState({
+const ContactPage: React.FC = () => {
+  const [formData, setFormData] = useState<FormData>(new FormData());
+  const [formErrors, setFormErrors] = useState<Record<string, string>>({
     firstName: "",
     lastName: "",
     category: "",
@@ -35,11 +25,11 @@ const ContactPage = () => {
     city: "",
     imageUri: "",
   });
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
-  const [formData] = useState<FormData>(new FormData());
+  const [imageUri, setImageUri] = useState<string>("");
 
   const handleFileButtonClick = () => {
-    console.log("File button clicked");
     fileInputRef.current?.click();
   };
 
@@ -52,61 +42,68 @@ const ContactPage = () => {
         setImageUri(imageUrl);
 
         formData.append("image", file);
+        setFormErrors((prev) => ({
+          ...prev,
+          imageUri: "",
+        }));
       } else {
-        // TODO: Remove log and add error message
-        console.log("Invalid file type. Please select an image file.");
+        setImageUri("");
+        setFormErrors((prev) => ({
+          ...prev,
+          imageUri: "Falscher Dateityp. Bitte wählen Sie ein Bild aus.",
+        }));
       }
     }
   };
 
-  const validateForm = () => {
-    const errors = {
-      firstName: "",
-      lastName: "",
-      category: "",
-      email: "",
-      phoneNumber: "",
-      message: "",
-      streetName: "",
-      postalCode: "",
-      city: "",
-      imageUri: "",
-    };
-
+  const validateForm = (): boolean => {
+    const requiredFields = [
+      "streetName",
+      "postalCode",
+      "city",
+      "category",
+      "message",
+      "imageUri",
+    ];
+    const numberFields = ["postalCode", "phoneNumber"];
+    const errors: Partial<Record<string, string>> = {};
     let isValid = true;
 
-    if (!streetName) {
-      errors.streetName = "Straßenname ist erforderlich";
-      isValid = false;
-    }
-    if (!postalCode) {
-      errors.postalCode = "Postleitzahl ist erforderlich";
-      isValid = false;
-    }
-    if (!city) {
-      errors.city = "Stadt ist erforderlich";
-      isValid = false;
-    }
-    if (!category) {
-      errors.category = "Kategorie ist erforderlich";
-      isValid = false;
-    }
-    if (email && !/\S+@\S+\.\S+/.test(email)) {
-      errors.email = "E-Mail ist ungültig";
-      isValid = false;
-    }
-    if (!message) {
-      errors.message = "Nachricht ist erforderlich";
+    const fieldNames: Record<string, string> = {
+      streetName: "Straße",
+      postalCode: "Postleitzahl",
+      city: "Stadt",
+      category: "Kategorie",
+      message: "Nachricht",
+      imageUri: "Bild",
+    };
+
+    requiredFields.forEach((field) => {
+      if (!formData.get(field)) {
+        errors[field] = `${fieldNames[field]} ist erforderlich`;
+        isValid = false;
+      }
+    });
+
+    numberFields.forEach((field) => {
+      if (formData.get(field) && !/^\d+$/.test(formData.get(field) as string)) {
+        errors[field] = `${fieldNames[field]} muss eine Nummer sein`;
+        isValid = false;
+      }
+    });
+
+    const email = formData.get("email");
+    if (email && !/\S+@\S+\.\S+/.test(email as string)) {
+      errors.email = "Die E-Mail-Adresse ist ungültig";
       isValid = false;
     }
 
-    setFormErrors(errors);
+    setFormErrors(errors as Record<string, string>);
     return isValid;
   };
 
   const handleFormSubmit = () => {
     if (!validateForm()) {
-      console.log("hi");
       return;
     }
 
@@ -125,15 +122,57 @@ const ContactPage = () => {
       body: formData,
     })
       .then((response) => {
-        console.log("Response:", response);
+        if (response.ok) {
+          setIsSubmitted(true);
+        } else {
+          console.error("Failed to submit form");
+        }
       })
       .catch((error) => {
         console.error("Error:", error);
       });
   };
 
+  const handleNewForm = () => {
+    setFormData(new FormData());
+    setImageUri("");
+    setIsSubmitted(false);
+  };
+
+  const clearError = (field: keyof typeof formErrors) => {
+    setFormErrors((prev) => ({
+      ...prev,
+      [field]: "",
+    }));
+  };
+
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [category, setCategory] = useState("");
+  const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [message, setMessage] = useState("");
+  const [streetName, setStreetName] = useState("");
+  const [postalCode, setPostalCode] = useState("");
+  const [city, setCity] = useState("");
+
+  if (isSubmitted) {
+    return (
+      <div className="flex flex-col items-center justify-center h-screen">
+        <h1 className="text-3xl font-bold">Form submitted successfully!</h1>
+        <button
+          className="mt-5 p-2 bg-blue-500 text-white rounded"
+          onClick={handleNewForm}
+        >
+          Submit New Form
+        </button>
+      </div>
+    );
+  }
+
   return (
     <div className="mt-12 mb-12">
+      {/* Main Text */}
       <div className="flex flex-col justify-center items-center font-montserrat font-bold text-4xl">
         <p style={styles.mainText}>
           Senden Sie uns Ihre gefundenen{" "}
@@ -152,7 +191,21 @@ const ContactPage = () => {
         </p>
       </div>
 
-      <div className="flex justify-center items-center mt-16">
+      {/* Error Messages */}
+      <div className="flex justify-center items-center mt-4">
+        {Object.values(formErrors).some((error) => error) && (
+          <div className="text-red-500 max-w-[60%] mx-auto">
+            <ul className="flex flex-wrap gap-4">
+              {Object.entries(formErrors).map(
+                ([key, error]) => error && <li key={key}>{error}</li>,
+              )}
+            </ul>
+          </div>
+        )}
+      </div>
+
+      {/* Form */}
+      <div className="flex justify-center items-center mt-4">
         <button
           className="mr-4 h-[34.9rem] w-[23.25rem] flex justify-center items-center rounded-xl border-2 border-dashed border-black bg-zinc-500 bg-opacity-25"
           onClick={handleFileButtonClick}
@@ -182,7 +235,10 @@ const ContactPage = () => {
               placeholder={"Vorname"}
               type={"text"}
               value={firstName}
-              onChange={(event) => setFirstName(event.target.value)}
+              onChange={(event) => {
+                setFirstName(event.target.value);
+                clearError("firstName");
+              }}
               error={formErrors.firstName}
             />
 
@@ -190,7 +246,10 @@ const ContactPage = () => {
               placeholder={"Nachname"}
               type="text"
               value={lastName}
-              onChange={(event) => setLastName(event.target.value)}
+              onChange={(event) => {
+                setLastName(event.target.value);
+                clearError("lastName");
+              }}
               error={formErrors.lastName}
             />
           </div>
@@ -200,15 +259,21 @@ const ContactPage = () => {
               placeholder={"Straße *"}
               type="text"
               value={streetName}
-              onChange={(event) => setStreetName(event.target.value)}
+              onChange={(event) => {
+                setStreetName(event.target.value);
+                clearError("streetName");
+              }}
               error={formErrors.streetName}
             />
 
             <FormInput
               placeholder={"Postleitzahl *"}
-              type="numeric"
+              type="text"
               value={postalCode}
-              onChange={(event) => setPostalCode(event.target.value)}
+              onChange={(event) => {
+                setPostalCode(event.target.value);
+                clearError("postalCode");
+              }}
               error={formErrors.postalCode}
             />
           </div>
@@ -217,7 +282,10 @@ const ContactPage = () => {
             placeholder={"Stadt *"}
             type="text"
             value={city}
-            onChange={(event) => setCity(event.target.value)}
+            onChange={(event) => {
+              setCity(event.target.value);
+              clearError("city");
+            }}
             error={formErrors.city}
           />
 
@@ -226,7 +294,10 @@ const ContactPage = () => {
               (category) => category.category,
             )}
             value={category}
-            onChange={(event) => setCategory(event.target.value)}
+            onChange={(event) => {
+              setCategory(event.target.value);
+              clearError("category");
+            }}
             error={formErrors.category}
           />
 
@@ -234,7 +305,10 @@ const ContactPage = () => {
             placeholder={"Email"}
             type="email"
             value={email}
-            onChange={(event) => setEmail(event.target.value)}
+            onChange={(event) => {
+              setEmail(event.target.value);
+              clearError("email");
+            }}
             error={formErrors.email}
           />
 
@@ -242,7 +316,10 @@ const ContactPage = () => {
             placeholder={"Telefonnummer"}
             type="text"
             value={phoneNumber}
-            onChange={(event) => setPhoneNumber(event.target.value)}
+            onChange={(event) => {
+              setPhoneNumber(event.target.value);
+              clearError("phoneNumber");
+            }}
             error={formErrors.phoneNumber}
           />
 
@@ -250,7 +327,10 @@ const ContactPage = () => {
             placeholder={"Nachricht *"}
             type={"textarea"}
             value={message}
-            onChange={(event) => setMessage(event.target.value)}
+            onChange={(event) => {
+              setMessage(event.target.value);
+              clearError("message");
+            }}
             textArea
             error={formErrors.message}
           />
