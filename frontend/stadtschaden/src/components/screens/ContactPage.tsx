@@ -1,8 +1,9 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import FormInput from "../common/FormInput";
 import ActionButton from "../common/ActionButton";
 import SelectButton from "../common/SelectButton";
 import { streetDamageCategories } from "../../constants/StreetDamageCategories";
+import { validateForm } from "../../utils/services/formVerifcation";
 
 const styles = {
   mainText: {
@@ -12,7 +13,7 @@ const styles = {
 };
 
 const ContactPage: React.FC = () => {
-  const [formData, setFormData] = useState<FormData>(new FormData());
+  const [formData] = useState(new FormData());
   const [formErrors, setFormErrors] = useState<Record<string, string>>({
     firstName: "",
     lastName: "",
@@ -28,6 +29,10 @@ const ContactPage: React.FC = () => {
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [imageUri, setImageUri] = useState<string>("");
+
+  useEffect(() => {
+    setFormErrors({});
+  }, [formData]);
 
   const handleFileButtonClick = () => {
     fileInputRef.current?.click();
@@ -54,58 +59,10 @@ const ContactPage: React.FC = () => {
     }
   };
 
-  const validateForm = (): boolean => {
-    const requiredFields = [
-      "streetName",
-      "postalCode",
-      "city",
-      "category",
-      "message",
-      "imageUri",
-    ];
-    const numberFields = ["postalCode", "phoneNumber"];
-    const errors: Partial<Record<string, string>> = {};
-    let isValid = true;
-
-    const fieldNames: Record<string, string> = {
-      streetName: "Straße",
-      postalCode: "Postleitzahl",
-      city: "Stadt",
-      category: "Kategorie",
-      message: "Nachricht",
-      imageUri: "Bild",
-      phoneNumber: "Telefonnummer",
-    };
-
-    requiredFields.forEach((field) => {
-      if (field === "imageUri") {
-        console.log("imageUri", imageUri, !formData.get(field));
-      }
-      if (!formData.get(field)) {
-        errors[field] = `${fieldNames[field]} ist erforderlich`;
-        isValid = false;
-      }
-    });
-
-    numberFields.forEach((field) => {
-      if (formData.get(field) && !/^\d+$/.test(formData.get(field) as string)) {
-        errors[field] = `${fieldNames[field]} muss eine Nummer sein`;
-        isValid = false;
-      }
-    });
-
-    const email = formData.get("email");
-    if (email && !/\S+@\S+\.\S+/.test(email as string)) {
-      errors.email = "Die E-Mail-Adresse ist ungültig";
-      isValid = false;
-    }
-
-    setFormErrors(errors as Record<string, string>);
-    return isValid;
-  };
-
   const handleFormSubmit = () => {
-    if (!validateForm()) {
+    const errors = validateForm(Object.fromEntries(formData));
+    if (Object.keys(errors).length > 0) {
+      setFormErrors(errors);
       return;
     }
 
@@ -138,32 +95,12 @@ const ContactPage: React.FC = () => {
       });
   };
 
-  const handleNewForm = () => {
-    setFormData(new FormData());
-    setImageUri("");
-    setIsSubmitted(false);
-  };
-
   const clearError = (field: keyof typeof formErrors) => {
     setFormErrors((prev) => ({
       ...prev,
       [field]: "",
     }));
   };
-
-  if (isSubmitted) {
-    return (
-      <div className="flex flex-col items-center justify-center h-screen">
-        <h1 className="text-3xl font-bold">Form submitted successfully!</h1>
-        <button
-          className="mt-5 p-2 bg-blue-500 text-white rounded"
-          onClick={handleNewForm}
-        >
-          Submit New Form
-        </button>
-      </div>
-    );
-  }
 
   return (
     <div className="mt-12 mb-12">
@@ -335,6 +272,15 @@ const ContactPage: React.FC = () => {
           <ActionButton title={"Absenden"} onClick={handleFormSubmit} />
         </div>
       </div>
+
+      {isSubmitted && (
+        <div className="flex flex-col items-center justify-center mt-6">
+          <div className="text-3xl font-bold text-primary">
+            <p>Das Formular wurde erfolgreich versendet!</p>
+            <p>Zum erneut senden die Seite aktualisieren</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
