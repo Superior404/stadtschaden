@@ -10,9 +10,11 @@ interface SelectButtonProps {
 const SelectButton: FC<SelectButtonProps> = (props) => {
   const hasError = !!props.error;
 
+  const sanitizedValue = props.value ?? "";
+
   return (
     <select
-      value={props.value}
+      value={sanitizedValue}
       onChange={props.onChange}
       className={`form-select w-[40.5rem] appearance-none h-12 m-1 bg-zinc-500 bg-opacity-25 font-montserrat rounded-xl placeholder-black text-black pl-3 ${
         hasError

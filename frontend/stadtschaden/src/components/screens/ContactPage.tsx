@@ -35,7 +35,10 @@ const ContactPage: React.FC = () => {
   }, [formData]);
 
   const handleFileButtonClick = () => {
-    fileInputRef.current?.click();
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+      fileInputRef.current.value = "";
+    }
   };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -78,6 +81,7 @@ const ContactPage: React.FC = () => {
     formData.append("Street_name", formData.get("streetName") as string);
     formData.append("Postal_code", formData.get("postalCode") as string);
     formData.append("City", formData.get("city") as string);
+    formData.append("File_Path", formData.get("image") as File);
 
     fetch("http://localhost:5020/api/Tickets", {
       method: "POST",
@@ -151,7 +155,10 @@ const ContactPage: React.FC = () => {
               className="w-full h-full object-cover"
             />
           ) : (
-            <p className="w-[10rem] font-montserrat text-black">
+            <p
+              className="w-[10rem] font-montserrat text-black"
+              data-testid="file-upload"
+            >
               Datei hier ablegen oder klicken, um zu durchsuchen. *
             </p>
           )}

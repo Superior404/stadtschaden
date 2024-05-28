@@ -33,13 +33,15 @@ const FormInput: FC<FormInputProps> = (props) => {
     borderStyle += " border-red-500 border-[2px]";
   }
 
+  const sanitizedValue = props.value ?? "";
+
   return (
     <div>
       {props.textArea ? (
         <textarea
           className={`${borderStyle} pt-3`}
           placeholder={props.error ? props.error : props.placeholder}
-          value={props.value}
+          value={sanitizedValue}
           onChange={props.onChange}
         />
       ) : (
@@ -47,7 +49,7 @@ const FormInput: FC<FormInputProps> = (props) => {
           className={borderStyle}
           type={props.type}
           placeholder={props.error ? props.error : props.placeholder}
-          value={props.value}
+          value={sanitizedValue}
           onChange={props.onChange}
         />
       )}

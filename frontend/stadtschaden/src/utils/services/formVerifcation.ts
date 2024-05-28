@@ -7,8 +7,6 @@ export interface FormErrors {
 }
 
 export const validateForm = (formData: CustomFormData): FormErrors => {
-  console.log("formData", formData);
-
   const requiredFields: Array<keyof CustomFormData> = [
     "streetName",
     "postalCode",
