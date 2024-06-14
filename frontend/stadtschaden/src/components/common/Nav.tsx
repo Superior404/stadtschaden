@@ -29,9 +29,10 @@ const Nav = () => {
     }, 800);
   };
 
+  // TODO: add new Page for Smartphone Naview
   return (
     <>
-      <header className="flex bg-darkgray h-20">
+      <header className="flex bg-darkgray h-20 sticky">
         <Link to="">
           <img
             src={stadtschadenLogo}
@@ -39,46 +40,45 @@ const Nav = () => {
             className="absolute 2xl:w-64 xl:w-56 lg:w-48 w-48 ml-6 lg:ml-16 2xl:ml-24 mt-6"
           />
         </Link>
-        <div className="flex w-full justify-end pr-6">
-          <button onClick={toggleNav} className="lg:hidden">
+        <div className="lg:hidden flex justify-end mr-8 mb-2">
+          <button onClick={toggleNav}>
             {showNav ? (
               <FontAwesomeIcon icon={faTimes} className="text-2xl text-white" />
             ) : (
               <FontAwesomeIcon icon={faBars} className="text-2xl text-white" />
             )}
           </button>
-
-          <ul
-            className={`${
-              showNav ? "flex" : "hidden"
-            } lg:flex-row flex-col flex-1 lg:justify-center lg:items-center 2xl:gap-10 xl:gap-4 gap-1 bg-green-200`}
-          >
-            {navLinks.map((link) => (
-              <li key={link.label} className="flex justify-end">
-                {link.label === "Über uns" || link.label === "Neuigkeiten" ? (
-                  <a
-                    className="font-palanquin font-bold text-sm 2xl:text-xl xl:text-md justify-center items-center text-black"
-                    href={`#${link.to}`}
-                    onClick={() => handleNavToSection(link.to)}
-                  >
-                    {link.label}
-                  </a>
-                ) : (
-                  <NavLink
-                    className={({ isActive }) =>
-                      "font-palanquin font-bold text-sm 2xl:text-xl xl:text-md justify-center items-center " +
-                      (isActive ? "text-primary" : "text-black")
-                    }
-                    to={link.to}
-                    onClick={() => setShowNav(false)}
-                  >
-                    {link.label}
-                  </NavLink>
-                )}
-              </li>
-            ))}
-          </ul>
         </div>
+        <ul
+          className={`lg:flex flex-1 ${
+            showNav ? "flex" : "hidden"
+          } flex-col lg:justify-center lg:items-center lg:flex-row 2xl:gap-10 xl:gap-4 gap-2`}
+        >
+          {navLinks.map((link) => (
+            <li key={link.label} className="flex justify-end mr-6">
+              {link.label === "Über uns" || link.label === "Neuigkeiten" ? (
+                <a
+                  className="font-palanquin font-bold text-sm 2xl:text-xl xl:text-md justify-center items-center text-black text-white"
+                  href={`#${link.to}`}
+                  onClick={() => handleNavToSection(link.to)}
+                >
+                  {link.label}
+                </a>
+              ) : (
+                <NavLink
+                  className={({ isActive }) =>
+                    "font-palanquin font-bold text-sm 2xl:text-xl xl:text-md justify-center items-center " +
+                    (isActive ? "text-primary" : "text-white")
+                  }
+                  to={link.to}
+                  onClick={() => setShowNav(false)}
+                >
+                  {link.label}
+                </NavLink>
+              )}
+            </li>
+          ))}
+        </ul>
       </header>
       <Outlet />
     </>
