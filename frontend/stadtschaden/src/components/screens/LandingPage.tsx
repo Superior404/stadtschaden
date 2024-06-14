@@ -7,7 +7,6 @@ import {
 import { Link } from "react-router-dom";
 import AboutUsSection from "../sections/AboutUsSection";
 import NewsSection from "../sections/NewsSection";
-import Footer from "../common/Footer";
 
 const styles = {
   mainText: {
@@ -76,9 +75,6 @@ const LandingPage = () => {
       >
         <NewsSection />
       </section>
-
-      {/* TODO: create an own component */}
-      <Footer />
     </main>
   );
 };

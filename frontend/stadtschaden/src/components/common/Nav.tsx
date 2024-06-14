@@ -5,6 +5,7 @@ import stadtschadenLogo from "../../assets/images/stadtschaden-logo.png";
 import { Outlet, Link, NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
+import Footer from "./Footer";
 
 const Nav = () => {
   const [showNav, setShowNav] = useState(false);
@@ -29,36 +30,37 @@ const Nav = () => {
     }, 800);
   };
 
-  // TODO: add new Page for Smartphone Naview
   return (
     <>
-      <header className="flex bg-darkgray h-20 sticky">
-        <Link to="">
+      <header className="flex items-center bg-darkgray h-20 sticky w-full px-6 lg:px-16 2xl:px-24">
+        <Link to="/">
           <img
             src={stadtschadenLogo}
             alt="Logo"
-            className="absolute 2xl:w-64 xl:w-56 lg:w-48 w-48 ml-6 lg:ml-16 2xl:ml-24 mt-6"
+            className="2xl:w-64 xl:w-56 lg:w-48 w-48"
           />
         </Link>
-        <div className="lg:hidden flex justify-end mr-8 mb-2">
-          <button onClick={toggleNav}>
+        <div className="flex-1 flex justify-end lg:hidden">
+          <button onClick={toggleNav} className="text-white text-2xl">
             {showNav ? (
-              <FontAwesomeIcon icon={faTimes} className="text-2xl text-white" />
+              <FontAwesomeIcon icon={faTimes} />
             ) : (
-              <FontAwesomeIcon icon={faBars} className="text-2xl text-white" />
+              <FontAwesomeIcon icon={faBars} />
             )}
           </button>
         </div>
         <ul
-          className={`lg:flex flex-1 ${
-            showNav ? "flex" : "hidden"
-          } flex-col lg:justify-center lg:items-center lg:flex-row 2xl:gap-10 xl:gap-4 gap-2`}
+          className={`lg:flex flex-1 lg:justify-center lg:items-center lg:flex-row 2xl:gap-10 xl:gap-4 gap-1 ${
+            showNav
+              ? "flex flex-col absolute top-12 right-2 bg-darkgray p-4 rounded-md z-50"
+              : "hidden"
+          } lg:flex lg:static lg:bg-transparent lg:p-0 lg:rounded-none`}
         >
           {navLinks.map((link) => (
-            <li key={link.label} className="flex justify-end mr-6">
+            <li key={link.label} className="lg:mr-6">
               {link.label === "Über uns" || link.label === "Neuigkeiten" ? (
                 <a
-                  className="font-palanquin font-bold text-sm 2xl:text-xl xl:text-md justify-center items-center text-black text-white"
+                  className="font-palanquin font-bold text-sm 2xl:text-xl xl:text-md text-white"
                   href={`#${link.to}`}
                   onClick={() => handleNavToSection(link.to)}
                 >
@@ -67,7 +69,7 @@ const Nav = () => {
               ) : (
                 <NavLink
                   className={({ isActive }) =>
-                    "font-palanquin font-bold text-sm 2xl:text-xl xl:text-md justify-center items-center " +
+                    "font-palanquin font-bold text-sm 2xl:text-xl xl:text-md " +
                     (isActive ? "text-primary" : "text-white")
                   }
                   to={link.to}
@@ -81,6 +83,7 @@ const Nav = () => {
         </ul>
       </header>
       <Outlet />
+      <Footer />
     </>
   );
 };
