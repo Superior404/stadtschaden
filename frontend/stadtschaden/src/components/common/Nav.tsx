@@ -39,7 +39,7 @@ const Nav = () => {
             className="absolute 2xl:w-64 xl:w-56 lg:w-48 w-48 ml-6 lg:ml-16 2xl:ml-24 mt-6"
           />
         </Link>
-        <div className="flex w-full justify-end pr-6 bg-red-500">
+        <div className="flex w-full justify-end pr-6">
           <button onClick={toggleNav} className="lg:hidden">
             {showNav ? (
               <FontAwesomeIcon icon={faTimes} className="text-2xl text-white" />
