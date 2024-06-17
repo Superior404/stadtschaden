@@ -2,19 +2,19 @@ import teamPicture from "../../assets/images/team-picture.jpeg";
 
 const AboutUsSection = () => {
   return (
-    <div className="flex flex-col justify-center mt-12 gap-8">
+    <div className="flex flex-col justify-center m-6 mb-12 gap-8">
       <p className="self-center font-palanquin text-primary font-bold text-4xl">
         Über uns
       </p>
-      <div className="flex flex-row items-center gap-6">
+      <div className="flex flex-col items-center justify-center lg:flex-row gap-6">
         <img
           src={teamPicture}
           alt="teamPicture"
-          className="w-55 h-72 rounded-3xl ml-24 mr-12"
+          className="max:w-1/2 md:h-[55vh] h-[35vh] rounded-3xl ml-12 mr-12"
         />
 
-        <div>
-          <p className="text-center w-[60vw] text-lg font-semibold mr-24">
+        <div className="lg:w-1/2">
+          <p className="text-center lg:text-left text-md lg:text-xl font-semibold mx-6 lg:mr-24">
             Willkommen bei{" "}
             <span className="text-primary font-bold">StadtSchaden</span>
             !<br />
