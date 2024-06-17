@@ -14,7 +14,7 @@ const Footer = () => {
           />
         </Link>
       </div>
-      <p className="text-white text-wrap md:mr-12">
+      <p className="text-white text-center text-wrap md:mr-12">
         © 2024 All Rights Reserved To StadtSchaden
       </p>
     </footer>

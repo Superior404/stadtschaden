@@ -20,16 +20,16 @@ const LandingPage = () => {
     <main>
       {/* LandingPage */}
       <div className="flex justify-center items-center bg-center bg-cover bg-lightLeafesBackground">
-        <div className="flex flex-col justify-center items-center md:flex-row h-screen ">
+        <div className="flex flex-col justify-center items-center lg:flex-row h-screen ">
           <p
-            className="rotate-[-0deg] xl:text-4xl lg:text-3xl md:text-2xl sm:text-2xl text-xl font-montserrat text-black text-end self-start lg:mt:36 md:mt-48  hidden md:block"
+            className="rotate-[-0deg] xl:text-4xl lg:text-3xl md:text-2xl sm:text-2xl text-xl font-montserrat text-black text-end self-start lg:mt:36 md:mt-48 hidden lg:block"
             style={styles.mainText}
           >
             Melde einen
             <br /> Schaden!
           </p>
 
-          <TbArrowCurveRight className="text-black -m-6 size-48 rotate-[10deg] md:rotate-[110deg] hidden md:block" />
+          <TbArrowCurveRight className="text-black -m-6 size-48 rotate-[10deg] md:rotate-[110deg] hidden lg:block" />
 
           <div className="flex justify-center items-center">
             <Link to="/contact">
@@ -41,10 +41,10 @@ const LandingPage = () => {
             </Link>
           </div>
 
-          <TbArrowCurveLeft className="text-black -m-6 size-48 rotate-[-10deg] md:rotate-[-110deg] hidden md:block" />
+          <TbArrowCurveLeft className="text-black -m-6 size-48 rotate-[-10deg] md:rotate-[-110deg] hidden lg:block" />
 
           <p
-            className="rotate-[-0deg] xl:text-4xl lg:text-3xl md:text-2xl sm:text-2xl text-xl font-montserrat text-black text-end self-start lg:mt:36 md:mt-48  hidden md:block"
+            className="rotate-[-0deg] xl:text-4xl lg:text-3xl md:text-2xl sm:text-2xl text-xl font-montserrat text-black text-end self-start lg:mt:36 md:mt-48  hidden lg:block"
             style={styles.mainText}
           >
             Rette deine
@@ -52,10 +52,10 @@ const LandingPage = () => {
             Umgebung!
           </p>
 
-          <TbArrowBarUp className="text-black -m-6 size-48 md:hidden block mt-4" />
+          <TbArrowBarUp className="text-black -m-6 size-48 lg:hidden block mt-4" />
 
           <p
-            className="font-montserrat text-4xl text-center self-start mt-4 md:hidden block"
+            className="font-montserrat text-4xl text-center self-center mt-4 lg:hidden block"
             style={styles.mainText}
           >
             Rette deine

@@ -12,7 +12,7 @@ const NewsCard: FC<NewsCardProps> = (props) => {
 
   return (
     <div
-      className={`flex ${flexDirection} flex-col md:p-12 p-6 md:ml-24 md:mr-24 ml-12 mr-12 gap-12`}
+      className={`flex ${flexDirection} flex-col md:py-12 py-6 md:ml-24 md:mr-24 ml-6 mr-6 gap-12`}
     >
       <img
         src={props.streetDamagePicture}

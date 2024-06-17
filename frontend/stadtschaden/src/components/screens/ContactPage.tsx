@@ -26,7 +26,8 @@ const ContactPage: React.FC = () => {
     city: "",
     imageUri: "",
   });
-  const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
+  const [isSubmitted, setIsSubmitted] = useState<boolean>();
+  const [submitMessage, setSubmitMessage] = useState<string>("");
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [imageUri, setImageUri] = useState<string>("");
 
@@ -63,15 +64,15 @@ const ContactPage: React.FC = () => {
   };
 
   const handleFormSubmit = () => {
+    setSubmitMessage("");
+    setIsSubmitted(false);
+
     const errors = validateForm(Object.fromEntries(formData));
     if (Object.keys(errors).length > 0) {
       setFormErrors(errors);
       return;
     }
 
-    {
-      /* Backend is sleeping, so we need this (not) wonderful type of code */
-    }
     formData.append("Forename", formData.get("firstName") as string);
     formData.append("Surname", formData.get("lastName") as string);
     formData.append("Email", formData.get("email") as string);
@@ -90,12 +91,16 @@ const ContactPage: React.FC = () => {
       .then((response) => {
         if (response.ok) {
           setIsSubmitted(true);
+          setSubmitMessage("Formular erfolgreich gesendet!");
         } else {
-          console.error("Failed to submit form");
+          setIsSubmitted(false);
+          setSubmitMessage("Fehler beim Senden des Formulars!");
         }
       })
-      .catch((error) => {
-        console.error("Error:", error);
+      .catch(() => {
+        setIsSubmitted(false);
+        setSubmitMessage("Fehler beim Senden des Formulars!");
+        // console.error("Error:", error);
       });
   };
 
@@ -107,31 +112,31 @@ const ContactPage: React.FC = () => {
   };
 
   return (
-    <div className="mt-12 mb-12">
+    <div className="my-12 mx-6 min-h-svh">
       {/* Main Text */}
-      <div className="flex flex-col justify-center items-center font-montserrat font-bold text-4xl">
+      <div className="flex flex-col lg:mb-25 md:mb-10 mb-4 justify-center items-center text-center font-montserrat font-bold lg:text-4xl md:text-3xl text-2xl">
         <p style={styles.mainText}>
-          Senden Sie uns Ihre gefundenen{" "}
-          <span className="text-primary">Schäden!</span>
+          Senden Sie uns Ihre gefundenen
+          <span className="text-primary"> Schäden!</span>
         </p>
-        <p style={styles.mainText} className="">
+        <p style={styles.mainText}>
           <span className="text-primary">Wir </span>kümmern uns darum.
         </p>
-        <p className="mt-5 text-base font-semibold text-center text-slate-gray w-auto text">
+        <p className="mt-2 lg:mt-8 font-semibold text-center text-slate-gray w-auto lg:text-2xl md:text-xl text-sm">
           Für die Meldung von Schäden oder Verschmutzungen in der Stadt ist ein
           präzises Ausfüllen des Formulars erforderlich.
         </p>
-        <p className="mt-2 text-base font-semibold text-center text-slate-gray w-auto text">
+        <p className="mt-2 font-semibold text-center text-slate-gray w-auto lg:text-2xl md:text-xl text-sm">
           Bitte geben Sie genaue Informationen an, einschließlich Ort und
           Zeitpunkt des Vorfalls. Fotos sind obligatorisch.
         </p>
       </div>
 
       {/* Error Messages */}
-      <div className="flex justify-center items-center mt-4">
+      <div className="flex justify-center items-center mt-4 lg:mt-8">
         {Object.values(formErrors).some((error) => error) && (
-          <div className="text-red-500 max-w-[60%] mx-auto">
-            <ul className="flex flex-wrap gap-4">
+          <div className="text-red-500 max-w-[80%] lg:max-w-[60%] mx-auto">
+            <ul className="flex flex-wrap items-center justify-center gap-4">
               {Object.entries(formErrors).map(
                 ([key, error]) => error && <li key={key}>{error}</li>,
               )}
@@ -141,9 +146,9 @@ const ContactPage: React.FC = () => {
       </div>
 
       {/* Form */}
-      <div className="flex justify-center items-center mt-4">
+      <div className="flex md:flex-row flex-col items-center justify-center mt-4">
         <button
-          className={`mr-4 h-[34.9rem] w-[23.25rem] flex justify-center items-center rounded-xl border-2 border-dashed ${
+          className={`w-full max-w-[25rem] h-[20rem] md:h-[38rem] mx-6 my-4 flex justify-center items-center rounded-xl border-2 border-dashed ${
             formErrors.imageUri ? "border-red-500" : "border-black"
           } bg-zinc-500 bg-opacity-25`}
           onClick={handleFileButtonClick}
@@ -170,54 +175,50 @@ const ContactPage: React.FC = () => {
           />
         </button>
 
-        <div className="flex flex-col">
-          <div className="flex">
-            <FormInput
-              placeholder={"Vorname"}
-              type={"text"}
-              value={formData.get("firstName") as string}
-              onChange={(event) => {
-                formData.set("firstName", event.target.value);
-                clearError("firstName");
-              }}
-              error={formErrors.firstName}
-            />
+        <div className="flex flex-col items-center justify-center gap-2">
+          <FormInput
+            placeholder={"Vorname"}
+            type={"text"}
+            value={formData.get("firstName") as string}
+            onChange={(event) => {
+              formData.set("firstName", event.target.value);
+              clearError("firstName");
+            }}
+            error={formErrors.firstName}
+          />
 
-            <FormInput
-              placeholder={"Nachname"}
-              type="text"
-              value={formData.get("lastName") as string}
-              onChange={(event) => {
-                formData.set("lastName", event.target.value);
-                clearError("lastName");
-              }}
-              error={formErrors.lastName}
-            />
-          </div>
+          <FormInput
+            placeholder={"Nachname"}
+            type="text"
+            value={formData.get("lastName") as string}
+            onChange={(event) => {
+              formData.set("lastName", event.target.value);
+              clearError("lastName");
+            }}
+            error={formErrors.lastName}
+          />
 
-          <div className="flex">
-            <FormInput
-              placeholder={"Straße *"}
-              type="text"
-              value={formData.get("streetName") as string}
-              onChange={(event) => {
-                formData.set("streetName", event.target.value);
-                clearError("streetName");
-              }}
-              error={formErrors.streetName}
-            />
+          <FormInput
+            placeholder={"Straße *"}
+            type="text"
+            value={formData.get("streetName") as string}
+            onChange={(event) => {
+              formData.set("streetName", event.target.value);
+              clearError("streetName");
+            }}
+            error={formErrors.streetName}
+          />
 
-            <FormInput
-              placeholder={"Postleitzahl *"}
-              type="text"
-              value={formData.get("postalCode") as string}
-              onChange={(event) => {
-                formData.set("postalCode", event.target.value);
-                clearError("postalCode");
-              }}
-              error={formErrors.postalCode}
-            />
-          </div>
+          <FormInput
+            placeholder={"PLZ *"}
+            type="text"
+            value={formData.get("postalCode") as string}
+            onChange={(event) => {
+              formData.set("postalCode", event.target.value);
+              clearError("postalCode");
+            }}
+            error={formErrors.postalCode}
+          />
 
           <FormInput
             placeholder={"Stadt *"}
@@ -243,7 +244,7 @@ const ContactPage: React.FC = () => {
           />
 
           <FormInput
-            placeholder={"Email"}
+            placeholder={"E-Mail Adresse"}
             type="email"
             value={formData.get("email") as string}
             onChange={(event) => {
@@ -265,29 +266,31 @@ const ContactPage: React.FC = () => {
           />
 
           <FormInput
-            placeholder={"Nachricht *"}
-            type={"textarea"}
+            placeholder={"Ihre Nachricht *"}
+            type="text"
             value={formData.get("message") as string}
             onChange={(event) => {
               formData.set("message", event.target.value);
               clearError("message");
             }}
-            textArea
             error={formErrors.message}
+            textArea
           />
-
-          <ActionButton title={"Absenden"} onClick={handleFormSubmit} />
         </div>
       </div>
 
-      {isSubmitted && (
-        <div className="flex flex-col items-center justify-center mt-6">
-          <div className="text-3xl font-bold text-primary">
-            <p>Das Formular wurde erfolgreich versendet!</p>
-            <p>Zum erneut senden die Seite aktualisieren</p>
-          </div>
-        </div>
-      )}
+      {/* Submit Button */}
+      <div className="flex justify-center items-center mt-6">
+        <ActionButton onClick={handleFormSubmit} title="Absenden" />
+      </div>
+
+      <div className="flex flex-col text-center justify-center items-center mt-10">
+        {isSubmitted ? (
+          <p className="text-green-500 text-2xl pb-2">{submitMessage}</p>
+        ) : (
+          <p className="text-red-500 text-2xl pb-2">{submitMessage}</p>
+        )}{" "}
+      </div>
     </div>
   );
 };

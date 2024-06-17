@@ -13,22 +13,11 @@ interface FormInputProps {
 
 const FormInput: FC<FormInputProps> = (props) => {
   const inputStyle =
-    "m-1 bg-zinc-500 bg-opacity-25 font-montserrat placeholder-top rounded-xl placeholder-black text-black pl-3 border-black border-opacity-60 border-[1px]";
+    "my-1 bg-zinc-500 bg-opacity-25 font-montserrat placeholder-top rounded-xl placeholder-black text-black px-3 border-black border-opacity-60 border-[1px]";
 
-  const inputClassName =
-    props.placeholder === "Vorname" ||
-    props.placeholder === "Nachname" ||
-    props.placeholder === "Straße *" ||
-    props.placeholder === "Postleitzahl *"
-      ? "w-[20rem] h-12"
-      : props.placeholder === "Nachricht *"
-        ? "w-[40.5rem] h-40"
-        : "w-[40.5rem] h-12";
+  const inputClassName = props.textArea ? "h-40" : "h-10";
 
-  const placeholderStyle =
-    props.placeholder === "Nachricht" ? "placeholder-top" : "";
-
-  let borderStyle = `${inputClassName} ${placeholderStyle} ${inputStyle}`;
+  let borderStyle = `w-full ${inputClassName} ${inputStyle}`;
   if (props.error) {
     borderStyle += " border-red-500 border-[2px]";
   }
@@ -36,10 +25,10 @@ const FormInput: FC<FormInputProps> = (props) => {
   const sanitizedValue = props.value ?? "";
 
   return (
-    <div>
+    <div className="w-full">
       {props.textArea ? (
         <textarea
-          className={`${borderStyle} pt-3`}
+          className={`${borderStyle} py-3`}
           placeholder={props.error ? props.error : props.placeholder}
           value={sanitizedValue}
           onChange={props.onChange}
