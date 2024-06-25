@@ -38,7 +38,9 @@ const TicketsOverview = () => {
     };
 
     fetchData();
-  });
+    // eslint-disable-next-line
+  }, []);
+
 
   return (
     <div className="relative overflow-x-auto shadow-2xl rounded-3xl  pb-2 bg-midlightgray ">
@@ -68,7 +70,7 @@ const TicketsOverview = () => {
                 <td className="p-2">
                   <Link
                     className="font-medium text-blue-600 hover:underline"
-                    to={`/staff/singleTicket/?ticketID=${ticket.id}`}
+                    to={`/staff/ticket/${ticket.id}`}
                   >
                     View
                   </Link>
