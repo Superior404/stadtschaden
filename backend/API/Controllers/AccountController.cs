@@ -18,8 +18,14 @@ namespace API.Controllers
             _userManager = userManager;
         }
 
+        /// <summary>
+        /// Initial Login for user, JWT token not needed
+        /// </summary>
+        /// <param name="loginDto"></param>
+        /// <returns></returns>
         [HttpPost("login")]
-        // Automatically looks in the body for parameter
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
         {
             //var user = await _userManager.FindByNameAsync(loginDto.Username);
@@ -40,7 +46,14 @@ namespace API.Controllers
             };
         }
 
+        /// <summary>
+        /// Register a new user
+        /// </summary>
+        /// <param name="registerDto"></param>
+        /// <returns></returns>
         [HttpPost("register")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> Register(RegisterDto registerDto)
         {
             var user = new User()
@@ -64,12 +77,17 @@ namespace API.Controllers
 
             await _userManager.AddToRoleAsync(user, "Member");
 
-            return StatusCode(201);
+            return Created();
         }
 
-        // Authentication needed to use endpoint (JWT Token)
+        /// <summary>
+        /// Login if user was already logged in and received JWT Token
+        /// </summary>
+        /// <returns></returns>
         [Authorize]
         [HttpGet("currentUser")]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<UserDto>> GetCurrentUser()
         {
             // Takes user name out of the claim from the token

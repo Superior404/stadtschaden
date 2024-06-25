@@ -56,7 +56,7 @@ const PersonalLogin = () => {
   };
 
   return (
-    <div className="py-20 w-full flex justify-center items-center bg-lightgray ">
+    <div className="py-20 w-full flex justify-center items-center bg-lightgray min-h-svh">
       {/* Form element */}
       <form
         onSubmit={handleSubmit}

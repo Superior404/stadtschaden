@@ -4,7 +4,7 @@ import NewsCard from "../common/NewsCard";
 
 const NewsSection = () => {
   return (
-    <div className="flex flex-col items-center w-full bg-center bg-cover bg-lightLeafesBackground">
+    <div className="flex flex-col items-center bg-center bg-cover bg-lightLeafesBackground">
       <p className="font-palanquin text-black font-bold text-4xl mt-12">
         Neuigkeiten
       </p>

@@ -17,23 +17,43 @@ namespace API.Controllers
         {
             _context = context;
         }
-
+        
+        /// <summary>
+        /// Returns a list of tickets
+        /// </summary>
+        /// <returns></returns>
         [Authorize]
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<List<Ticket>>> GetTickets()
         {
             return await _context.Tickets.ToListAsync();
         }
 
-        // id specifies the parameter that we will get from route, for example api/tickets/3
+        /// <summary>
+        /// Returns a specific ticket with given id
+        /// </summary>
+        /// <param name="id">specifies the parameter that we will get from route, for example api/tickets/3</param>
+        /// <returns></returns>
         [Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet("{id}")]
         public async Task<ActionResult<Ticket>> GetTicket(int id)
         {
             return await _context.Tickets.FindAsync(id);
         }
 
+
+        /// <summary>
+        /// Creates a ticket with given information and picture
+        /// </summary>
+        /// <param name="ticketData"></param>
+        /// <param name="image"></param>
+        /// <returns></returns>
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> PostData(
             [FromForm] Ticket ticketData,
             [FromForm] IFormFile image
@@ -74,18 +94,27 @@ namespace API.Controllers
             // Process JSON data as needed
             _context.Tickets.Add(ticketData);
 
-            // TODO error handling
             _context.SaveChanges();
 
-            return Ok("Ticket data saved sucessfully");
+            return Created();
         }
 
+
+        /// <summary>
+        /// Get Image to related ticket
+        /// </summary>
+        /// <param name="ticketId"></param>
+        /// <returns></returns>
         [HttpGet("Image/{ticketId}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult> GetImage(int ticketId)
         {
             // Fetch FilePath
             var ticket = await _context.Tickets.FindAsync(ticketId);
-            var filePath = ticket.File_Path ?? throw new Exception("filePath not found");
+            var filePath = ticket.File_Path;
+
+            if (filePath == null || filePath.Length == 0) return NotFound($"No Image to given ticketId: {ticketId}");
 
             // Get file extension out of path
             var fileExtensionIndex = filePath.LastIndexOf('.');
