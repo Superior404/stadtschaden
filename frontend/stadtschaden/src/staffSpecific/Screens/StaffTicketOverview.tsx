@@ -20,7 +20,7 @@ const StaffTicketOverview = () => {
 
   // =====
 
-  console.log("do you reload too")
+  console.log("do you reload too");
 
   return (
     <div>

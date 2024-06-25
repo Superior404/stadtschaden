@@ -9,8 +9,6 @@ import {
 } from "react-router-dom";
 import ContactPage from "./components/screens/ContactPage";
 import InstructionPage from "./components/screens/InstructionPage";
-import NewsPage from "./components/sections/NewsSection";
-import AboutUsPage from "./components/sections/AboutUsSection";
 import NotFoundPage from "./components/screens/NotFoundPage";
 import PersonalLogin from "./components/screens/PersonalLogin";
 import StaffTicketOverview from "./staffSpecific/Screens/StaffTicketOverview";
@@ -46,8 +44,8 @@ const router = createBrowserRouter(
         <Route element={<StaffNav />}>
           <Route index element={<Navigate to="home" />} />
           <Route path="home" element={<StaffTicketOverview />} />
-          <Route path="ticket/:ticketId" element={<TicketPage/>} />
-          <Route path="account" element={<AccountPage/>} />
+          <Route path="ticket/:ticketId" element={<TicketPage />} />
+          <Route path="account" element={<AccountPage />} />
 
           {/* error page  */}
           <Route path="*" element={<NotFoundPage />} />
