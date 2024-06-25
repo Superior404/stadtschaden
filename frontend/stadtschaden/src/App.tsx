@@ -16,6 +16,8 @@ import PersonalLogin from "./components/screens/PersonalLogin";
 import StaffTicketOverview from "./staffSpecific/Screens/StaffTicketOverview";
 import StaffNav from "./staffSpecific/Designs/StaffNav";
 import AuthReroute from "./staffSpecific/Designs/AuthReroute";
+import TicketPage from "./staffSpecific/Screens/TicketPage";
+import AccountPage from "./staffSpecific/Screens/AccountPage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -44,11 +46,8 @@ const router = createBrowserRouter(
         <Route element={<StaffNav />}>
           <Route index element={<Navigate to="home" />} />
           <Route path="home" element={<StaffTicketOverview />} />
-          <Route
-            path="ticket/:ticketID"
-            //element={<SingleTicketPage/>}
-            element={<></>}
-          />
+          <Route path="ticket/:ticketId" element={<TicketPage/>} />
+          <Route path="account" element={<AccountPage/>} />
 
           {/* error page  */}
           <Route path="*" element={<NotFoundPage />} />
