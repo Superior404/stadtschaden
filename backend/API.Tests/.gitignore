@@ -410,7 +410,3 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 
-# Temporary
-AccountControllerTests.cs
-TicketsControllerTests.cs
-
