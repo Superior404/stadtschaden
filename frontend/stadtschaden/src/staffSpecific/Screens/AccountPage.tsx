@@ -6,7 +6,8 @@ interface User {
 }
 
 const AccountPage = () => {
-  const [setUser] = useState<User>();
+  // eslint-disable-next-line
+  const [user, setUser] = useState<User>();
   const { token } = useToken();
 
   useEffect(() => {
