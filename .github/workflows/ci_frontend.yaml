@@ -28,7 +28,7 @@ jobs:
           BRANCH_NAME=${GITHUB_REF#refs/heads/}
           if [ "$BRANCH_NAME" == "staging" ]; then
             cp .env.staging .env
-          elif [ "$BRANCH_NAME" == "main" ]; then
+          elif [ "$BRANCH_NAME" == "master" ]; then
             cp .env.prod .env
           fi
         shell: bash
