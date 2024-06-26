@@ -29,10 +29,13 @@ const router = createBrowserRouter(
         {/* login page is actualy still public */}
         <Route path="login" element={<PersonalLogin />} />
 
-        {/* TODO: Sowas bitte nicht in code welcher bewertet wird :) */}
         <Route
-          path="altzheimer"
-          element={<h1 className="text-balck"> selber Schuld </h1>}
+          path="nopw"
+          element={
+            <h1 className="text-balck text-3xl text-center w-full p-6 h-svh">
+              Please contact admin
+            </h1>
+          }
         />
 
         {/* error page  */}

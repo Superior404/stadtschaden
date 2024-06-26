@@ -14,7 +14,6 @@ const Nav = () => {
     navigate("/login");
   };
 
-  // TODO: Alessio: add new Page for Smartphone Navview
   return (
     <>
       <header className="flex bg-darkgray h-14 ">

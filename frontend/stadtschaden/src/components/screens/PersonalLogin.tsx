@@ -119,7 +119,7 @@ const PersonalLogin = () => {
           </div>
           <div className="w-full h-10 flex justify-center items-center ml-5">
             <Link
-              to="/altzheimer"
+              to="/nopw"
               className="bg-darkgray text-white text-center py-3 px-6 rounded-full transition-transform duration-300 hover:scale-105 transform scale-100 w-full font-museo-moderno text-2xl transform-origin-center"
             >
               Kennwort vergessen?

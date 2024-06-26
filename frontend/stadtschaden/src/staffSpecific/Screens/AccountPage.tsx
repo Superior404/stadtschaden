@@ -6,7 +6,7 @@ interface User {
 }
 
 const AccountPage = () => {
-  const [user, setUser] = useState<User>();
+  const [setUser] = useState<User>();
   const { token } = useToken();
 
   useEffect(() => {
@@ -37,7 +37,11 @@ const AccountPage = () => {
     // eslint-disable-next-line
   }, []);
 
-  return <div>User: {JSON.stringify(user)}</div>;
+  return (
+    <div>
+      <p>TODO Userpage</p>
+    </div>
+  );
 };
 
 export default AccountPage;

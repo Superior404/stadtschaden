@@ -20,7 +20,7 @@ namespace API.Tests
             var user = new User() { UserName = "testUser", Email="test@test.com"};
             var password = "testPw";
             userManagerMock.Setup(userM => userM.CreateAsync(user, password)).ReturnsAsync(IdentityResult.Success);
-            // TODO mock the userManager with aspnet.mvc.Testing Library
+
 
             // Mock that register was successfull
             //A.CallTo(() => userManager.CreateAsync(user, password)).Returns(Task.FromResult(IdentityResult.Success));

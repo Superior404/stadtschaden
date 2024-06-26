@@ -41,7 +41,6 @@ const TicketsOverview = () => {
     // eslint-disable-next-line
   }, []);
 
-
   return (
     <div className="relative overflow-x-auto shadow-2xl rounded-3xl  pb-2 bg-midlightgray ">
       {tickets.length > 0 ? (
