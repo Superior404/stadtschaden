@@ -7,7 +7,7 @@ This is a web application consisting of a **React frontend** and an **ASP.NET ba
 Once a report is submitted, city workers can review the uploaded damage reports through the system.
 
 <div style="text-align: center; padding: 20px;">
-    <img src="screenshots/main_page.png" alt="App Screenshot"  style="width: 90%;" />
+    <img src="screenshots/main_page.png" alt="App Screenshot"  style="width: 80%;" />
 </div>
 
 ---
