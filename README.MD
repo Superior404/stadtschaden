@@ -1,5 +1,7 @@
 # City Damage Reporting Web Application
 
+> **Note:** This application was developed as a student project during a single academic semester.
+
 This is a web application consisting of a **React frontend** and an **ASP.NET backend**. The purpose of this application is to enable users to report damages occurring within a city. Users can upload pictures of the damage, provide details about what the damage is, and specify its location.
 
 Once a report is submitted, city workers can review the uploaded damage reports through the system.
@@ -73,6 +75,4 @@ The frontend will be accessible at `http://localhost:5173`.
 ## Notes
 
 - Ensure both frontend and backend servers are running simultaneously to use the application fully.
-
----
-
+- This project was completed as part of a university course project over one semester.
